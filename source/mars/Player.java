@@ -1,11 +1,18 @@
 package mars;
 
+/**
+ * 
+ *          NAGYJÁBÓL KÉSZEN VAN....................................................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *			4 TODO van hátra
+ */
+
 public class Player extends Robot {
 	private int distance;
 	private boolean oilFlag;
 	private int speed;
 	private int spotCount;
 	private Position nextPos;
+	private Direction nextDir; // el kell intézni.... 
 	
 	public final static int MAX_SPOT = 5;
 	public final static int START_SPEED = 1;
@@ -56,26 +63,51 @@ public class Player extends Robot {
 		
 	}
 	
+	// TODO
 	private void step() {
 		
 	}
 	
 	private void setNewDir() {
-		
+		if(nextDir == Direction.RIGHT || nextDir == Direction.LEFT)
+			this.dir = this.nextDir;  // ???????? ezzel is majd lesz egy kis baszakodás :S
 	}
 	
 	private void calculateNewSpeed() {
-		
+		if(!oilFlag){
+			if(nextDir == Direction.FORWARD)
+				setSpeed(getSpeed() + 1);
+			else if(nextDir == Direction.BACKWARD && speed > 1)
+				setSpeed(getSpeed() - 1);
+		}		
+		setOilFlag(false);
 	}
 	
 	private void calculateNewPos() {
-		
+		switch (headDir) {
+			case UP:
+				pos.setPosition(pos.getX(), pos.getY() - getSpeed());
+				break;
+			case RIGHT:
+				pos.setPosition(pos.getX() + getSpeed(), pos.getY());
+				break;
+			case DOWN:
+				pos.setPosition(pos.getX(), pos.getY() + getSpeed());
+				break;
+			case LEFT:
+				pos.setPosition(pos.getX() - getSpeed(), pos.getY());
+				break;
+			default:
+				break;
+		}
 	}
 	
+	// TODO
 	private void putOilSpot() {
 		
 	}
 	
+	// TODO
 	private void putGooSpot() {
 		
 	}

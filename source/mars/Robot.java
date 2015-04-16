@@ -12,8 +12,8 @@ import java.util.Observer;
 public class Robot extends Observable implements Observer {
 	private boolean alive;
 	protected Position pos;
-	protected HeadDirection headDir;
-	protected Direction dir;
+	protected HeadDirection headDir;	// koordináta-rendszerhez képest
+	protected Direction dir;			// játékoshoz képest
 	
 	public Direction getDirection() {
 		return dir;
