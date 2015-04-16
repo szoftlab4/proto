@@ -1,5 +1,11 @@
 package mars;
 
+/**
+ * 
+ *          NAGYJÁBÓL KÉSZEN VAN....................................................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *
+ */
+
 public class Position {
 	private int x;
 	private int y;
@@ -13,6 +19,7 @@ public class Position {
 	}
 
 	public void setPosition(int x, int y) {
-		
+		this.x = x;
+		this.y = y;
 	}
 }

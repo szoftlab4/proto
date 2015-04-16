@@ -3,12 +3,18 @@ package mars;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * 
+ *          NAGYJÁBÓL KÉSZEN VAN....................................................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+ *
+ */
+
 public class Robot extends Observable implements Observer {
 	private boolean alive;
-	private Direction dir;
-	private Position pos;
-	private HeadDirection headDir;
-
+	protected Position pos;
+	protected HeadDirection headDir;
+	protected Direction dir;
+	
 	public Direction getDirection() {
 		return dir;
 		 
@@ -23,18 +29,60 @@ public class Robot extends Observable implements Observer {
 		return this.alive;
 	}
 
+	// TODO
 	public void reset() {
-		
+		alive = true;
 	}
 
 	public void setAlive(boolean value) {
-		
+		this.alive = value;
 	}
 
-
 	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+	public void update(Observable arg0, Object arg1) { }
+	
+	protected HeadDirection convertDir() {
+		if(dir == Direction.STAY)
+			return headDir;
+		else if(headDir == HeadDirection.LEFT){
+			if(dir == Direction.LEFT)
+				return HeadDirection.DOWN;
+			else if(dir == Direction.RIGHT)
+				return HeadDirection.UP;
+			else if(dir == Direction.FORWARD)
+				return HeadDirection.LEFT;
+			else
+				return HeadDirection.RIGHT;
+		}
+		else if(headDir == HeadDirection.UP){
+			if(dir == Direction.LEFT)
+				return HeadDirection.LEFT;
+			else if(dir == Direction.RIGHT)
+				return HeadDirection.RIGHT;
+			else if(dir == Direction.FORWARD)
+				return HeadDirection.UP;
+			else
+				return HeadDirection.DOWN;
+		}
+		else if(headDir == HeadDirection.RIGHT){
+			if(dir == Direction.LEFT)
+				return HeadDirection.UP;
+			else if(dir == Direction.RIGHT)
+				return HeadDirection.DOWN;
+			else if(dir == Direction.FORWARD)
+				return HeadDirection.RIGHT;
+			else
+				return HeadDirection.LEFT;
+		}
+		else {
+			if(dir == Direction.LEFT)
+				return HeadDirection.RIGHT;
+			else if(dir == Direction.RIGHT)
+				return HeadDirection.LEFT;
+			else if(dir == Direction.FORWARD)
+				return HeadDirection.DOWN;
+			else
+				return HeadDirection.UP;
+		}
 	}
 }
