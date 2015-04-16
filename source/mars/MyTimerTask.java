@@ -11,6 +11,14 @@ public class MyTimerTask extends TimerTask {
 	private int timeElapsed;
 	private Observable notifier;
 
+	public MyTimerTask(/*int time*/) {
+	enabled=true;
+	//interval=1; //random number,majd kiderül hogy használjuk amikor odajutunk
+	//gametime=time; nem biztos hogy konstruktornál adjuk át?térkép betöltésnél eldõl(vagy default time)
+	timeElapsed=0;
+	notifier=new Observable();
+	}
+	
 	public boolean isOver() {
 		if((gametime-timeElapsed)<0)
 			return true;
