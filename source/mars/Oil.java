@@ -18,7 +18,5 @@ public class Oil implements Spot {
 		}
 		else
 			return false;
-		
-		
 	}
 }

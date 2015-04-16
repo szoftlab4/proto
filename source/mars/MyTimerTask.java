@@ -11,9 +11,9 @@ public class MyTimerTask extends TimerTask {
 	private long timeElapsed;
 	private Observable notifier;
 
-	public MyTimerTask(/*int time*/) {
+	public MyTimerTask(/*long time*/) {
 	enabled=true;
-	//interval=1; //random number,majd kiderül hogy használjuk amikor odajutunk
+	//interval=1000; //random number,majd kiderül hogy használjuk amikor odajutunk
 	//gametime=time; nem biztos hogy konstruktornál adjuk át?térkép betöltésnél eldõl(vagy default time)
 	timeElapsed=0;
 	notifier=new Observable();
@@ -49,7 +49,7 @@ public class MyTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		//timeElapsed++; //Ez még nem igazán biztos,long 
+		timeElapsed+=interval;
 		notifier.notifyObservers();
 	}
 }
