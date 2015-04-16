@@ -6,9 +6,9 @@ import java.util.TimerTask;
 
 public class MyTimerTask extends TimerTask {
 	private boolean enabled;
-	private int gametime;
-	private int interval;
-	private int timeElapsed;
+	private long gametime;
+	private long interval;
+	private long timeElapsed;
 	private Observable notifier;
 
 	public MyTimerTask(/*int time*/) {
@@ -49,7 +49,7 @@ public class MyTimerTask extends TimerTask {
 
 	@Override
 	public void run() {
-		//timeElapsed++; //Ez még nem igazán biztos
-		notifier.notifyAll();
+		//timeElapsed++; //Ez még nem igazán biztos,long 
+		notifier.notifyObservers();
 	}
 }
