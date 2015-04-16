@@ -1,3 +1,5 @@
+package mars;
+
 public class MyTimerTask extends TimerTask {
 	private Object _enabled;
 	private Object _gametime;

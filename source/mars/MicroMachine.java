@@ -1,3 +1,5 @@
+package mars;
+
 public class MicroMachine extends Robot {
 	private boolean _doneCleaning;
 	private int _progress;

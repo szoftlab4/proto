@@ -1,3 +1,5 @@
+package mars;
+
 public class Robot extends Observable implements Observer {
 	private boolean _alive;
 	private Direction _dir;

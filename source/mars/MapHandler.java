@@ -1,3 +1,5 @@
+package mars;
+
 import java.util.Vector;
 
 public class MapHandler implements Observer {

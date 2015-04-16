@@ -1,3 +1,5 @@
+package mars;
+
 public class Player extends Robot {
 	private int _distance;
 	private boolean _oilFlag;

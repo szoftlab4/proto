@@ -1,3 +1,5 @@
+package mars;
+
 public class Observable {
 
 	public void notifyObservers() {

@@ -1,3 +1,5 @@
+package mars;
+
 public class MapElement {
 	public Position _pos;
 	private Spot _spot;

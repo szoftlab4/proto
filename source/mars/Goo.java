@@ -1,6 +1,7 @@
-public class Oil implements Spot {
-	private long _timeCreated;
-	private long _expireTime;
+package mars;
+
+public class Goo implements Spot {
+	private int _durability;
 
 	public void handlePlayer(Player aP) {
 		throw new UnsupportedOperationException();
