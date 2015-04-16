@@ -48,8 +48,15 @@ public class MapHandler implements Observer {
 		return pos.getY()*mapWidth + pos.getX();
 	}
 	
-	private void mapSpots(ArrayList<Position> spotLocations){
-		//TODO
+	private ArrayList<Position> mapSpots(){
+		ArrayList<Position> spotPositions = new ArrayList<Position>();
+		
+		for(Position pos : road){
+			if(map.get(posToIndex(pos)).hasSpot())
+				spotPositions.add(pos);
+		}
+		
+		return spotPositions;
 	}
 	
 	private void buildMap(InputStream mapFile){
@@ -57,10 +64,20 @@ public class MapHandler implements Observer {
 	}
 	
 	public Position getAvailablePos(){
-		return null;
-		//TODO
+		
+		//Ha -1,-1 el terne vissza akkor nincs szabad hely
+		//Elso szabad helyet adja vissza
+		Position freePos = new Position(-1,-1);
+		
+		for(Position pos : road){
+			MapElement mapElement = map.get(posToIndex(pos));
+			if(mapElement.isFree())
+				freePos = pos;
+		}
+		
+		return freePos;
 	}
-	
+
 	private void checkPosition(Player player){
 		//TODO
 	}
