@@ -15,7 +15,7 @@ public class MicroMachine extends Robot {
 	}
 
 	public void update(Object Obs, Object Obj) {
-		if(dir==Direction.STAY){
+		if(dir == Direction.STAY){
 			this.checkProgress();
 		}
 		else
@@ -24,8 +24,8 @@ public class MicroMachine extends Robot {
 	}
 
 	public void reset() {
-		doneCleaning=false;
-		progress=0;
+		doneCleaning = false;
+		progress = 0;
 		dir = Direction.FORWARD;
 		
 	}
@@ -35,7 +35,7 @@ public class MicroMachine extends Robot {
 	}
 
 	public void setDirection(Direction D) {
-		dir=D;
+		dir = D;
 	}
 
 	public boolean isDoneCleaning() {
@@ -55,15 +55,14 @@ public class MicroMachine extends Robot {
 		case RIGHT:
 			pos.setPosition(this.getPosition().getX()+1, this.getPosition().getY());
 			break;
-		
 		}
 	} 
 	
 	private void checkProgress(){
 		progress++;
-		if(progress==2){
-			doneCleaning=true;
-			progress=0;
+		if(progress == 2){
+			doneCleaning = true;
+			progress = 0;
 		}
 	}
 }
