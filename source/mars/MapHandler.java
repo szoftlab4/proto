@@ -10,6 +10,8 @@ public class MapHandler implements Observer {
 	private ArrayList<Position> road;
 	private int mapWidth;
 	
+	//ASDSDASDFA
+	
 	public void loadMap() {
 		//TODO palyabetoltes
 		//TODO palyaszelesseg meghatarozas
