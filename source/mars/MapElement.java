@@ -27,9 +27,26 @@ public class MapElement {
 	public void deleteSpot() {
 		spot = null;
 	}
+	
+	public boolean isFree(){
+		return (refPlayer.isEmpty() && refMM.isEmpty() && spot==null);
+	}
 
+	private void playerPlayer(){
+		
+	}
+	
+	private void playerMM(){
+		
+	}
+	
+	private void mmMM(){
+		
+	}
+	
 	public void handleCollision() {
 		//TODO
+		clearRobotRefs();
 	}
 
 	public boolean hasSpot() {
@@ -37,6 +54,10 @@ public class MapElement {
 		
 	}
 
+	private void clearRobotRefs(){
+		refPlayer.clear();
+		refMM.clear();
+	}
 
 	public Position getPos() {
 		return pos;
