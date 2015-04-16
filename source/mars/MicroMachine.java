@@ -1,29 +1,26 @@
 package mars;
 
 public class MicroMachine extends Robot {
-	private boolean _doneCleaning;
-	private int _progress;
-	public MyTimerTask _unnamed_MyTimerTask_;
-	public Game _unnamed_Game_;
-	public Game.Supervisor _unnamed_Supervisor_;
+	private boolean doneCleaning;
+	private int progress;
 
-	public void update(Object aObservable, Object aObject) {
-		throw new UnsupportedOperationException();
+	public void update(Object Obs, Object Obj) {
+		
 	}
 
 	public void reset() {
-		throw new UnsupportedOperationException();
+		
 	}
 
 	public Oil getOilSpot() {
-		throw new UnsupportedOperationException();
+		return new Oil();
 	}
 
-	public void setDirection(Direction aD) {
-		throw new UnsupportedOperationException();
+	public void setDirection(Direction D) {
+		
 	}
 
 	public boolean isDoneCleaning() {
-		return this._doneCleaning;
+		return this.doneCleaning;
 	}
 }
