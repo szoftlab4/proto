@@ -10,10 +10,12 @@ public class Robot extends Observable implements Observer {
 	private HeadDirection headDir;
 
 	public Direction getDirection() {
+		return dir;
 		 
 	}
 
 	public Position getPosition() {
+		return pos;
 		
 	}
 

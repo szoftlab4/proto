@@ -9,6 +9,7 @@ public class Oil implements Spot {
 	}
 
 	public boolean isDeletable() {
+		return false;
 		
 	}
 }
