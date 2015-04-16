@@ -1,10 +1,12 @@
 package mars;
 
+import java.util.ArrayList;
+
 public class MapElement {
 	public Position _pos;
 	private Spot _spot;
-	private List<Player> _refPlayer;
-	private List<MicroMachine> _refMM;
+	private ArrayList<Player> _refPlayer;
+	private ArrayList<MicroMachine> _refMM;
 	public MapHandler _unnamed_MapHandler_;
 
 	public void addSpot(Spot aSpot) {

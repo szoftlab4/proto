@@ -1,5 +1,8 @@
 package mars;
 
+import java.util.Observable;
+import java.util.Observer;
+
 public class Robot extends Observable implements Observer {
 	private boolean _alive;
 	private Direction _dir;
@@ -28,11 +31,10 @@ public class Robot extends Observable implements Observer {
 		throw new UnsupportedOperationException();
 	}
 
-	public void update(Object aObservable, Object aObject) {
-		throw new UnsupportedOperationException();
-	}
 
-	public void update(Object aObservable, Object aObject) {
-		throw new UnsupportedOperationException();
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		// TODO Auto-generated method stub
+		
 	}
 }

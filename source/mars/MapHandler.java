@@ -1,12 +1,12 @@
 package mars;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 public class MapHandler implements Observer {
-	private java.util.Vector<List<MapElement>> _map;
-	private List<Position> _road;
-	public Game _unnamed_Game_;
-	public Vector<MapElement> _unnamed_MapElement_ = new Vector<MapElement>();
+	private ArrayList<MapElement> _map;
+	private ArrayList<Position> _road;
 
 	public void loadMap() {
 		throw new UnsupportedOperationException();
@@ -34,5 +34,11 @@ public class MapHandler implements Observer {
 
 	public void update(Object aObservable, Object aObject) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 }

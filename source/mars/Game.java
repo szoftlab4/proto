@@ -1,15 +1,15 @@
 package mars;
 
+import java.util.ArrayList;
+import java.util.Timer;
 import java.util.Vector;
 
 public class Game {
 	private MyTimerTask _myTimerTask;
-	private java.util.Vector<Player> _players;
+	private ArrayList<Player> _players;
 	private MapHandler _mapHandler;
 	private MicroMachine _microMashines;
 	private Timer _timer;
-	public Vector<MicroMachine> _unnamed_MicroMachine_ = new Vector<MicroMachine>();
-	public Timer _unnamed_Timer_;
 
 	public void init() {
 		throw new UnsupportedOperationException();

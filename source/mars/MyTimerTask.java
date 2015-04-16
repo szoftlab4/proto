@@ -1,5 +1,7 @@
 package mars;
 
+import java.util.TimerTask;
+
 public class MyTimerTask extends TimerTask {
 	private Object _enabled;
 	private Object _gametime;
@@ -33,5 +35,11 @@ public class MyTimerTask extends TimerTask {
 
 	public void registerObserver(Object aRobot) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 }
