@@ -2,11 +2,10 @@ package mars;
 
 public class Oil implements Spot {
 	private long timeCreated;
-	private long expireTime;
+	private static final long expireTime=10000;
 
 	public Oil() {
 	timeCreated=System.currentTimeMillis();
-	expireTime=10000;
 	}
 	public void handlePlayer(Player player) {
 		player.setOilFlag(true);

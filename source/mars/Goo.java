@@ -2,7 +2,7 @@ package mars;
 
 public class Goo implements Spot {
 	private int durability;
-	private static int maxDurability= 4;
+	private static final int maxDurability= 4;
 	
 	public Goo(){
 		durability=maxDurability;

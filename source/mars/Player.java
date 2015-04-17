@@ -62,11 +62,16 @@ public class Player extends Robot {
 	// TODO
 	public void update(Object observable, Object object) {
 		//itt hívjuk  notifyObservers()/putOilSpot()/putGooSpot()attól függõen hogy mit akar játékos
+		if(this.isAlive()){
+			this.step();
+		}
 	}
 	
 	// TODO
 	private void step() {
-		
+		this.setNewDir();
+		this.calculateNewSpeed();
+		this.calculateNewPos();
 	}
 	
 	private void setNewDir() {
@@ -85,18 +90,19 @@ public class Player extends Robot {
 	}
 	
 	private void calculateNewPos() {
+		headDir=this.convertDir();
 		switch (headDir) {
 			case UP:
-				pos.setPosition(pos.getX(), pos.getY() - getSpeed());
+				nextPos.setPosition(pos.getX(), pos.getY() - getSpeed());
 				break;
 			case RIGHT:
-				pos.setPosition(pos.getX() + getSpeed(), pos.getY());
+				nextPos.setPosition(pos.getX() + getSpeed(), pos.getY());
 				break;
 			case DOWN:
-				pos.setPosition(pos.getX(), pos.getY() + getSpeed());
+				nextPos.setPosition(pos.getX(), pos.getY() + getSpeed());
 				break;
 			case LEFT:
-				pos.setPosition(pos.getX() - getSpeed(), pos.getY());
+				nextPos.setPosition(pos.getX() - getSpeed(), pos.getY());
 				break;
 			default:
 				break;

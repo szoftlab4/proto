@@ -55,6 +55,8 @@ public class MicroMachine extends Robot {
 		case RIGHT:
 			pos.setPosition(this.getPosition().getX()+1, this.getPosition().getY());
 			break;
+		default:
+			break;
 		}
 	} 
 	
