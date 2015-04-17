@@ -19,6 +19,10 @@ public class Game {
 		
 	}
 	
+	public void addPlayer(Player player){
+		players.add(player);
+	}
+	
 	private void registerObservers(){
 		for(Player p : players){
 			p.addObserver(mapHandler);
