@@ -15,12 +15,14 @@ public class Main {
 	private static BufferedReader br;
 	private static String currentLine;
 	private static Game game;
+	private static int time;
 	
 	//bemenet kimenet init
 	public static void init(InputStream in, PrintStream out) throws IOException {
 		br = new BufferedReader(new InputStreamReader(in)); // TODO filereader, writer...
 		bw = new BufferedWriter(new OutputStreamWriter(out));
 		game = new Game();
+		time = 0;
 	}
 	
 	public static HeadDirection setDirection(String s){
@@ -56,7 +58,7 @@ public class Main {
 				game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), setDirection(words[4])));
 			}
 			else if (words[0].equalsIgnoreCase("addRobot")) {
-				
+				game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), setDirection(words[3])));
 			}
 			else if (words[0].equalsIgnoreCase("addSpot")) {
 				
