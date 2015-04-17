@@ -2,7 +2,6 @@ package mars;
 
 import java.util.ArrayList;
 import java.util.Timer;
-import java.util.Vector;
 
 public class Game {
 	private MyTimerTask myTimerTask;
@@ -10,14 +9,23 @@ public class Game {
 	private MapHandler mapHandler;
 	private ArrayList<MicroMachine> microMashines;
 	private Timer timer;
+	private Supervisor supervisor;
 
 	public void init() {
-		
+		registerObservers();
 	}
 
 	public void reset() {
 		
 	}
+	
+	private void registerObservers(){
+		for(Player p : players){
+			p.addObserver(mapHandler);
+			myTimerTask.registerObserver(p);
+		}
+	}
+	
 	public class Supervisor  implements Runnable{
 
 		public void checkMachines() {
@@ -26,7 +34,7 @@ public class Game {
 			}
 		}
 
-		public void detectGameEnd() {
+		public void checkGameEnd() {
 			boolean gameEnd = true;
 			for(Player player : players){
 				if(player.isAlive())
@@ -37,15 +45,14 @@ public class Game {
 			
 			//TODO Lekezelni a jatek veget
 		}
-		
-		private void registerObservers(){
-			
-		}
+
 		
 		@Override
 		public void run(){
-			detectGameEnd();
+			checkGameEnd();
 			checkMachines();
 		}
 	}
+	
+	
 }
