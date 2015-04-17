@@ -108,6 +108,8 @@ public class MapHandler implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
+		//Elvileg kesz
 		Player player = (Player) o;
 		Spot spot = (Spot) arg;
 		
