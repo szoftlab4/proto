@@ -13,11 +13,13 @@ public class Player extends Robot {
 	private int spotCount;
 	private Position nextPos;
 	private Direction nextDir; // el kell intézni.... 
+	private String name;
 	
 	public final static int MAX_SPOT = 5;
 	public final static int START_SPEED = 1;
 	
-	public Player(Position pos, HeadDirection headDir) {
+	public Player(String name, Position pos, HeadDirection headDir) {
+		this.name = name;
 		this.pos = pos;
 		this.headDir = headDir;
 		speed = START_SPEED;

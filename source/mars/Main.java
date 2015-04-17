@@ -23,6 +23,17 @@ public class Main {
 		game = new Game();
 	}
 	
+	public static HeadDirection setDirection(String s){
+		if(s.equalsIgnoreCase("right"))
+			return HeadDirection.RIGHT;
+		else if(s.equalsIgnoreCase("up"))
+			return HeadDirection.UP;
+		else if(s.equalsIgnoreCase("left"))
+			return HeadDirection.LEFT;
+		else
+			return HeadDirection.DOWN;
+	}
+	
 	public static boolean getNextCommand(){
 		try {
 			if (currentLine == null) {
@@ -42,7 +53,7 @@ public class Main {
 			
 			// parancsok feldolgozása
 			if (words[0].equalsIgnoreCase("addPlayer")) {
-				//new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), words[4]);
+				game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), setDirection(words[4])));
 			}
 			else if (words[0].equalsIgnoreCase("addRobot")) {
 				
