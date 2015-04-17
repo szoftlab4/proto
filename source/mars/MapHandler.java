@@ -18,7 +18,7 @@ public class MapHandler implements Observer {
 	private ArrayList<Position> road;
 	private int mapWidth;
 	
-	public void loadMap() {
+	public void loadMap(String filepath) {
 		//TODO palyabetoltes
 		//TODO palyaszelesseg meghatarozas
 	}
