@@ -5,12 +5,18 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+/**********
+ * 
+ * @author Khongi
+ *
+ * Meg kozel sincs kesz...
+ *
+ */
+
 public class MapHandler implements Observer {
 	private ArrayList<MapElement> map;
 	private ArrayList<Position> road;
 	private int mapWidth;
-	
-	//ASDSDASDFA
 	
 	public void loadMap() {
 		//TODO palyabetoltes
@@ -81,16 +87,35 @@ public class MapHandler implements Observer {
 	}
 
 	private void checkPosition(Player player){
-		//TODO
+		Position playerPos = player.getNextPos();
+		boolean playerIsAlive = false;
+		for(Position pos : road){
+			if(playerPos == pos)
+				playerIsAlive = true;
+		}
+		
+		if(playerIsAlive){
+			map.get(posToIndex(playerPos)).handle(player);
+		}
+		else{
+			player.setAlive(false);
+		}
 	}
 	
 	public void addSpot(Position pos, Spot spot){
-		//TODO
+		map.get(posToIndex(pos)).addSpot(spot);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
+		Player player = (Player) o;
+		Spot spot = (Spot) arg;
 		
+		checkPosition(player);
+		
+		if(spot != null){
+			addSpot(player.getPosition(),spot);
+		}
+			
 	}
 }
