@@ -82,9 +82,9 @@ public class Player extends Robot {
 	private void calculateNewSpeed() {
 		if(!oilFlag){
 			if(nextDir == Direction.FORWARD)
-				setSpeed(getSpeed() + 1);
+				setSpeed(speed + 1);
 			else if(nextDir == Direction.BACKWARD && speed > 1)
-				setSpeed(getSpeed() - 1);
+				setSpeed(speed - 1);
 		}		
 		setOilFlag(false);
 	}
@@ -93,16 +93,16 @@ public class Player extends Robot {
 		headDir=this.convertDir();
 		switch (headDir) {
 			case UP:
-				nextPos.setPosition(pos.getX(), pos.getY() - getSpeed());
+				nextPos.setPosition(pos.getX(), pos.getY() - speed);
 				break;
 			case RIGHT:
-				nextPos.setPosition(pos.getX() + getSpeed(), pos.getY());
+				nextPos.setPosition(pos.getX() + speed, pos.getY());
 				break;
 			case DOWN:
-				nextPos.setPosition(pos.getX(), pos.getY() + getSpeed());
+				nextPos.setPosition(pos.getX(), pos.getY() + speed);
 				break;
 			case LEFT:
-				nextPos.setPosition(pos.getX() - getSpeed(), pos.getY());
+				nextPos.setPosition(pos.getX() - speed, pos.getY());
 				break;
 			default:
 				break;
@@ -110,10 +110,20 @@ public class Player extends Robot {
 	}
 	
 	private void putOilSpot() {
-		this.notifyObservers(new Oil());
+		if(spotCount > 0){
+			spotCount--;
+			this.notifyObservers(new Oil());
+		}
+		else
+			this.notifyObservers();
+		
 	}
 	
 	private void putGooSpot() {
+		if(spotCount > 0){
+		spotCount--;
 		this.notifyObservers(new Goo());
+		}
+		this.notifyObservers();
 	}
 }

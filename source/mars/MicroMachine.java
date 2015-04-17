@@ -41,8 +41,32 @@ public class MicroMachine extends Robot {
 	public boolean isDoneCleaning() {
 		return this.doneCleaning;
 	}
+	
+	public void invertDir(){
+		switch(dir){
+		case LEFT:
+			dir=Direction.RIGHT;
+			break;
+		case RIGHT:
+			dir=Direction.LEFT;
+			break;
+		case FORWARD:
+			dir=Direction.BACKWARD;
+			break;
+		case BACKWARD:
+			dir=Direction.FORWARD;
+			break;
+		case STAY:
+			dir=Direction.STAY;
+			break;
+		default:
+			break;
+		} 
+	}
+	
 	private void step(){
-		switch(this.convertDir()){
+		headDir=this.convertDir();
+		switch(headDir){
 		case UP:
 			pos.setPosition(this.getPosition().getX(), this.getPosition().getY()-1);
 			break;
