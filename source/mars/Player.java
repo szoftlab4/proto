@@ -61,7 +61,7 @@ public class Player extends Robot {
 
 	// TODO
 	public void update(Object observable, Object object) {
-		
+		//itt hívjuk  notifyObservers()/putOilSpot()/putGooSpot()attól függõen hogy mit akar játékos
 	}
 	
 	// TODO
@@ -103,13 +103,11 @@ public class Player extends Robot {
 		}
 	}
 	
-	// TODO
 	private void putOilSpot() {
-		
+		this.notifyObservers(new Oil());
 	}
 	
-	// TODO
 	private void putGooSpot() {
-		
+		this.notifyObservers(new Goo());
 	}
 }

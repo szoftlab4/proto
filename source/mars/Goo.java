@@ -2,9 +2,10 @@ package mars;
 
 public class Goo implements Spot {
 	private int durability;
-
-	public Goo(int durability){
-		this.durability = durability;
+	private static int maxDurability= 4;
+	
+	public Goo(){
+		durability=maxDurability;
 	}
 	
 	public void handlePlayer(Player player) {
