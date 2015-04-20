@@ -27,12 +27,9 @@ public class MapHandler implements Observer {
 	private ArrayList<MapElement> map;
 	private ArrayList<Position> road;
 	private int mapWidth;
-<<<<<<< HEAD
 	private String mapName; //pálya neve
-=======
 	private int mapHeight;
->>>>>>> origin/master
-	
+
 	public MapHandler(){
 		map = new ArrayList<MapElement>();
 		road = new ArrayList<Position>();
@@ -190,8 +187,6 @@ public class MapHandler implements Observer {
 		return freePos;
 	}
 
-<<<<<<< HEAD
-=======
 	private boolean isValidCoordinate(int x, int y){
 		return !((y<0) || (y>mapHeight) || (x<0) || (x>mapWidth));
 	}
@@ -214,7 +209,6 @@ public class MapHandler implements Observer {
 		return HeadDirection.DOWN;
 	}
 	
->>>>>>> origin/master
 	private void checkPosition(Player player){
 		Position playerPos = player.getNextPos();
 		boolean playerIsAlive = false;
