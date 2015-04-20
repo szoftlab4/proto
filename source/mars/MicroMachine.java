@@ -3,6 +3,8 @@ package mars;
 public class MicroMachine extends Robot {
 	private boolean doneCleaning;
 	private int progress;
+	private int index;
+	private static int cntr = 0;
 	
 	public MicroMachine(Position pos,HeadDirection headDir){
 		doneCleaning=false;
@@ -11,7 +13,8 @@ public class MicroMachine extends Robot {
 		this.pos=pos;
 		this.headDir=headDir;
 		dir = Direction.FORWARD;
-		
+		cntr++;
+		index = cntr;
 	}
 
 	public void update(Object Obs, Object Obj) {
@@ -95,5 +98,9 @@ public class MicroMachine extends Robot {
 			doneCleaning = true;
 			progress = 0;
 		}
+	}
+	
+	public int getIndex(){
+		return index;
 	}
 }

@@ -29,6 +29,7 @@ public class Player extends Robot {
 		setAlive(true);
 		dir = Direction.FORWARD;
 		spotCommand = SpotCommand.NOSPOT;
+		nextPos = new Position(0, 0);
 	}
 	
 	public String getName(){
@@ -79,7 +80,8 @@ public class Player extends Robot {
 	}
 
 	public void testStep(){
-		this.step();
+		//this.step();
+		this.calculateNewPos();
 		this.pos = this.nextPos;
 	}
 	
@@ -129,19 +131,24 @@ public class Player extends Robot {
 	}
 	
 	private void calculateNewPos() {
-		headDir=this.convertDir();
+		headDir = this.convertDir();
+		System.out.println(headDir.toString());
 		switch (headDir) {
 			case UP:
 				nextPos.setPosition(pos.getX(), pos.getY() - speed);
+				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " u ");
 				break;
 			case RIGHT:
 				nextPos.setPosition(pos.getX() + speed, pos.getY());
+				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " r ");
 				break;
 			case DOWN:
 				nextPos.setPosition(pos.getX(), pos.getY() + speed);
+				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " d ");
 				break;
 			case LEFT:
 				nextPos.setPosition(pos.getX() - speed, pos.getY());
+				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " l ");
 				break;
 			default:
 				break;

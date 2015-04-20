@@ -111,14 +111,14 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			System.out.println("Sikeresen betöltöttük a pályát.");
+			System.out.println("\nSikeresen betöltöttük a pályát.");
 			
 			/*for(int i = 0; i < map.size(); i++)
 				System.out.println("x: " + map.get(i).getPos().getX() + " y: " + map.get(i).getPos().getY() + " spot: " + map.get(i).getSpot());*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("Sikertelen a pálya betöltése.");
+			System.out.println("\nSikertelen a pálya betöltése.");
 		}
 	}
 	
@@ -130,7 +130,6 @@ public class MapHandler implements Observer {
 		for(Position pos : road){
 			map.get(posToIndex(pos)).checkSpot();
 		}
-		
 	}
 
 	private int findPosIndexOnRoad(Position pos){
@@ -257,15 +256,19 @@ public class MapHandler implements Observer {
 		return pos.getY()*mapWidth + pos.getX();
 	}
 	
-	public void getSpots(){
+	public ArrayList<MapElement> getSpots(Boolean console){
+		ArrayList<MapElement> spots = new ArrayList<MapElement>();
 		for(MapElement mapelement : map){
 			if(mapelement.hasSpot() && !mapelement.isDummy()){
-				if(mapelement.getSpot().toString().equalsIgnoreCase("oil"))
+				
+				if(mapelement.getSpot().toString().equalsIgnoreCase("oil") && console)
 					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
-				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo"))
+				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo") && console)
 					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
+				spots.add(mapelement);
 			}
 		}
+		return spots;
 	}
 	
 	public Position getAvailablePos(){

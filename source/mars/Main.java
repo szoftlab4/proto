@@ -14,14 +14,12 @@ public class Main {
 	private static BufferedReader br;
 	private static String currentLine;
 	private static Game game;
-	private static int time;
 	
 	//bemenet kimenet init
 	public static void init(InputStream in, PrintStream out) throws IOException {
 		br = new BufferedReader(new InputStreamReader(in)); // TODO filereader, writer...
 		bw = new BufferedWriter(new OutputStreamWriter(out));
 		game = new Game(0);
-		time = 0;
 	}
 	
 	public static HeadDirection setDirection(String s){
@@ -54,11 +52,13 @@ public class Main {
 			
 			String[] words = currentLine.split(" ");
 			
-			// TODO kommentet kiírni, h #-gel kezdõdjön.....
-			if (words[0].length() < 1 || words[0].charAt(0) == '#') {
-				currentLine = null;
-				return true;
-			}
+			try{
+				// TODO kommentet kiírni, h #-gel kezdõdjön.....
+				if (words[0].length() < 1 || words[0].charAt(0) == '#') {
+					currentLine = null;
+					return true;
+				}
+			}catch(Exception e){}
 			
 			// parancsok feldolgozása
 			if (words[0].equalsIgnoreCase("addPlayer")) {
@@ -97,7 +97,7 @@ public class Main {
 				else if(words[2].equalsIgnoreCase("goo"))
 					player.putGooSpot();
 			}
-			//gecire kész
+			//kész
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
 				Player player = findPlayer(words[1]);
 				if(words[2].equalsIgnoreCase("left"))				
@@ -105,23 +105,33 @@ public class Main {
 				else if(words[2].equalsIgnoreCase("right"))
 					player.setDirection(Direction.RIGHT);
 			}
-			//még az elõzõnél is jobban kész
+			
+			
+			//kész
 			else if (words[0].equalsIgnoreCase("changeSpeed")) {
+				
 				Player player = findPlayer(words[1]);
-				if(words[2].equalsIgnoreCase("forward"))				
+				/*if(words[2].equalsIgnoreCase("forward"))				
 					player.setSpeed(player.getSpeed() + 1);
 				else if(words[2].equalsIgnoreCase("backward") && player.getSpeed() > 1)
-					player.setSpeed(player.getSpeed() - 1);
+					player.setSpeed(player.getSpeed() - 1);*/
+				player.setSpeed(Integer.parseInt(words[2]));
 			}
-			//ez a minden elõzõhöz képest is sokkal jobban készen van
+			
+			
+			//kész
 			else if (words[0].equalsIgnoreCase("exit")) {
 				br.close();												
 				bw.close();
 				System.exit(0);
 			}
 			
-			else if (words[0].equalsIgnoreCase("incTime")) {
-				time += Integer.parseInt(words[1]);
+			else if (words[0].equalsIgnoreCase("incTime")) {				
+				for (MapElement mapElement : game.getMapHandler().getSpots(false)) {
+					if(mapElement.getSpot().toString().equalsIgnoreCase("oil"))
+						((Oil) mapElement.getSpot()).inc(Integer.parseInt(words[1]));						
+				}
+				game.getMapHandler().checkSpots();
 			}
 			else if (words[0].equalsIgnoreCase("help")) {
 				info();
@@ -130,9 +140,9 @@ public class Main {
 				System.out.println("----------------------------------------------------------------------");
 				for (Player player : game.getPlayers()) {
 					if(player.isAlive())
-						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", alive");
+						System.out.println(player.getName() + ", ("	+ player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", alive");
 					else
-						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", dead");
+						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", dead");
 				}
 			}
 			else if (words[0].equalsIgnoreCase("listRobots")) {
@@ -143,7 +153,7 @@ public class Main {
 			}
 			else if (words[0].equalsIgnoreCase("listSpots")) {
 				System.out.println("----------------------------------------------------------------------");
-				game.getMapHandler().getSpots();
+				game.getMapHandler().getSpots(true);
 			}
 			else if (words[0].equalsIgnoreCase("loadMap")) {
 				game.getMapHandler().loadMap(words[1]);
@@ -158,7 +168,16 @@ public class Main {
 				player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
 			}
 			else if (words[0].equalsIgnoreCase("stepPlayer")) {
-				Player player = findPlayer(words[1]);
+				for (Player player : game.getPlayers()) {
+					if(player.getName().equalsIgnoreCase(words[1]))
+						player.testStep();
+				}
+			}
+			else if (words[0].equalsIgnoreCase("stepRobot")) {
+				for (MicroMachine robot : game.getMicroMachine()) {
+					if(robot.getIndex() == Integer.parseInt(words[1]))
+						robot.step();
+				}
 			}
 			else
 				System.out.println("Hibás parancs: " + words[0]);

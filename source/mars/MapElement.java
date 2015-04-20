@@ -33,7 +33,7 @@ public class MapElement {
 	}
 
 	public void checkSpot() {
-		if(spot.isDeletable()){
+		if(spot != null && spot.isDeletable()){
 			deleteSpot();
 		}
 	}
