@@ -16,6 +16,7 @@ public class Game {
 	
 	public Game(int cnt){
 		playerCount = cnt;
+		mapHandler = new MapHandler();
 	}
 
 	public void init() {
@@ -24,7 +25,6 @@ public class Game {
 		//Meg ezt meg kell nezni
 		timer.schedule(myTimerTask,0);
 		
-		mapHandler = new MapHandler();
 		mapHandler.loadMap("IDE KELL A PALYA ELERESI UTVONALA");
 		
 		addPlayers();
@@ -34,6 +34,10 @@ public class Game {
 		
 		
 		
+	}
+	
+	public MapHandler getMapHandler(){
+		return mapHandler;
 	}
 
 	private void addPlayers(){

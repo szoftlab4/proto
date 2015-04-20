@@ -43,40 +43,6 @@ public class Main {
 			return HeadDirection.DOWN;
 	}
 	
-	public static void loadMap(String s){
-		try {
-			File file = new File("res\\" + s);
-			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			DocumentBuilder db = dbf.newDocumentBuilder();
-			Document doc = db.parse(file);
-			doc.getDocumentElement().normalize();
-			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
-			NodeList nodeLst = doc.getElementsByTagName("mapelement");
-			System.out.println("Information of all mapelement");
-			
-			for (int i = 0; i < nodeLst.getLength(); i++) {
-				Node fstNode = nodeLst.item(i);
-				
-				if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
-					Element fstElmnt = (Element) fstNode;
-					  
-					NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("x");
-					Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
-					NodeList fstNm = fstNmElmnt.getChildNodes();
-					System.out.println("x : "  + ((Node) fstNm.item(0)).getNodeValue());
-					  
-					NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("y");
-					Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
-					NodeList lstNm = lstNmElmnt.getChildNodes();
-					System.out.println("y : " + ((Node) lstNm.item(0)).getNodeValue());
-				}
-
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
 	public static boolean getNextCommand(){
 		try {
 			if (currentLine == null) {
@@ -131,7 +97,8 @@ public class Main {
 				
 			}
 			else if (words[0].equalsIgnoreCase("loadMap")) {
-				loadMap("test1.map");
+				
+				game.getMapHandler().loadMap(words[1]);
 			}
 			else if (words[0].equalsIgnoreCase("reset")) {
 				

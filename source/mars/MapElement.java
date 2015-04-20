@@ -7,6 +7,11 @@ public class MapElement {
 	private Spot spot;
 	private ArrayList<Player> refPlayer;
 	private ArrayList<MicroMachine> refMM;
+	
+	public MapElement(Position pos, Spot spot){
+		this.pos = pos;
+		this.spot = spot;
+	}
 
 	public void addSpot(Spot spot) {
 		this.spot = spot;
@@ -95,6 +100,10 @@ public class MapElement {
 	private void clearRobotRefs(){
 		refPlayer.clear();
 		refMM.clear();
+	}
+	
+	public Spot getSpot(){
+		return spot;
 	}
 
 	public Position getPos() {

@@ -22,4 +22,8 @@ public class Goo implements Spot {
 		
 		return durability == 0;
 	}
+	
+	public String toString(){
+		return "goo";		
+	}
 }
