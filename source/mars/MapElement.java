@@ -109,4 +109,8 @@ public class MapElement {
 	public Position getPos() {
 		return pos;
 	}
+	
+	public boolean isDummy(){
+		return (pos.getX() == -1 && pos.getY() == -1);
+	}
 }
