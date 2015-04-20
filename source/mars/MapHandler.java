@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Random;
 
 /**********
  * 
@@ -17,6 +18,7 @@ public class MapHandler implements Observer {
 	private ArrayList<MapElement> map;
 	private ArrayList<Position> road;
 	private int mapWidth;
+	private int mapHeight;
 	
 	public void loadMap(String filepath) {
 		//TODO palyabetoltes
@@ -72,22 +74,53 @@ public class MapHandler implements Observer {
 	}
 	
 	public Position getAvailablePos(){
-		
-		//Ha -1,-1 el terne vissza akkor nincs szabad hely
-		//Elso szabad helyet adja vissza
 		Position freePos = new Position(-1,-1);
-		
-		for(Position pos : road){
-			MapElement mapElement = map.get(posToIndex(pos));
-			if(mapElement.isFree())
-				freePos = pos;
+		boolean done = false;
+		int range = map.size();
+		Random rnd = new Random();
+		int tryCount = 0;
+		while(!done){
+			int idx = rnd.nextInt(range);
+			freePos = road.get(idx);
+			MapElement me = map.get(posToIndex(freePos));
+			if(me.isFree())
+				done = true;
+			tryCount++;
+			//Ha 99x probalkoztunk es igy se talal akkor vegigmegyunk rendesen a listan
+			if(tryCount > 99){
+				for(Position pos : road){
+					me = map.get(posToIndex(pos));
+					if(me.isFree()){
+						done = true;
+						freePos = pos;
+					}
+				}
+			}
 		}
-		
+
 		return freePos;
 	}
 
+	private boolean isValidCoordinate(int x, int y){
+		return !((y<0) || (y>mapHeight) || (x<0) || (x>mapWidth));
+	}
+	
 	public HeadDirection getValidHeadDir(Position pos){
-		return null;
+		int x = pos.getX();
+		int y = pos.getY();
+		if(isValidCoordinate(x,y+1))
+			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
+				return HeadDirection.UP;
+		if(isValidCoordinate(x+1,y))
+			if(!map.get(posToIndex(new Position(x+1,y))).isDummy())
+				return HeadDirection.RIGHT;
+		if(isValidCoordinate(x-1,y))
+			if(!map.get(posToIndex(new Position(x-1,y))).isDummy())
+				return HeadDirection.LEFT;
+		if(isValidCoordinate(x,y-1))
+			if(!map.get(posToIndex(new Position(x,y-1))).isDummy())
+				return HeadDirection.DOWN;
+		return HeadDirection.DOWN;
 	}
 	
 	private void checkPosition(Player player){
