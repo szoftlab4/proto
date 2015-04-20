@@ -11,11 +11,20 @@ public class MapElement {
 	public void addSpot(Spot spot) {
 		this.spot = spot;
 	}
+	
+	public void addPlayerRef(Player p){
+		refPlayer.add(p);
+	}
+	
+	public void addMMRef(MicroMachine mm){
+		refMM.add(mm);
+	}
 
 	public void handle(Player player) {
 		if(hasSpot()){
 			spot.handlePlayer(player);
 		}
+		addPlayerRef(player);
 	}
 
 	public void checkSpot() {

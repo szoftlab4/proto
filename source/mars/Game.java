@@ -12,6 +12,11 @@ public class Game {
 	private ArrayList<MicroMachine> microMashines;
 	private Timer timer;
 	private Supervisor supervisor;
+	private int playerCount;
+	
+	public Game(int cnt){
+		playerCount = cnt;
+	}
 
 	public void init() {
 		myTimerTask = new MyTimerTask(1000,20000);
@@ -22,30 +27,33 @@ public class Game {
 		mapHandler = new MapHandler();
 		mapHandler.loadMap("IDE KELL A PALYA ELERESI UTVONALA");
 		
+		addPlayers();
+		
 		//El kell majd inditani
 		supervisor = new Supervisor();
 		
-		//Almos vagyok
 		
-		registerObservers();
+		
 	}
 
+	private void addPlayers(){
+		for(int i=0; i<playerCount; i++){
+			//
+			Position freePos = mapHandler.getAvailablePos();
+			HeadDirection dir = mapHandler.getValidHeadDir(freePos);
+			Player p = new Player("Player " + (i+1),freePos,dir);
+			addPlayer(p);
+		}
+	}
+	
 	public void reset() {
 		
 	}
 	
-	//EZT KIZAROLAG INIT LEFUTASA UTAN LEHET
 	public void addPlayer(Player player){
 		players.add(player);
 		myTimerTask.registerObserver(player);
 		player.addObserver(mapHandler);
-	}
-	
-	private void registerObservers(){
-		for(Player p : players){
-			p.addObserver(mapHandler);
-			myTimerTask.registerObserver(p);
-		}
 	}
 	
 	public void addMicroMachine(MicroMachine mm){
@@ -96,6 +104,7 @@ public class Game {
 		public void run(){
 			checkGameEnd();
 			createMicroMachine();
+			mapHandler.startCollisions();
 			checkMachines();
 		}
 	}

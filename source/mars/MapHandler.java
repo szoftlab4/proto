@@ -86,6 +86,10 @@ public class MapHandler implements Observer {
 		return freePos;
 	}
 
+	public HeadDirection getValidHeadDir(Position pos){
+		return null;
+	}
+	
 	private void checkPosition(Player player){
 		Position playerPos = player.getNextPos();
 		boolean playerIsAlive = false;

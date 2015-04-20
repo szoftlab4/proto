@@ -5,14 +5,12 @@ import java.util.Observer;
 import java.util.TimerTask;
 
 public class MyTimerTask extends TimerTask {
-	private boolean enabled;
 	private long gametime;
 	private long interval;
 	private long timeElapsed;
 	private Observable notifier;
 
 	public MyTimerTask(long interval, long gametime) {
-		enabled=true;
 		this.interval = interval;
 		this.gametime = gametime;
 	
@@ -21,22 +19,16 @@ public class MyTimerTask extends TimerTask {
 	}
 	
 	public boolean isOver() {
-		if((gametime-timeElapsed)<0){
-			enabled=false;
+		if((gametime-timeElapsed)<0)
 			return true;
-		}
 		else 
 			return false;
 	}
 
 	public void reset() {
-		enabled=true;
 		timeElapsed=0;
 	}
 
-	public void setEnabled(boolean value) {
-		enabled=value;
-	}
 
 	public void setGameTime(int gt) {
 		gametime=gt;
