@@ -12,7 +12,7 @@ public class Player extends Robot {
 	private int speed;
 	private int spotCount;
 	private Position nextPos;
-	private Direction nextDir; // el kell intézni.... 
+	private SpotCommand spotCommand;
 	private String name;
 	
 	public final static int MAX_SPOT = 5;
@@ -28,6 +28,7 @@ public class Player extends Robot {
 		spotCount = MAX_SPOT;
 		setAlive(true);
 		dir = Direction.FORWARD;
+		spotCommand = SpotCommand.NOSPOT;
 	}
 	
 	public int getDistance() {
@@ -45,7 +46,19 @@ public class Player extends Robot {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	
+	public void setPosition(Position pos){
+		this.pos = pos;
+	}
+	
+	public void setDirection(Direction dir){
+		this.dir = dir;
+	}
 
+	public void setSpotCommand(SpotCommand sc){
+		this.spotCommand = sc;
+	}
+	
 	public Position getNextPos() {
 		return this.nextPos;
 	}
@@ -66,27 +79,44 @@ public class Player extends Robot {
 		//itt hívjuk  notifyObservers()/putOilSpot()/putGooSpot()attól függõen hogy mit akar játékos
 		if(this.isAlive()){
 			this.step();
+			switch(spotCommand){
+				case NOSPOT:
+					notifyObservers();
+					break;
+				case GOO:
+					this.putGooSpot();
+					break;
+				case OIL:
+					this.putOilSpot();
+					break;
+			}
+			
+			setSpotCommand(SpotCommand.NOSPOT);
+			
 		}
 	}
 	
 	// TODO
 	private void step() {
-		this.setNewDir();
+		//this.setNewDir();
 		this.calculateNewSpeed();
 		this.calculateNewPos();
-	}
-	
-	private void setNewDir() {
-		if(nextDir == Direction.RIGHT || nextDir == Direction.LEFT)
-			this.dir = this.nextDir;  // ???????? ezzel is majd lesz egy kis baszakodás :S
+		this.dir = Direction.STAY;
 	}
 	
 	private void calculateNewSpeed() {
 		if(!oilFlag){
-			if(nextDir == Direction.FORWARD)
-				setSpeed(speed + 1);
-			else if(nextDir == Direction.BACKWARD && speed > 1)
-				setSpeed(speed - 1);
+			switch(dir){
+				case FORWARD: 
+					setSpeed(speed + 1);
+					break;
+				case BACKWARD:
+					if(speed > 1)
+						setSpeed(speed - 1);
+					break;
+				default:
+					break;	
+			}
 		}		
 		setOilFlag(false);
 	}

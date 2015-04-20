@@ -1,7 +1,6 @@
 package mars;
 
 import java.io.File;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -156,10 +155,6 @@ public class MapHandler implements Observer {
 		return spotPositions;
 	}
 	
-	private void buildMap(InputStream mapFile){
-		//TODO
-	}
-	
 	public Position getAvailablePos(){
 		Position freePos = new Position(-1,-1);
 		boolean done = false;
@@ -220,6 +215,7 @@ public class MapHandler implements Observer {
 		
 		if(playerIsAlive){
 			map.get(posToIndex(playerPos)).handle(player);
+			player.setPosition(playerPos);
 		}
 		else{
 			player.setAlive(false);
@@ -235,13 +231,10 @@ public class MapHandler implements Observer {
 		
 		//Elvileg kesz
 		Player player = (Player) o;
-		Spot spot = (Spot) arg;
+		if(arg != null)
+			addSpot(player.getPosition(),(Spot)arg);
 		
 		checkPosition(player);
-		
-		if(spot != null){
-			addSpot(player.getPosition(),spot);
-		}
-			
+
 	}
 }
