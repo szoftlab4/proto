@@ -48,19 +48,50 @@ public class MapElement {
 	
 	private void collidePlayers(){
 		int maxspeed = 0;
-		int sum = 0;
+		double sum = 0;
+		int x = 0;
+		int y = 0;
+		boolean moreThanOneMax = false;
 		for(Player p : refPlayer){
 			int temp = p.getSpeed();
-			sum += temp;
-			if(temp>maxspeed)
+			if(temp>maxspeed){
 				maxspeed = temp;
+				moreThanOneMax = false;
+			}
+			else if(temp == maxspeed)
+				moreThanOneMax = true;
+			
+			switch(p.headDir){
+				case UP:
+					y += temp;
+					break;
+				case DOWN:
+					y -= temp;
+					break;
+				case RIGHT:
+					x += temp;
+					break;
+				case LEFT:
+					x -= temp;
+					break;
+			}
+			y = Math.abs(y);
+			x = Math.abs(x);
+			sum = Math.sqrt(x*x + y*y);
 		}
-		int avg = sum/refPlayer.size();
+		int avg = (int) sum/refPlayer.size();
+		if(avg < 1)
+			avg = 1;
 		for(Player p : refPlayer){
-			if(p.getSpeed() != maxspeed)
+			if(moreThanOneMax){
 				p.setAlive(false);
-			else
-				p.setSpeed(avg);
+			}
+			else{
+				if(p.getSpeed() == maxspeed)
+					p.setSpeed(avg);
+				else
+					p.setAlive(false);
+			}
 		}
 	}
 	
