@@ -2,7 +2,7 @@ package mars;
 
 public class Oil implements Spot {
 	private long timeCreated;
-	private static final long expireTime=10000;
+	private static final long expireTime = 10000;
 
 	public Oil() {
 		timeCreated = System.currentTimeMillis();
@@ -13,7 +13,7 @@ public class Oil implements Spot {
 	}
 
 	public boolean isDeletable() {
-		if(System.currentTimeMillis()-timeCreated>=expireTime){
+		if(System.currentTimeMillis() - timeCreated >= expireTime){
 			return true;
 		}
 		else
@@ -21,7 +21,7 @@ public class Oil implements Spot {
 	}
 	
 	public long getExpiredTime(){
-		return (System.currentTimeMillis() - timeCreated) * 1000;
+		return (System.currentTimeMillis() - timeCreated) / 1000;
 	}
 	
 	public String toString(){

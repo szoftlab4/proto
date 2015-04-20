@@ -157,8 +157,8 @@ public class Main {
 				Player player = findPlayer(words[1]);
 				player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
 			}
-			else if (words[0].equalsIgnoreCase("step")) {
-//GECIRE TODO
+			else if (words[0].equalsIgnoreCase("stepPlayer")) {
+				Player player = findPlayer(words[1]);
 			}
 			else
 				System.out.println("Hibás parancs: " + words[0]);
@@ -189,7 +189,8 @@ public class Main {
 		System.out.println("loadMap: \n\t Leírás: Egy pálya betöltése \n\t Opciók: A betöltendõ pálya neve \n\t Kimenet: <sikeres/sikertelen>\n");
 		System.out.println("reset: \n\t Leírás: Reseteli a pályát \n\t Opciók: - \n");
 		System.out.println("setPlayerPosition: \n\t Leírás: Beállítja egy játékos pozícióját \n\t Opciók: Játékos neve, új koordinátái\n");
-		System.out.println("step: \n\t Leírás: Lép egyet a paraméterben megadott robot. \n\t Opciók: Robot azonosítója\n");
+		System.out.println("stepPlayer: \n\t Leírás: Lép egyet a paraméterben megadott játékos. \n\t Opciók: játékos neve\n");
+		System.out.println("stepRobot: \n\t Leírás: Lép egyet a paraméterben megadott robot. \n\t Opciók: Robot azonosítója\n");
 		System.out.println("**********************************************************************");
 	}
 	
