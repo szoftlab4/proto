@@ -55,7 +55,7 @@ public class Main {
 			String[] words = currentLine.split(" ");
 			
 			// TODO kommentet kiírni, h #-gel kezdõdjön.....
-			if (words.length < 1 || words[0].charAt(0) == '#') {
+			if (words[0].length() < 1 || words[0].charAt(0) == '#') {
 				currentLine = null;
 				return true;
 			}

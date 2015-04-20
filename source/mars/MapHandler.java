@@ -51,9 +51,10 @@ public class MapHandler implements Observer {
 			
 			mapName = ((Element) name.item(0)).getTextContent();
 			
+			//System.out.println(mapName);
+			
 			int x, y;
 			String spot;
-			int max_x = 0, max_y = 0;
 			ArrayList<MapElement> unsorted = new ArrayList<MapElement>();
 			
 			for (int i = 0; i < listOfMapElement.getLength(); i++) {
@@ -75,13 +76,13 @@ public class MapHandler implements Observer {
 					element = (Element) elementList.item(0);
 					spot =  element.getTextContent().toString();	
 					
-					if(x > max_x)
-						max_x = x;
+					if(x > mapWidth)
+						mapWidth = x;
 					
-					if(y > max_y)
-						max_y = y;
+					if(y > mapHeight)
+						mapHeight = y;
 					
-					
+					road.add(new Position(x, y));
 					
 					if (spot.equalsIgnoreCase("goo"))
 						unsorted.add(new MapElement(new Position(x, y), new Goo()));
@@ -92,8 +93,8 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			for(int i = 0, k = 0; i <= max_x; i++){
-				for(int j = 0; j <= max_y; j++){
+			for(int i = 0, k = 0; i <= mapWidth; i++){
+				for(int j = 0; j <= mapHeight; j++){
 					if(unsorted.get(k).getPos().getX() == i && unsorted.get(k).getPos().getY() == j){
 						map.add(unsorted.get(k));
 						k++;
