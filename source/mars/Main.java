@@ -9,6 +9,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.File;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 public class Main {
 	private static BufferedWriter bw;
@@ -21,7 +28,7 @@ public class Main {
 	public static void init(InputStream in, PrintStream out) throws IOException {
 		br = new BufferedReader(new InputStreamReader(in)); // TODO filereader, writer...
 		bw = new BufferedWriter(new OutputStreamWriter(out));
-		game = new Game();
+		game = new Game(0);
 		time = 0;
 	}
 	
@@ -34,6 +41,40 @@ public class Main {
 			return HeadDirection.LEFT;
 		else
 			return HeadDirection.DOWN;
+	}
+	
+	public static void loadMap(String s){
+		try {
+			File file = new File("res\\" + s);
+			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			DocumentBuilder db = dbf.newDocumentBuilder();
+			Document doc = db.parse(file);
+			doc.getDocumentElement().normalize();
+			System.out.println("Root element " + doc.getDocumentElement().getNodeName());
+			NodeList nodeLst = doc.getElementsByTagName("mapelement");
+			System.out.println("Information of all mapelement");
+			
+			for (int i = 0; i < nodeLst.getLength(); i++) {
+				Node fstNode = nodeLst.item(i);
+				
+				if (fstNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element fstElmnt = (Element) fstNode;
+					  
+					NodeList fstNmElmntLst = fstElmnt.getElementsByTagName("x");
+					Element fstNmElmnt = (Element) fstNmElmntLst.item(0);
+					NodeList fstNm = fstNmElmnt.getChildNodes();
+					System.out.println("x : "  + ((Node) fstNm.item(0)).getNodeValue());
+					  
+					NodeList lstNmElmntLst = fstElmnt.getElementsByTagName("y");
+					Element lstNmElmnt = (Element) lstNmElmntLst.item(0);
+					NodeList lstNm = lstNmElmnt.getChildNodes();
+					System.out.println("y : " + ((Node) lstNm.item(0)).getNodeValue());
+				}
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static boolean getNextCommand(){
@@ -90,7 +131,7 @@ public class Main {
 				
 			}
 			else if (words[0].equalsIgnoreCase("loadMap")) {
-				
+				loadMap("test1.map");
 			}
 			else if (words[0].equalsIgnoreCase("reset")) {
 				
