@@ -130,10 +130,112 @@ public class MapHandler implements Observer {
 		
 	}
 
-	public Direction setMMDirection(MicroMachine microMachine) {
-		//TODO ez szopas lesz...
+	private int findPosIndexOnRoad(Position pos){
+		for(int i=0; i<road.size();i++)
+			if(pos == road.get(i))
+				return i;
+		return -1;
+	}
+	
+	private int searchLeft(int posIndex){
+		int cnt = 0;
+		for(int i = posIndex; i>=0 ; i--){
+			MapElement m = map.get(posToIndex(road.get(i)));
+			if(!m.hasSpot())
+				cnt++;
+			return cnt;
+		}
+		for(int i = road.size()-1 ; posIndex < i; i-- ){
+			MapElement m = map.get(posToIndex(road.get(i)));
+			if(!m.hasSpot())
+				cnt++;
+			return cnt;
+		}
+		return -1;
+	}
+	
+	private int searchRight(int posIndex){
+		int cnt = 0;
+		for(int i = posIndex; i<road.size() ; i++){
+			MapElement m = map.get(posToIndex(road.get(i)));
+			if(!m.hasSpot())
+				cnt++;
+			return cnt;
+		}
+		for(int i = 0; i< posIndex ; i++ ){
+			MapElement m = map.get(posToIndex(road.get(i)));
+			if(!m.hasSpot())
+				cnt++;
+			return cnt;
+		}
+		return -1;
+	}
+	
+	private HeadDirection newPosDirection(Position o, Position n){
+		HeadDirection hdir;
+		int x = n.getX() - o.getX();
+		int y = n.getY() - o.getY();
+		if( x == 0 && y == 1){
+			hdir = HeadDirection.UP;
+		}
+		else if( x == 0 && y == -1) {
+			hdir = HeadDirection.DOWN;
+		}
+		else if( x == 1 && y == 0 ){
+			hdir = HeadDirection.RIGHT;
+		}
+		else
+			hdir = HeadDirection.LEFT;
+		return hdir;
+	}
+	private Direction headDirToDir(HeadDirection o,HeadDirection n){
+		if(o == n){
+			return Direction.FORWARD;
+		}
+		else if((o==HeadDirection.DOWN&&n==HeadDirection.RIGHT)||(o==HeadDirection.UP&&n==HeadDirection.LEFT)||(o==HeadDirection.LEFT&&n==HeadDirection.DOWN)||(o==HeadDirection.RIGHT&&n==HeadDirection.UP)) {
+			return Direction.LEFT;
+		}
+		else if((o==HeadDirection.DOWN&&n==HeadDirection.LEFT)||(o==HeadDirection.UP&&n==HeadDirection.RIGHT)||(o==HeadDirection.LEFT&&n==HeadDirection.UP)||(o==HeadDirection.RIGHT&&n==HeadDirection.DOWN)) {
+			return Direction.RIGHT;
+		}
+		else  {
+			return Direction.BACKWARD;
 		
-		return null;
+		}
+	}
+	
+	public void setMMDirection(MicroMachine microMachine) {
+		Position pos = microMachine.getPosition();
+		HeadDirection hdir;
+		int idx = findPosIndexOnRoad(pos);
+		int left = searchLeft(idx);
+		int right = searchRight(idx);
+		if(left>right){
+			int nextIdx = idx + 1;
+			if(nextIdx == road.size())
+				nextIdx = 0;
+			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+		}
+		else if(left<right){
+			int prevIdx = idx - 1;
+			if(prevIdx < 0)
+				prevIdx = road.size() - 1;
+			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
+			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+		}
+		else if(left == 0 && right == 0){
+			microMachine.setDirection(Direction.STAY);
+		}
+		else{
+			int nextIdx = idx + 1;
+			if(nextIdx == road.size())
+				nextIdx = 0;
+			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+		}
+			
+			
 		
 	}
 

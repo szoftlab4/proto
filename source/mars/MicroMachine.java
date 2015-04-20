@@ -33,6 +33,10 @@ public class MicroMachine extends Robot {
 	public Oil getOilSpot() {
 		return new Oil();
 	}
+	
+	public HeadDirection getHeadDir(){
+		return headDir;
+	}
 
 	public void setDirection(Direction D) {
 		dir = D;
