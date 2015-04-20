@@ -231,7 +231,8 @@ public class MapHandler implements Observer {
 	}
 	
 	public void addSpot(Position pos, Spot spot){
-		map.get(posToIndex(pos)).addSpot(spot);
+		if(!map.get(posToIndex(pos)).isDummy())
+			map.get(posToIndex(pos)).addSpot(spot);
 	}
 
 	@Override
