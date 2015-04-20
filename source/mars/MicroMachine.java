@@ -68,7 +68,8 @@ public class MicroMachine extends Robot {
 		} 
 	}
 	
-	private void step(){
+	//ez private
+	public void step(){
 		headDir=this.convertDir();
 		switch(headDir){
 		case UP:

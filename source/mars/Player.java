@@ -78,9 +78,13 @@ public class Player extends Robot {
 		
 	}
 
+	public void testStep(){
+		this.step();
+		this.pos = this.nextPos;
+	}
+	
 	// TODO
 	public void update(Object observable, Object object) {
-		//itt hívjuk  notifyObservers()/putOilSpot()/putGooSpot()attól függõen hogy mit akar játékos
 		if(this.isAlive()){
 			this.step();
 			switch(spotCommand){
@@ -102,7 +106,6 @@ public class Player extends Robot {
 	
 	// TODO
 	private void step() {
-		//this.setNewDir();
 		this.calculateNewSpeed();
 		this.calculateNewPos();
 		this.dir = Direction.STAY;
