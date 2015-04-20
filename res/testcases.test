@@ -1,0 +1,97 @@
+#1. Teszteset
+loadMap Test1
+addPlayer Player1 0 2 right
+changeSpeed Player1 1
+step Player1
+listPlayers
+changeDirection Player1 right
+step Player1
+listPlayers
+
+#2. Teszteset
+loadMap Test1
+addPlayer Player1 0 2 right
+addSpotPlayer Player1 goo
+step Player1
+listPlayers
+listSpots
+
+#3. Teszteset
+loadMap Test1
+addPlayer Player1 0 0 down
+changeSpeed Player1 1
+listPlayers
+step Player1
+listPlayers
+changeDirection Player1 left
+step Player1
+step Player1
+step Player1
+listPlayers
+changeSpeed Player1 1
+step Player1
+listPlayers
+
+#4. Teszteset
+loadMap Test1
+addPlayer Player1 0 2 right
+addPlayer Player2 0 4 down
+changeSpeed Player1 1
+step Player1
+listPlayers
+
+#5. Teszteset
+loadMap Test1
+addPlayer Player1 0 2 right
+addRobot Robot1 0 4
+changeSpeed Player1 1
+step Player1
+listPlayers
+listRobots
+listSpots
+
+#6. Teszteset
+loadMap Test1
+addRobot Robot1 1 4
+addRobot Robot2 2 4
+step Robot2
+step Robot1
+step Robot1
+listRobots
+step Robot1
+listRobots
+
+#7. Teszteset
+loadMap Test1
+addPlayer Player1 0 4 right
+step Player1
+listPlayers
+
+#8. Teszteset
+loadMap Test1
+addRobot Robot1 2 4
+step Robot1
+incTime 2
+listSpots
+step Robot1
+listRobots
+
+#9. Teszteset
+loadMap Test1
+addPlayer Player1 2 1 left
+step Player1
+setPlayerPosition Player1 2 1
+step Player1
+setPlayerPosition Player1 2 1
+step Player1
+listSpots
+setPlayerPosition Player1 2 1
+step Player1
+listSpots
+
+#10. Teszteset
+loadMap Test1
+incTime 5
+listSpots
+incTime 5
+listSpots

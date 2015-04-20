@@ -92,14 +92,22 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			for(int i = 0, k = 0; i <= mapWidth; i++){
+			Boolean rowEnd = false;
+			
+			for(int i = 0; i <= mapWidth; i++){
 				for(int j = 0; j <= mapHeight; j++){
-					if(unsorted.get(k).getPos().getX() == i && unsorted.get(k).getPos().getY() == j){
-						map.add(unsorted.get(k));
-						k++;
+					for(int l = 0; l < unsorted.size(); l++){
+						if(unsorted.get(l).getPos().getX() == i && unsorted.get(l).getPos().getY() == j ){
+							map.add(unsorted.get(l));
+							break;
+						}
+						else if(l == unsorted.size()-1)
+							rowEnd = true;
+						else if (rowEnd){
+							map.add(new MapElement(new Position(-1, -1), null));
+							rowEnd = false;
+						}
 					}
-					else
-						map.add(new MapElement(new Position(-1, -1), null));
 				}
 			}
 			

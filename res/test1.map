@@ -33,31 +33,13 @@
 	
 	<mapelement>
 		<x>1</x>
-		<y>0</y>
-		<spot></spot>
-	</mapelement>
-	
-	<mapelement>
-		<x>1</x>
 		<y>4</y>
 		<spot></spot>
 	</mapelement>
 	
 	<mapelement>
 		<x>2</x>
-		<y>0</y>
-		<spot>goo</spot>
-	</mapelement>
-	
-	<mapelement>
-		<x>2</x>
-		<y>1</y>
-		<spot></spot>
-	</mapelement>
-	
-	<mapelement>
-		<x>2</x>
-		<y>2</y>
+		<y>4</y>
 		<spot></spot>
 	</mapelement>
 	
@@ -69,7 +51,25 @@
 	
 	<mapelement>
 		<x>2</x>
-		<y>4</y>
+		<y>2</y>
+		<spot></spot>
+	</mapelement>
+	
+	<mapelement>
+		<x>2</x>
+		<y>1</y>
+		<spot></spot>
+	</mapelement>
+	
+	<mapelement>
+		<x>2</x>
+		<y>0</y>
+		<spot>goo</spot>
+	</mapelement>
+
+	<mapelement>
+		<x>1</x>
+		<y>0</y>
 		<spot></spot>
 	</mapelement>
 	
