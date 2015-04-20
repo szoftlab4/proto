@@ -5,8 +5,9 @@ public class Oil implements Spot {
 	private static final long expireTime=10000;
 
 	public Oil() {
-	timeCreated=System.currentTimeMillis();
+		timeCreated = System.currentTimeMillis();
 	}
+	
 	public void handlePlayer(Player player) {
 		player.setOilFlag(true);
 	}
@@ -17,6 +18,10 @@ public class Oil implements Spot {
 		}
 		else
 			return false;
+	}
+	
+	public long getExpiredTime(){
+		return (System.currentTimeMillis() - timeCreated) * 1000;
 	}
 	
 	public String toString(){

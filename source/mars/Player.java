@@ -31,6 +31,10 @@ public class Player extends Robot {
 		spotCommand = SpotCommand.NOSPOT;
 	}
 	
+	public String getName(){
+		return name;
+	}
+	
 	public int getDistance() {
 		return this.distance;
 	}
@@ -141,7 +145,7 @@ public class Player extends Robot {
 		}
 	}
 	
-	private void putOilSpot() {
+	public void putOilSpot() {
 		if(spotCount > 0){
 			spotCount--;
 			this.notifyObservers(new Oil());
@@ -151,11 +155,15 @@ public class Player extends Robot {
 		
 	}
 	
-	private void putGooSpot() {
+	public void putGooSpot() {
 		if(spotCount > 0){
 		spotCount--;
 		this.notifyObservers(new Goo());
 		}
 		this.notifyObservers();
+	}
+	
+	public int getSpotCount(){
+		return spotCount;
 	}
 }

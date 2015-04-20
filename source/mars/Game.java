@@ -3,6 +3,8 @@ package mars;
 import java.util.ArrayList;
 import java.util.Timer;
 
+import javax.crypto.AEADBadTagException;
+
 //KAPJATOK BE
 
 public class Game {
@@ -17,27 +19,35 @@ public class Game {
 	public Game(int cnt){
 		playerCount = cnt;
 		mapHandler = new MapHandler();
+		players = new ArrayList<Player>();
+		init();
 	}
 
 	public void init() {
 		myTimerTask = new MyTimerTask(1000,20000);
 		timer = new Timer();
+		
 		//Meg ezt meg kell nezni
 		timer.schedule(myTimerTask,0);
 		
-		mapHandler.loadMap("IDE KELL A PALYA ELERESI UTVONALA");
+		//mapHandler.loadMap("IDE KELL A PALYA ELERESI UTVONALA");
 		
-		addPlayers();
+		//addPlayers();
 		
 		//El kell majd inditani
-		supervisor = new Supervisor();
-		
-		
-		
+		//supervisor = new Supervisor();
 	}
 	
 	public MapHandler getMapHandler(){
 		return mapHandler;
+	}
+	
+	public ArrayList<Player> getPlayers(){
+		return players;
+	}
+	
+	public ArrayList<MicroMachine> getMicroMachine(){
+		return microMashines;
 	}
 
 	private void addPlayers(){

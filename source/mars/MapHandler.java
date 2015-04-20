@@ -111,11 +111,14 @@ public class MapHandler implements Observer {
 				}
 			}
 			
+			System.out.println("Sikeresen betöltöttük a pályát.");
+			
 			/*for(int i = 0; i < map.size(); i++)
 				System.out.println("x: " + map.get(i).getPos().getX() + " y: " + map.get(i).getPos().getY() + " spot: " + map.get(i).getSpot());*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("Sikertelen a pálya betöltése.");
 		}
 	}
 	
@@ -254,15 +257,15 @@ public class MapHandler implements Observer {
 		return pos.getY()*mapWidth + pos.getX();
 	}
 	
-	private ArrayList<Position> mapSpots(){
-		ArrayList<Position> spotPositions = new ArrayList<Position>();
-		
-		for(Position pos : road){
-			if(map.get(posToIndex(pos)).hasSpot())
-				spotPositions.add(pos);
+	public void getSpots(){
+		for(MapElement mapelement : map){
+			if(mapelement.hasSpot() && !mapelement.isDummy()){
+				if(mapelement.getSpot().toString().equalsIgnoreCase("oil"))
+					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
+				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo"))
+					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
+			}
 		}
-		
-		return spotPositions;
 	}
 	
 	public Position getAvailablePos(){

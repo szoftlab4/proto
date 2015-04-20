@@ -35,6 +35,14 @@ public class Main {
 			return HeadDirection.DOWN;
 	}
 	
+	public static Player findPlayer(String name){
+		for (Player player : game.getPlayers()) {
+			if(player.getName().equalsIgnoreCase(name))
+				return player;
+		}
+		return null;
+	}
+	
 	public static boolean getNextCommand(){
 		try {
 			if (currentLine == null) {
@@ -54,58 +62,106 @@ public class Main {
 			
 			// parancsok feldolgozása
 			if (words[0].equalsIgnoreCase("addPlayer")) {
-				game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), setDirection(words[4])));
+				if(words[4].equalsIgnoreCase("up"))
+						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.UP));
+				else if(words[4].equalsIgnoreCase("right"))
+						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.RIGHT));
+				else if(words[4].equalsIgnoreCase("down"))
+						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.DOWN));
+				else if(words[4].equalsIgnoreCase("left"))
+						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.LEFT));
 			}
 			else if (words[0].equalsIgnoreCase("addRobot")) {
-				game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), setDirection(words[3])));
+				
+				if(words[3].equalsIgnoreCase("up"))
+					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.UP));
+				else if(words[3].equalsIgnoreCase("right"))
+					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.RIGHT));
+				else if(words[3].equalsIgnoreCase("down"))
+					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.DOWN));
+				else if(words[3].equalsIgnoreCase("left"))
+					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.LEFT));
 			}
+			//kész
 			else if (words[0].equalsIgnoreCase("addSpot")) {
-				
+				if(words[3].equalsIgnoreCase("oil"))
+					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Oil());
+				else if(words[3].equalsIgnoreCase("goo"))
+					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Goo());
 			}
+			//kész
 			else if (words[0].equalsIgnoreCase("addSpotPlayer")) {
-				
+				Player player = findPlayer(words[1]);
+				if(words[2].equalsIgnoreCase("oil"))
+					player.putOilSpot();
+				else if(words[2].equalsIgnoreCase("goo"))
+					player.putGooSpot();
 			}
+			//gecire kész
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
-				
+				Player player = findPlayer(words[1]);
+				if(words[2].equalsIgnoreCase("left"))				
+					player.setDirection(Direction.LEFT);
+				else if(words[2].equalsIgnoreCase("right"))
+					player.setDirection(Direction.RIGHT);
 			}
+			//még az elõzõnél is jobban kész
 			else if (words[0].equalsIgnoreCase("changeSpeed")) {
-				
+				Player player = findPlayer(words[1]);
+				if(words[2].equalsIgnoreCase("forward"))				
+					player.setSpeed(player.getSpeed() + 1);
+				else if(words[2].equalsIgnoreCase("backward") && player.getSpeed() > 1)
+					player.setSpeed(player.getSpeed() - 1);
 			}
+			//ez a minden elõzõhöz képest is sokkal jobban készen van
 			else if (words[0].equalsIgnoreCase("exit")) {
 				br.close();												
 				bw.close();
 				System.exit(0);
 			}
+			
 			else if (words[0].equalsIgnoreCase("incTime")) {
-				
+				time += Integer.parseInt(words[1]);
+			}
+			else if (words[0].equalsIgnoreCase("help")) {
+				info();
 			}
 			else if (words[0].equalsIgnoreCase("listPlayers")) {
-				
+				System.out.println("----------------------------------------------------------------------");
+				for (Player player : game.getPlayers()) {
+					if(player.isAlive())
+						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", alive");
+					else
+						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", dead");
+				}
 			}
 			else if (words[0].equalsIgnoreCase("listRobots")) {
-				
+				System.out.println("----------------------------------------------------------------------");
+				for (int i = 0; i < game.getMicroMachine().size(); i++) {
+					System.out.println((i + 1) + "., " + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getX() + "), " + game.getMicroMachine().get(i).getDirection());
+				}
 			}
 			else if (words[0].equalsIgnoreCase("listSpots")) {
-				
+				System.out.println("----------------------------------------------------------------------");
+				game.getMapHandler().getSpots();
 			}
 			else if (words[0].equalsIgnoreCase("loadMap")) {
-				
 				game.getMapHandler().loadMap(words[1]);
 			}
 			else if (words[0].equalsIgnoreCase("reset")) {
-				
+				game = null;
+				game = new Game(0);
 			}
+			//kész
 			else if (words[0].equalsIgnoreCase("setPlayerPosition")) {
-				
+				Player player = findPlayer(words[1]);
+				player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
 			}
 			else if (words[0].equalsIgnoreCase("step")) {
-				
+//GECIRE TODO
 			}
 			else
 				System.out.println("Hibás parancs: " + words[0]);
-				
-			
-			//System.out.println(words[0] + " " + words[1] + " " + words[2]);
 		
 		} catch (IOException e) {
 			System.out.println("A bemeneti fájl olvasása nem sikerült!");
@@ -115,9 +171,25 @@ public class Main {
 		return true;
 	}
 	
-	public void info(){
+	public static void info(){
 		System.out.println("**********************************************************************");
-		System.out.println("");
+		System.out.println("Használható parancsok:\n");
+		System.out.println("addPlayer: \n\t Leírás: Elhelyez egy új játékost a pályán \n\t Opciók: Az új játékos neve, pozíciója, iránya\n");
+		System.out.println("addRobot: \n\t Leírás: Egy új kisrobot rakunk le a pályára \n\t Opciók: A kisrobot neve, és kezdõpozíciója\n");
+		System.out.println("addSpot: \n\t Leírás: Folt lerakása \n\t Opciók: Lerakandó folt koordinátái, folt típusa\n");
+		System.out.println("addSpotPlayer: \n\t Leírás: Folt lerakása játékos mögé \n\t Opciók: Játékos neve, folt típusa\n");
+		System.out.println("changeDirection: \n\t Leírás: A megadott játékos irányát megváltoztatja \n\t Opciók: A játékos neve, új iránya\n");
+		System.out.println("changeSpeed: \n\t Leírás: A megadott játékos sebességét megváltoztatja \n\t Opciók: A játékos neve, illetve sebességének iránya, nagysága\n");
+		System.out.println("exit: \n\t Leírás: Kilép a programból \n\t Opciók: - \n");
+		System.out.println("incTime: \n\t Leírás: Paraméterben megadott idõ eltelése \n\t Opciók: Idõ (sec)\n");
+		System.out.println("help: \n\t Leírás: Kilistázza a használható parancsokat\n");
+		System.out.println("listPlayers: \n\t Leírás: Kilistázza a játékosokat, és adataikat \n\t Opciók: - \n\t Kimenet: <név><koordináták><irány><sebesség><lerakható foltok száma><állapot(él-e)>\n");
+		System.out.println("listRobots: \n\t Leírás: Kilistázza a kis robotok azonosítóját, pozícióját és irányát \n\t Opciók: - \n\t Kimenet: <azonosító><koordináták><irány>\n");
+		System.out.println("listSpots: \n\t Leírás: Kilistázza a pályán lévõ foltokat, és pozíciójukat \n\t Opciók: - \n\t Kimenet: <koordináták><fajta(olaj, vagy ragacs)><ha ragacs:mennyien léptek rá(db), ha olaj, akkor mennyi idõ telt el(sec)>\n");
+		System.out.println("loadMap: \n\t Leírás: Egy pálya betöltése \n\t Opciók: A betöltendõ pálya neve \n\t Kimenet: <sikeres/sikertelen>\n");
+		System.out.println("reset: \n\t Leírás: Reseteli a pályát \n\t Opciók: - \n");
+		System.out.println("setPlayerPosition: \n\t Leírás: Beállítja egy játékos pozícióját \n\t Opciók: Játékos neve, új koordinátái\n");
+		System.out.println("step: \n\t Leírás: Lép egyet a paraméterben megadott robot. \n\t Opciók: Robot azonosítója\n");
 		System.out.println("**********************************************************************");
 	}
 	
@@ -125,6 +197,8 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		init(System.in, System.out);
+		
+		info();
 		
 		while (getNextCommand()) {
 			;
