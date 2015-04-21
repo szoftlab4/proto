@@ -34,6 +34,7 @@ public class MapHandler implements Observer {
 		map = new ArrayList<MapElement>();
 		road = new ArrayList<Position>();
 		mapWidth = 0;
+		mapName = null;
 	}
 
 	public void loadMap(String filepath){
@@ -277,14 +278,17 @@ public class MapHandler implements Observer {
 		}
 	}
 	
-	
-	
+	public String getMapName(){
+		return mapName;
+	}
 	
 	///DEBUG FOR TEST END
 	
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
-		return pos.getY()*mapHeight + pos.getX();
+		System.out.println("{" + pos.getX() + "," + pos.getY() + "}");
+		System.out.println("posToIndexMagic: " + (pos.getY()*mapHeight + pos.getX()));
+		return pos.getY() * mapWidth + pos.getX();
 	}
 	
 	public ArrayList<MapElement> getSpots(Boolean console){
