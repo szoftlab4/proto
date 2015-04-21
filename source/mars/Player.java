@@ -64,7 +64,8 @@ public class Player extends Robot {
  * @param speed
  */
 	public void setSpeed(int speed) {
-		this.speed = speed;
+		if(!oilFlag)
+			this.speed = speed;
 	}
 	/**
 	 * Position setter fuggveny (jelenlegi position)
