@@ -10,12 +10,26 @@ public class Player extends Robot {
 	private int distance;
 	private boolean oilFlag;
 	private int speed;
+	/**
+	 * A jatekos maradek leteheto foltjainak 
+	 */
 	private int spotCount;
+	/**
+	 * A jatekosok lepes utani uj pozicioja
+	 */
 	private Position nextPos;
+	/**
+	 * Enum ami jelzi akar-e foltot letenni a jatekos 
+	 */
 	private SpotCommand spotCommand;
 	private String name;
-	
+	/** 
+	 * A jatekosok altal leteheto foltok maximalis szama 
+	 */
 	public final static int MAX_SPOT = 5;
+	/**
+	 * Jatekosok kezdo sebessege
+	 */
 	public final static int START_SPEED = 1;
 	
 	public Player(String name, Position pos, HeadDirection headDir) {
