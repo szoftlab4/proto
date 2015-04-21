@@ -22,6 +22,10 @@ public class MicroMachine extends Robot {
 		setCollided(false);
 	}
 
+	public static void setCntr(int i){
+		cntr = i;
+	}
+	
 	public void update(Object Obs, Object Obj) {
 		if(dir == Direction.STAY){
 			this.checkProgress();

@@ -101,15 +101,15 @@ public class Main {
 			/**
 			 * Ha nincs érték, akkor nem történik semmi.
 			 */
-			if (words.length < 1 ) {
+			/*if (words.length < 1 ) {
 				currentLine = null;
 				return true;
-			}
+			}*/
 			
 			/**
 			 *  Ha #-gel kezdõdik, akkor az a sor komment, és kiíródik.
 			 */
-			if(words.length < 1 && words[0].charAt(0) == '#') {
+			if(words.length > 1 && words[0].charAt(0) == '#') {
 				if(words[0].charAt(0) == '#')
 					System.out.println(currentLine.substring(0,1));
 				currentLine = null;
@@ -295,6 +295,7 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("reset")) {
 				game = null;
 				game = new Game(0);
+				MicroMachine.setCntr(0);
 			}
 			
 			/**
