@@ -23,6 +23,10 @@ public class Robot extends Observable implements Observer {
 		return headDir;
 	}
 	
+	public void setHeadDirection(HeadDirection hd) {
+		headDir = hd;
+	}
+	
 	public Position getPosition() {
 		return pos;
 		

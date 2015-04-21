@@ -92,13 +92,16 @@ public class MapHandler implements Observer {
 				}
 			}
 			
+			System.out.println(unsorted.size());
+			
 			Boolean rowEnd = false;
 			
 			for(int i = 0; i <= mapWidth; i++){
 				for(int j = 0; j <= mapHeight; j++){
 					for(int l = 0; l < unsorted.size(); l++){
-						if(unsorted.get(l).getPos().getX() == i && unsorted.get(l).getPos().getY() == j ){
+						if(unsorted.get(l).getPos().getX() == i && unsorted.get(l).getPos().getY() == j){
 							map.add(unsorted.get(l));
+							System.out.println("Add: (" + i + "," + j + ")  Spot:" + unsorted.get(l).hasSpot());
 							break;
 						}
 						else if(l == unsorted.size()-1)
@@ -265,6 +268,7 @@ public class MapHandler implements Observer {
 					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
 				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo") && console)
 					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
+				
 				spots.add(mapelement);
 			}
 		}
@@ -321,11 +325,11 @@ public class MapHandler implements Observer {
 		return HeadDirection.DOWN;
 	}
 	
-	private void checkPosition(Player player){
+	public void checkPosition(Player player){
 		Position playerPos = player.getNextPos();
 		boolean playerIsAlive = false;
 		for(Position pos : road){
-			if(playerPos == pos)
+			if(playerPos.getX() == pos.getX() && playerPos.getY() == pos.getY() )
 				playerIsAlive = true;
 		}
 		
@@ -339,13 +343,13 @@ public class MapHandler implements Observer {
 	}
 	
 	public void addSpot(Position pos, Spot spot){
-		if(!map.get(posToIndex(pos)).isDummy())
+		//if(!map.get(posToIndex(pos)).isDummy())
 			map.get(posToIndex(pos)).addSpot(spot);
 	}
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
+		System.out.println("update");
 		//Elvileg kesz
 		Player player = (Player) o;
 		if(arg != null)

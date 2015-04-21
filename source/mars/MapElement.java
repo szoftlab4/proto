@@ -11,6 +11,8 @@ public class MapElement {
 	public MapElement(Position pos, Spot spot){
 		this.pos = pos;
 		this.spot = spot;
+		refPlayer = new ArrayList<Player>();
+		refMM = new ArrayList<MicroMachine>();
 	}
 
 	public void addSpot(Spot spot) {

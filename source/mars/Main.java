@@ -101,9 +101,13 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
 				Player player = findPlayer(words[1]);
 				if(words[2].equalsIgnoreCase("left"))				
-					player.setDirection(Direction.LEFT);
+					player.setHeadDirection(HeadDirection.LEFT);
 				else if(words[2].equalsIgnoreCase("right"))
-					player.setDirection(Direction.RIGHT);
+					player.setHeadDirection(HeadDirection.RIGHT);
+				else if(words[2].equalsIgnoreCase("up"))
+					player.setHeadDirection(HeadDirection.UP);
+				else if(words[2].equalsIgnoreCase("down"))
+					player.setHeadDirection(HeadDirection.DOWN);
 			}
 			
 			
@@ -169,8 +173,10 @@ public class Main {
 			}
 			else if (words[0].equalsIgnoreCase("stepPlayer")) {
 				for (Player player : game.getPlayers()) {
-					if(player.getName().equalsIgnoreCase(words[1]))
+					if(player.getName().equalsIgnoreCase(words[1]) && player.isAlive()){
 						player.testStep();
+						game.getMapHandler().checkPosition(player);
+					}
 				}
 			}
 			else if (words[0].equalsIgnoreCase("stepRobot")) {
