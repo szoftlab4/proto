@@ -260,7 +260,12 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("listRobots")) {
 				System.out.println("----------------------------------------------------------------------");
 				for (int i = 0; i < game.getMicroMachine().size(); i++) {
-					System.out.println((i + 1) + "., (" + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getY() + "), " + game.getMicroMachine().get(i).getDirection());
+					if(game.getMicroMachine().get(i).isAlive())
+						System.out.println((i + 1) + "., (" + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getY() + "), " + game.getMicroMachine().get(i).getDirection() + ", alive");
+					else
+						System.out.println((i + 1) + "., (" + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getY() + "), " + game.getMicroMachine().get(i).getDirection() + " dead");
+
+					
 				}
 			}
 			
