@@ -152,13 +152,15 @@ public class MapHandler implements Observer {
 			MapElement m = map.get(posToIndex(road.get(i)));
 			if(!m.hasSpot())
 				cnt++;
-			return cnt;
+			else
+				return cnt;
 		}
 		for(int i = road.size()-1 ; posIndex < i; i-- ){
 			MapElement m = map.get(posToIndex(road.get(i)));
 			if(!m.hasSpot())
 				cnt++;
-			return cnt;
+			else
+				return cnt;
 		}
 		return -1;
 	}
@@ -169,13 +171,15 @@ public class MapHandler implements Observer {
 			MapElement m = map.get(posToIndex(road.get(i)));
 			if(!m.hasSpot())
 				cnt++;
-			return cnt;
+			else
+				return cnt;
 		}
 		for(int i = 0; i< posIndex ; i++ ){
 			MapElement m = map.get(posToIndex(road.get(i)));
 			if(!m.hasSpot())
 				cnt++;
-			return cnt;
+			else
+				return cnt;
 		}
 		return -1;
 	}
