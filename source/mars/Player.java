@@ -162,19 +162,19 @@ public class Player extends Robot {
 		System.out.println(headDir.toString());
 		switch (headDir) {
 			case UP:
-				nextPos.setPosition(pos.getX() - speed, pos.getY());
+				nextPos.setPosition(pos.getX(), pos.getY() - speed);
 				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " u ");
 				break;
 			case RIGHT:
-				nextPos.setPosition(pos.getX(), pos.getY() + speed);
+				nextPos.setPosition(pos.getX() + speed, pos.getY());
 				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " r ");
 				break;
 			case DOWN:
-				nextPos.setPosition(pos.getX() + speed, pos.getY());
+				nextPos.setPosition(pos.getX(), pos.getY() + speed);
 				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " d ");
 				break;
 			case LEFT:
-				nextPos.setPosition(pos.getX(), pos.getY() - speed);
+				nextPos.setPosition(pos.getX() - speed, pos.getY());
 				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " l ");
 				break;
 			default:

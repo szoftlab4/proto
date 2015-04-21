@@ -32,6 +32,9 @@ public class MapElement {
 			spot.handlePlayer(player);
 		}
 		addPlayerRef(player);
+		
+		System.out.println("MapElement.handle(map): " + pos.getX() + ":" + pos.getY());
+		System.out.println("MapElement.handle(játékos): " + player.getPosition().getX() + ":" + player.getPosition().getY());
 	}
 
 	public void checkSpot() {

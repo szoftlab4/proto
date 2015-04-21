@@ -6,6 +6,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -92,12 +93,16 @@ public class MapHandler implements Observer {
 				}
 			}
 			
+			mapHeight++;
+			mapWidth++;
+			
 			System.out.println(unsorted.size());
 			
 			Boolean rowEnd = false;
 			
-			for(int i = 0; i <= mapWidth; i++){
-				for(int j = 0; j <= mapHeight; j++){
+			
+			for(int j = 0; j < mapHeight; j++){
+				for(int i = 0; i < mapWidth; i++){
 					for(int l = 0; l < unsorted.size(); l++){
 						if(unsorted.get(l).getPos().getX() == i && unsorted.get(l).getPos().getY() == j){
 							map.add(unsorted.get(l));
@@ -108,11 +113,14 @@ public class MapHandler implements Observer {
 							rowEnd = true;
 						else if (rowEnd){
 							map.add(new MapElement(new Position(-1, -1), null));
+							System.out.println("Add: (-1,-1)  Spot:" + unsorted.get(l).hasSpot());
 							rowEnd = false;
 						}
 					}
 				}
 			}
+			
+			System.out.println(map.size());
 			
 			System.out.println("\nSikeresen betöltöttük a pályát.");
 			
@@ -243,9 +251,6 @@ public class MapHandler implements Observer {
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
-			
-			
-		
 	}
 
 	public void deleteSpot(Position pos) {
@@ -258,9 +263,28 @@ public class MapHandler implements Observer {
 		}
 	}
 	
+	
+	/// DEBUG FOR TEST START
+	public void writeWidthHeight(){
+		System.out.println("mapHeight: " + mapHeight + " mapWidth: " + mapWidth);
+	}
+	
+	public void writeElements(){
+		for (int i = 0; i < map.size(); i++){
+			int x = map.get(i).getPos().getX();
+			int y = map.get(i).getPos().getY();
+			System.out.println("index baaazmeeeg: " + i + ".     x: " + x + ",  y: " + y);
+		}
+	}
+	
+	
+	
+	
+	///DEBUG FOR TEST END
+	
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
-		return pos.getY()*mapWidth + pos.getX();
+		return pos.getY()*mapHeight + pos.getX();
 	}
 	
 	public ArrayList<MapElement> getSpots(Boolean console){
