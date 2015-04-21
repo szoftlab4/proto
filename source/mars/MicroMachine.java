@@ -26,6 +26,15 @@ public class MicroMachine extends Robot {
 		
 	}
 	
+	public void testupdate() {
+		if(dir == Direction.STAY){
+			this.checkProgress();
+		}
+		else
+			this.step();
+		
+	}
+	
 	public void reset() {
 		doneCleaning = false;
 		progress = 0;

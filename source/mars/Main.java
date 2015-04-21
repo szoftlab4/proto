@@ -173,7 +173,7 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("listRobots")) {
 				System.out.println("----------------------------------------------------------------------");
 				for (int i = 0; i < game.getMicroMachine().size(); i++) {
-					System.out.println((i + 1) + "., " + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getX() + "), " + game.getMicroMachine().get(i).getDirection());
+					System.out.println((i + 1) + "., (" + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getY() + "), " + game.getMicroMachine().get(i).getDirection());
 				}
 			}
 			else if (words[0].equalsIgnoreCase("listSpots")) {
@@ -213,13 +213,15 @@ public class Main {
 				}
 				else
 					System.out.println("Nincs ilyen játékos.");
-			}/*
+			}
 			else if (words[0].equalsIgnoreCase("stepRobot")) {
 				for (MicroMachine robot : game.getMicroMachine()) {
-					if(robot.getIndex() == Integer.parseInt(words[1]))
-						robot.step();	
+					if(robot.getIndex() == Integer.parseInt(words[1])){
+						game.getMapHandler().setMMDirection(robot);
+						robot.testupdate();
+					}
 				}
-			}*/
+			}
 			else
 				System.out.println("Hibás parancs: " + words[0]);
 		
