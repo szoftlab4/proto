@@ -6,7 +6,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.Random;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MaximizeAction;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -52,8 +51,6 @@ public class MapHandler implements Observer {
 			
 			mapName = ((Element) name.item(0)).getTextContent();
 			
-			//System.out.println(mapName);
-			
 			int x, y;
 			String spot;
 			ArrayList<MapElement> unsorted = new ArrayList<MapElement>();
@@ -97,36 +94,26 @@ public class MapHandler implements Observer {
 			mapHeight++;
 			mapWidth++;
 			
-			System.out.println(unsorted.size());
-			
 			Boolean rowEnd = false;
-			
 			
 			for(int j = 0; j < mapHeight; j++){
 				for(int i = 0; i < mapWidth; i++){
 					for(int l = 0; l < unsorted.size(); l++){
 						if(unsorted.get(l).getPos().getX() == i && unsorted.get(l).getPos().getY() == j){
 							map.add(unsorted.get(l));
-							System.out.println("Add: (" + i + "," + j + ")  Spot:" + unsorted.get(l).hasSpot());
 							break;
 						}
 						else if(l == unsorted.size()-1)
 							rowEnd = true;
 						else if (rowEnd){
 							map.add(new MapElement(new Position(-1, -1), null));
-							System.out.println("Add: (-1,-1)  Spot:" + unsorted.get(l).hasSpot());
 							rowEnd = false;
 						}
 					}
 				}
 			}
 			
-			System.out.println(map.size());
-			
 			System.out.println("\nSikeresen betöltöttük a pályát.");
-			
-			/*for(int i = 0; i < map.size(); i++)
-				System.out.println("x: " + map.get(i).getPos().getX() + " y: " + map.get(i).getPos().getY() + " spot: " + map.get(i).getSpot());*/
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -266,18 +253,6 @@ public class MapHandler implements Observer {
 	
 	
 	/// DEBUG FOR TEST START
-	public void writeWidthHeight(){
-		System.out.println("mapHeight: " + mapHeight + " mapWidth: " + mapWidth);
-	}
-	
-	public void writeElements(){
-		for (int i = 0; i < map.size(); i++){
-			int x = map.get(i).getPos().getX();
-			int y = map.get(i).getPos().getY();
-			System.out.println("index baaazmeeeg: " + i + ".     x: " + x + ",  y: " + y);
-		}
-	}
-	
 	public String getMapName(){
 		return mapName;
 	}
@@ -286,8 +261,6 @@ public class MapHandler implements Observer {
 	
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
-		System.out.println("{" + pos.getX() + "," + pos.getY() + "}");
-		System.out.println("posToIndexMagic: " + (pos.getY()*mapHeight + pos.getX()));
 		return pos.getY() * mapWidth + pos.getX();
 	}
 	
@@ -381,7 +354,6 @@ public class MapHandler implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("MapHandler update-je");
 		//Elvileg kesz
 		Player player = (Player) o;
 		if(arg != null)

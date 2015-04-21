@@ -115,14 +115,6 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
-			else if (words[0].equalsIgnoreCase("baszki")) {
-				for (MapElement map : game.getMapHandler().getMap()) {
-					if(map.hasSpot())
-						System.out.println("(" + map.getPos().getX() + ":" + map.getPos().getY() + ")" + "  spot: " + map.getSpot().toString());
-					else
-						System.out.println("(" + map.getPos().getX() + ":" + map.getPos().getY() + ")" + "  spot: " + map.hasSpot());
-				}
-			}
 			//kész
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
 				if(findPlayer(words[1])){
@@ -214,10 +206,10 @@ public class Main {
 				if(findPlayer(words[1])){
 					for (Player player : game.getPlayers()) {
 						if(player.getName().equalsIgnoreCase(words[1])){
-							System.out.println("teststepet hívok");
 							player.testStep();
 						}
 					}
+					game.getMapHandler().checkSpots();
 				}
 				else
 					System.out.println("Nincs ilyen játékos.");
@@ -269,8 +261,6 @@ public class Main {
 		
 		//info();
 		game.getMapHandler().loadMap("test1.map");
-		game.getMapHandler().writeWidthHeight();
-		game.getMapHandler().writeElements();
 		
 		while (getNextCommand()) {
 			;

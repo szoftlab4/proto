@@ -19,8 +19,7 @@ public class Goo implements Spot {
 	}
 
 	public boolean isDeletable() {
-		
-		return durability == 0;
+		return durability <= 0;
 	}
 	
 	public int getDurability(){

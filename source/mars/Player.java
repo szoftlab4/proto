@@ -88,7 +88,6 @@ public class Player extends Robot {
 		//Ez majd leptetni fogja a jatekost es lerakja a spotot ha kell
 		//update(null,null);
 		testUpdate();
-		
 	}
 	
 	private void testUpdate(){
@@ -112,7 +111,6 @@ public class Player extends Robot {
 	
 	// TODO
 	public void update(Object observable, Object object) {
-		System.out.println("Player update-je");
 		if(this.isAlive()){
 			this.step();
 			switch(spotCommand){
@@ -159,23 +157,18 @@ public class Player extends Robot {
 	
 	private void calculateNewPos() {
 		headDir = this.convertDir();
-		System.out.println(headDir.toString());
 		switch (headDir) {
 			case UP:
 				nextPos.setPosition(pos.getX(), pos.getY() - speed);
-				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " u ");
 				break;
 			case RIGHT:
 				nextPos.setPosition(pos.getX() + speed, pos.getY());
-				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " r ");
 				break;
 			case DOWN:
 				nextPos.setPosition(pos.getX(), pos.getY() + speed);
-				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " d ");
 				break;
 			case LEFT:
 				nextPos.setPosition(pos.getX() - speed, pos.getY());
-				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " l ");
 				break;
 			default:
 				break;
