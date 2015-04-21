@@ -33,12 +33,21 @@ public class Main {
 			return HeadDirection.DOWN;
 	}
 	
-	public static Player findPlayer(String name){
+	public static Player getFindPlayer(String name){
 		for (Player player : game.getPlayers()) {
 			if(player.getName().equalsIgnoreCase(name))
 				return player;
 		}
 		return null;
+	}
+	
+	public static boolean findPlayer(String name){
+		Boolean findEquals = false;
+		for (Player player : game.getPlayers()) {
+			if(player.getName().equalsIgnoreCase(name))
+				findEquals = true;
+		}
+		return findEquals;
 	}
 	
 	public static boolean getNextCommand(){
@@ -62,14 +71,19 @@ public class Main {
 			
 			// parancsok feldolgozása
 			if (words[0].equalsIgnoreCase("addPlayer")) {
-				if(words[4].equalsIgnoreCase("up"))
-						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.UP));
-				else if(words[4].equalsIgnoreCase("right"))
-						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.RIGHT));
-				else if(words[4].equalsIgnoreCase("down"))
-						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.DOWN));
-				else if(words[4].equalsIgnoreCase("left"))
-						game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.LEFT));
+				
+				if(!findPlayer(words[1])){
+					if(words[4].equalsIgnoreCase("up"))
+							game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.UP));
+					else if(words[4].equalsIgnoreCase("right"))
+							game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.RIGHT));
+					else if(words[4].equalsIgnoreCase("down"))
+							game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.DOWN));
+					else if(words[4].equalsIgnoreCase("left"))
+							game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.LEFT));
+				}
+				else
+					System.out.println("Ez a név már foglalt.");
 			}
 			else if (words[0].equalsIgnoreCase("addRobot")) {
 				
@@ -91,37 +105,43 @@ public class Main {
 			}
 			//kész
 			else if (words[0].equalsIgnoreCase("addSpotPlayer")) {
-				Player player = findPlayer(words[1]);
-				if(words[2].equalsIgnoreCase("oil"))
-					player.putOilSpot();
-				else if(words[2].equalsIgnoreCase("goo"))
-					player.putGooSpot();
+				if(findPlayer(words[1])){
+					Player player = getFindPlayer(words[1]);
+					if(words[2].equalsIgnoreCase("oil"))
+						player.putOilSpot();
+					else if(words[2].equalsIgnoreCase("goo"))
+						player.putGooSpot();
+				}
+				else
+					System.out.println("Nincs ilyen játékos.");
 			}
 			//kész
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
-				Player player = findPlayer(words[1]);
-				if(words[2].equalsIgnoreCase("left"))				
-					player.setHeadDirection(HeadDirection.LEFT);
-				else if(words[2].equalsIgnoreCase("right"))
-					player.setHeadDirection(HeadDirection.RIGHT);
-				else if(words[2].equalsIgnoreCase("up"))
-					player.setHeadDirection(HeadDirection.UP);
-				else if(words[2].equalsIgnoreCase("down"))
-					player.setHeadDirection(HeadDirection.DOWN);
+				if(findPlayer(words[1])){
+					Player player = getFindPlayer(words[1]);
+					if(words[2].equalsIgnoreCase("left"))				
+						player.setHeadDirection(HeadDirection.LEFT);
+					else if(words[2].equalsIgnoreCase("right"))
+						player.setHeadDirection(HeadDirection.RIGHT);
+					else if(words[2].equalsIgnoreCase("up"))
+						player.setHeadDirection(HeadDirection.UP);
+					else if(words[2].equalsIgnoreCase("down"))
+						player.setHeadDirection(HeadDirection.DOWN);
+				}
+				else
+					System.out.println("Nincs ilyen játékos.");
 			}
 			
 			
 			//kész
 			else if (words[0].equalsIgnoreCase("changeSpeed")) {
-				
-				Player player = findPlayer(words[1]);
-				/*if(words[2].equalsIgnoreCase("forward"))				
-					player.setSpeed(player.getSpeed() + 1);
-				else if(words[2].equalsIgnoreCase("backward") && player.getSpeed() > 1)
-					player.setSpeed(player.getSpeed() - 1);*/
-				player.setSpeed(Integer.parseInt(words[2]));
+				if(findPlayer(words[1])){
+					Player player = getFindPlayer(words[1]);
+					player.setSpeed(Integer.parseInt(words[2]));
+				}
+				else
+					System.out.println("Nincs ilyen játékos.");
 			}
-			
 			
 			//kész
 			else if (words[0].equalsIgnoreCase("exit")) {
@@ -168,7 +188,7 @@ public class Main {
 			}
 			//kész
 			else if (words[0].equalsIgnoreCase("setPlayerPosition")) {
-				Player player = findPlayer(words[1]);
+				Player player = getFindPlayer(words[1]);
 				player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
 			}
 			else if (words[0].equalsIgnoreCase("stepPlayer")) {
