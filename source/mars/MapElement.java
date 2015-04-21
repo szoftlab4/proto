@@ -152,6 +152,7 @@ public class MapElement {
 			//Ha van akkor mindenkeppen meghalnak a kisrobotok
 			for(MicroMachine mm : refMM){
 				mm.setAlive(false);
+				this.spot=mm.getOilSpot();
 			}
 			//Utkoztetjuk a jatekosokat, egy jatekosra is mukodik
 			collidePlayers();
