@@ -81,8 +81,12 @@ public class Player extends Robot {
 
 	public void testStep(){
 		//this.step();
-		this.calculateNewPos();
-		this.pos = this.nextPos;
+		//this.calculateNewPos();
+		//this.pos = this.nextPos;
+		//A parametereket ugy se hasznaljuk es ez elvileg a timertol jonne
+		//Nem kene kulon olajat lerakni, hanem a SpotCommandot beallitani es ezt a fuggvenyt hivni
+		//Ez majd leptetni fogja a jatekost es lerakja a spotot ha kell
+		update(null,null);
 	}
 	
 	// TODO
