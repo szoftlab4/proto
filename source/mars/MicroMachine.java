@@ -55,6 +55,7 @@ public class MicroMachine extends Robot {
 	public void update(Object Obs, Object Obj) {
 		if(dir == Direction.STAY){
 			this.checkProgress();
+			this.setCollided(false);
 		}
 		else
 			this.step();
@@ -72,30 +73,47 @@ public class MicroMachine extends Robot {
 			this.step();
 		
 	}
-	
+	/**
+	 * nem hasznalt fuggveny
+	 */
 	public void reset() {
 		doneCleaning = false;
 		progress = 0;
 		dir = Direction.FORWARD;
+		collided=false;
 		
 	}
-
+	/**
+	 * olajfolt letrehozasa es visszaadasa
+	 * @return new Oil()
+	 */
 	public Oil getOilSpot() {
 		return new Oil();
 	}
-	
+	/**
+	 * HeadDir getter fuggveny
+	 * @return headDir
+	 */
 	public HeadDirection getHeadDir(){
 		return headDir;
 	}
-
+	/**
+	 * Direction setter fuggveny
+	 * @param D
+	 */
 	public void setDirection(Direction D) {
 		dir = D;
 	}
-
+	/**
+	 * doneCleaning boolean lekerdezese
+	 * @return doneCleaning
+	 */
 	public boolean isDoneCleaning() {
 		return this.doneCleaning;
 	}
-	
+	/**
+	 * Micromachine iranyanak meginvertalasa
+	 */
 	public void invertDir(){
 		if(dir==Direction.STAY && doneCleaning == false){
 			dir=Direction.STAY;
@@ -104,9 +122,10 @@ public class MicroMachine extends Robot {
 			dir=Direction.BACKWARD;
 
 	}
-	
-	//ez private
-	public void step(){
+	/**
+	 * MicroMachine leptetese,kiszamoljuk milyen iranyba kell mennunk a dir parancs alapjan es atallitjuk a pozicionkat,az utkozest jelzo flaget visszaallitjuk
+	 */
+	private void step(){
 		this.setCollided(false);
 
 		headDir=this.convertDir();
@@ -127,7 +146,9 @@ public class MicroMachine extends Robot {
 			break;
 		}
 	} 
-	
+	/**
+	 * a takaritas allapotanak ellenorzese,es lekezelese ha kesz(jelzese)
+	 */
 	private void checkProgress(){
 		progress++;
 		if(progress == 2){
@@ -135,15 +156,24 @@ public class MicroMachine extends Robot {
 			progress = 0;
 		}
 	}
-	
+	/**
+	 * ID getter
+	 * @return index
+	 */
 	public int getIndex(){
 		return index;
 	}
-
+	/**
+	 * Collided boolean ellenorzese
+	 * @return collided
+	 */
 	public boolean isCollided() {
 		return collided;
 	}
-
+	/**
+	 * collided setter
+	 * @param collided
+	 */
 	public void setCollided(boolean collided) {
 		this.collided = collided;
 	}
