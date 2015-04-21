@@ -1,37 +1,45 @@
 package mars;
 
 /**
- * 
- *          NAGYJÁBÓL KÉSZEN VAN....................................................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- *			4 TODO van hátra
+ * A játékosok adatait és állapotát tárolja. Kiszámolja az új pozíciót a sebessége és
+ * az iránya alapján(ugrás). A MapHandlerrel a notifyObservers metódusán keresztül
+ * kommunikál(a Player referencia átadása a MapHandler update függvényének, illetve
+ * folt átadása ha foltot akar a játékos letenni).
  */
-
 public class Player extends Robot {
 	private int distance;
 	private boolean oilFlag;
 	private int speed;
+	
 	/**
 	 * A jatekos maradek leteheto foltjainak 
 	 */
 	private int spotCount;
+	
 	/**
 	 * A jatekosok lepes utani uj pozicioja
 	 */
 	private Position nextPos;
+	
 	/**
-	 * Enum ami jelzi akar-e foltot letenni a jatekos 
+	 * Enum ami jelzi akar-e foltot letenni a jatekos.
 	 */
 	private SpotCommand spotCommand;
 	private String name;
+	
 	/** 
-	 * A jatekosok altal leteheto foltok maximalis szama 
+	 * A jatekosok altal leteheto foltok maximalis szama.
 	 */
 	public final static int MAX_SPOT = 5;
+	
 	/**
-	 * Jatekosok kezdo sebessege
+	 * Jatekosok kezdo sebessege.
 	 */
 	public final static int START_SPEED = 1;
 	
+	/**
+	 * Inicializálás.
+	 */
 	public Player(String name, Position pos, HeadDirection headDir) {
 		this.name = name;
 		this.pos = pos;
@@ -45,72 +53,10 @@ public class Player extends Robot {
 		spotCommand = SpotCommand.NOSPOT;
 		nextPos = new Position(0, 0);
 	}
-	/**
-	 * Name getter fuggveny
-	 * @return name
-	 */
-	public String getName(){
-		return name;
-	}
-	/**
-	 * Distance getter fuggveny
-	 * @return distance
-	 */
-	public int getDistance() {
-		return this.distance;
-	}
-	/**
-	 * Speed getter fuggveny
-	 * @return speed
-	 */
-	public int getSpeed() {
-		return this.speed;
-	}
-	/**
-	 * Oilflag setter fuggveny
-	 * @param value
-	 */
-	public void setOilFlag(boolean value) {
-		this.oilFlag = value;
-	}
-/**
- * Speed setter fuggveny
- * @param speed
- */
-	public void setSpeed(int speed) {
-		if(!oilFlag)
-			this.speed = speed;
-	}
-	/**
-	 * Position setter fuggveny (jelenlegi position)
-	 * @param pos
-	 */
-	public void setPosition(Position pos){
-		this.pos = pos;
-	}
-	/**
-	 * Direction setter fuggveny
-	 * @param dir
-	 */
-	public void setDirection(Direction dir){
-		this.dir = dir;
-	}
-	/**
-	 * Spotcommand setter fuggveny
-	 * @param sc
-	 */
-	public void setSpotCommand(SpotCommand sc){
-		this.spotCommand = sc;
-	}
-	/**
-	 * Nextpos getter fuggveny(lepes utani position) 
-	 * @return
-	 */
-	public Position getNextPos() {
-		return this.nextPos;
-	}
 
-	// TODO position
+	/**
+	 * Nem használjuk a prototipusban.
+	 */
 	public void reset() {
 		speed = START_SPEED;
 		distance = 0;
@@ -120,6 +66,7 @@ public class Player extends Robot {
 		dir = Direction.FORWARD;
 		
 	}
+	
 	/**
 	 * teszt metodus a jatekos leptetesere
 	 */
@@ -133,6 +80,7 @@ public class Player extends Robot {
 		//update(null,null);
 		testUpdate();
 	}
+	
 	/**
 	 * Az update metodus timer nelkuli tesztelesere
 	 * Ellenorizzik hogy el-e a jatekos lepes elott
@@ -158,14 +106,14 @@ public class Player extends Robot {
 		}
 	}
 	
-		/**
-		 * Ellenorizzik hogy el-e a jatekos lepes elott
-		 * A spotCommand valtozonk alapjan tudjuk hogy a jatekos lepeskor akart-e foltot letenni
-		 * Ha nem akkor csak lep,ha akart Goo-t vagy oil-t tenni akkor aszerint hivjuk a folt lerako fuggvenyeket
-		 * spotCommand alaphelyzetbe allitasa (NOSPOT)
-		 * @param observable
-		 * @param object
-		 */
+	/**
+	 * Ellenorizzik hogy el-e a jatekos lepes elott
+	 * A spotCommand valtozonk alapjan tudjuk hogy a jatekos lepeskor akart-e foltot letenni
+	 * Ha nem akkor csak lep,ha akart Goo-t vagy oil-t tenni akkor aszerint hivjuk a folt lerako fuggvenyeket
+	 * spotCommand alaphelyzetbe allitasa (NOSPOT)
+	 * @param observable
+	 * @param object
+	 */
 	public void update(Object observable, Object object) {
 		if(this.isAlive()){
 			this.step();
@@ -187,13 +135,20 @@ public class Player extends Robot {
 		}
 	}
 	
-	// TODO
+	/**
+	 * Játékos léptetésének a lebonyolítása, megfelelõ függvénnyek meghívása
+	 */
 	private void step() {
 		this.calculateNewSpeed();
 		this.calculateNewPos();
 		this.dir = Direction.STAY;
 	}
 	
+	/**
+	 * A játékos inputja alapján új sebesség kiszámítása,oilFlag ellenõrzése 
+	 * (ha az oilFlag aktív akkor a sebesség módosítás nem lehetséges ebben a
+	 *  körben,visszabillentjük false értékre).
+	 */
 	private void calculateNewSpeed() {
 		if(!oilFlag){
 			switch(dir){
@@ -211,6 +166,10 @@ public class Player extends Robot {
 		setOilFlag(false);
 	}
 	
+	/**
+	 *  A sebesség és irány függvényében(az alkalmazott irány számításáról lásd 
+	 *  bõvebben a Robot õsosztályt) kiszámoljuk a nextPos értékét(az ugrás végpontja).
+	 */
 	private void calculateNewPos() {
 		headDir = this.convertDir();
 		switch (headDir) {
@@ -231,6 +190,9 @@ public class Player extends Robot {
 		}
 	}
 	
+	/**
+	 * Lerak egy olaj foltot a jelenlegi pozícióra.
+	 */
 	public void putOilSpot() {
 		setChanged();
 		if(spotCount > 0){
@@ -242,6 +204,9 @@ public class Player extends Robot {
 		
 	}
 	
+	/**
+	 * Lerak egy ragacs foltot a jelenlegi pozícióra.
+	 */
 	public void putGooSpot() {
 		setChanged();
 		if(spotCount > 0){
@@ -252,11 +217,91 @@ public class Player extends Robot {
 			this.notifyObservers();
 	}
 	
+	/**
+	 * Visszaadja az oilFlag értékét. 
+	 */
 	public boolean getOilFlag(){
 		return oilFlag;
 	}
 	
+	/**
+	 * Lerakható foltok számával tér vissza.
+	 * @return
+	 */
 	public int getSpotCount(){
 		return spotCount;
+	}
+	
+	/**
+	 * Name getter fuggveny
+	 * @return name
+	 */
+	public String getName(){
+		return name;
+	}
+	
+	/**
+	 * Distance getter fuggveny
+	 * @return distance
+	 */
+	public int getDistance() {
+		return this.distance;
+	}
+	
+	/**
+	 * Speed getter fuggveny
+	 * @return speed
+	 */
+	public int getSpeed() {
+		return this.speed;
+	}
+	
+	/**
+	 * Oilflag setter fuggveny
+	 * @param value
+	 */
+	public void setOilFlag(boolean value) {
+		this.oilFlag = value;
+	}
+	
+	/**
+	 * Speed setter fuggveny
+	 * @param speed
+	 */
+	public void setSpeed(int speed) {
+		if(!oilFlag)
+			this.speed = speed;
+	}
+	
+	/**
+	 * Position setter fuggveny (jelenlegi position)
+	 * @param pos
+	 */
+	public void setPosition(Position pos){
+		this.pos = pos;
+	}
+	
+	/**
+	 * Direction setter fuggveny
+	 * @param dir
+	 */
+	public void setDirection(Direction dir){
+		this.dir = dir;
+	}
+	
+	/**
+	 * Spotcommand setter fuggveny
+	 * @param sc
+	 */
+	public void setSpotCommand(SpotCommand sc){
+		this.spotCommand = sc;
+	}
+	
+	/**
+	 * Nextpos getter fuggveny(lepes utani position) 
+	 * @return
+	 */
+	public Position getNextPos() {
+		return this.nextPos;
 	}
 }

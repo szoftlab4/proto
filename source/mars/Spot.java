@@ -1,5 +1,8 @@
 package mars;
 
+/**
+ * A foltok közös interfésze.
+ */
 public interface Spot {
 
 	public void handlePlayer(Player player);

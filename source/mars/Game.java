@@ -70,7 +70,7 @@ public class Game {
 	/**
 	 * Getterek, setterek.
 	 */
-	
+
 	public MapHandler getMapHandler(){
 		return mapHandler;
 	}
@@ -86,10 +86,9 @@ public class Game {
 	
 	
 	
-	/**
+	/**************************************
 	 * Nincs használva a prototípusban
 	 */
-
 	@SuppressWarnings("unused")
 	private void addPlayers(){
 		for(int i=0; i<playerCount; i++){
