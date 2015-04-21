@@ -27,7 +27,7 @@ public class Player extends Robot {
 		oilFlag = false;
 		spotCount = MAX_SPOT;
 		setAlive(true);
-		dir = Direction.FORWARD;
+		dir = Direction.STAY;
 		spotCommand = SpotCommand.NOSPOT;
 		nextPos = new Position(0, 0);
 	}
@@ -86,7 +86,28 @@ public class Player extends Robot {
 		//A parametereket ugy se hasznaljuk es ez elvileg a timertol jonne
 		//Nem kene kulon olajat lerakni, hanem a SpotCommandot beallitani es ezt a fuggvenyt hivni
 		//Ez majd leptetni fogja a jatekost es lerakja a spotot ha kell
-		update(null,null);
+		//update(null,null);
+		testUpdate();
+		
+	}
+	
+	private void testUpdate(){
+		if(this.isAlive()){
+			this.step();
+			switch(spotCommand){
+				case NOSPOT:
+					setChanged();
+					notifyObservers();
+					break;
+				case GOO:
+					this.putGooSpot();
+					break;
+				case OIL:
+					this.putOilSpot();
+					break;
+			}
+			setSpotCommand(SpotCommand.NOSPOT);
+		}
 	}
 	
 	// TODO
@@ -142,19 +163,19 @@ public class Player extends Robot {
 		switch (headDir) {
 			case UP:
 				nextPos.setPosition(pos.getX() - speed, pos.getY());
-				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " u ");
+				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " u ");
 				break;
 			case RIGHT:
 				nextPos.setPosition(pos.getX(), pos.getY() + speed);
-				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " r ");
+				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " r ");
 				break;
 			case DOWN:
 				nextPos.setPosition(pos.getX() + speed, pos.getY());
-				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " d ");
+				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " d ");
 				break;
 			case LEFT:
 				nextPos.setPosition(pos.getX(), pos.getY() - speed);
-				System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " l ");
+				//System.out.println(pos.getX() + "  :  " + pos.getY() + "    SPEED: " + speed + "nextpos:   (" + nextPos.getX() + ";" + nextPos.getY() + " l ");
 				break;
 			default:
 				break;
