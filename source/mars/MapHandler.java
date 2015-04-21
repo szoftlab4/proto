@@ -343,7 +343,7 @@ public class MapHandler implements Observer {
 		int x = pos.getX();
 		int y = pos.getY();
 		if(isValidCoordinate(x,y+1))
-			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
+			if(!map.get(posToIndex(new Position(x,y-1))).isDummy())
 				return HeadDirection.UP;
 		if(isValidCoordinate(x+1,y))
 			if(!map.get(posToIndex(new Position(x+1,y))).isDummy())
@@ -352,7 +352,7 @@ public class MapHandler implements Observer {
 			if(!map.get(posToIndex(new Position(x-1,y))).isDummy())
 				return HeadDirection.LEFT;
 		if(isValidCoordinate(x,y-1))
-			if(!map.get(posToIndex(new Position(x,y-1))).isDummy())
+			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
 				return HeadDirection.DOWN;
 		return HeadDirection.DOWN;
 	}
