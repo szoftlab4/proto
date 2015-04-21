@@ -20,6 +20,7 @@ public class Game {
 		playerCount = cnt;
 		mapHandler = new MapHandler();
 		players = new ArrayList<Player>();
+		microMashines = new ArrayList<MicroMachine>();
 		init();
 	}
 

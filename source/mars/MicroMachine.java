@@ -25,7 +25,7 @@ public class MicroMachine extends Robot {
 			this.step();
 		
 	}
-
+	
 	public void reset() {
 		doneCleaning = false;
 		progress = 0;
