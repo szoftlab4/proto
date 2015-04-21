@@ -288,7 +288,7 @@ public class MapHandler implements Observer {
 	 * Ütköztetés elindítása.
 	 */
 	public void startCollisions() {
-		System.out.println("elindult az utkoztetes...");
+		//System.out.println("elindult az utkoztetes...");
 		for(Position pos : road){
 			map.get(posToIndex(pos)).handleCollision();
 		}
