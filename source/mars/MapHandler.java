@@ -1,6 +1,7 @@
 package mars;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -115,6 +116,9 @@ public class MapHandler implements Observer {
 			
 			System.out.println("\nSikeresen betöltöttük a pályát.");
 			
+		} catch (FileNotFoundException e){
+			e.printStackTrace();
+			System.out.println("\nSikertelen a pálya betöltése.");
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("\nSikertelen a pálya betöltése.");

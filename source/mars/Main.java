@@ -70,8 +70,7 @@ public class Main {
 			}catch(Exception e){}
 			
 			// parancsok feldolgozása
-			if (words[0].equalsIgnoreCase("addPlayer") && words.length > 1) {
-				
+			if (words[0].equalsIgnoreCase("addPlayer") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != ""){
 				if(!findPlayer(words[1])){
 					if(words[4].equalsIgnoreCase("up"))
 							game.addPlayer(new Player(words[1], new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])), HeadDirection.UP));
@@ -85,7 +84,7 @@ public class Main {
 				else
 					System.out.println("Ez a név már foglalt.");
 			}
-			else if (words[0].equalsIgnoreCase("addRobot") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("addRobot") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				
 				if(words[3].equalsIgnoreCase("up"))
 					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.UP));
@@ -97,14 +96,14 @@ public class Main {
 					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.LEFT));
 			}
 			//kész
-			else if (words[0].equalsIgnoreCase("addSpot") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("addSpot") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				if(words[3].equalsIgnoreCase("oil"))
 					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Oil());
 				else if(words[3].equalsIgnoreCase("goo"))
 					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Goo());
 			}
 			//kész
-			else if (words[0].equalsIgnoreCase("addSpotPlayer") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("addSpotPlayer") &&  words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
 					if(words[2].equalsIgnoreCase("oil"))
@@ -116,7 +115,7 @@ public class Main {
 					System.out.println("Nincs ilyen játékos.");
 			}
 			//kész
-			else if (words[0].equalsIgnoreCase("changeDirection") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("changeDirection") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
 					if(words[2].equalsIgnoreCase("left"))				
@@ -131,10 +130,8 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
-			
-			
 			//kész
-			else if (words[0].equalsIgnoreCase("changeSpeed") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("changeSpeed") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
 					player.setSpeed(Integer.parseInt(words[2]));
@@ -150,7 +147,7 @@ public class Main {
 				System.exit(0);
 			}
 			
-			else if (words[0].equalsIgnoreCase("incTime") && words.length > 1) {				
+			else if (words[0].equalsIgnoreCase("incTime") && words.length > 1 && words[1] != "") {				
 				for (MapElement mapElement : game.getMapHandler().getSpots(false)) {
 					if(mapElement.getSpot().toString().equalsIgnoreCase("oil"))
 						((Oil) mapElement.getSpot()).inc(Integer.parseInt(words[1]));						
@@ -183,7 +180,7 @@ public class Main {
 				System.out.println("----------------------------------------------------------------------");
 				game.getMapHandler().getSpots(true);
 			}
-			else if (words[0].equalsIgnoreCase("loadMap") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("loadMap") && words.length > 1 && words[1] != "") {
 				if(game.getMapHandler().getMapName() == null)
 					game.getMapHandler().loadMap(words[1]);
 				else
@@ -194,7 +191,7 @@ public class Main {
 				game = new Game(0);
 			}
 			//kész
-			else if (words[0].equalsIgnoreCase("setPlayerPosition") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("setPlayerPosition") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
 					player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
@@ -202,7 +199,7 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
-			else if (words[0].equalsIgnoreCase("stepPlayer") && words.length > 1) {
+			else if (words[0].equalsIgnoreCase("stepPlayer") && words.length > 1 && words[1] != "") {
 				if(findPlayer(words[1])){
 					for (Player player : game.getPlayers()) {
 						if(player.getName().equalsIgnoreCase(words[1])){
