@@ -143,20 +143,30 @@ public class MapHandler implements Observer {
 			System.out.println("\nSikertelen a pálya betöltése.");
 		}
 	}
-
+	/**
+	 * Vegigiteralulnk a palyan es elinditjuk a foltok ellenorzeset/torleset
+	 */
 	public void checkSpots() {
 		for(Position pos : road){
 			map.get(posToIndex(pos)).checkSpot();
 		}
 	}
-
+	/**
+	 * Egy megadott pozicio megkerese a Road listben es annak indexenek visszaadasa
+	 * @param pos
+	 * @return i
+	 */
 	private int findPosIndexOnRoad(Position pos){
 		for(int i=0; i<road.size();i++)
 			if(pos.getX() == road.get(i).getX() && pos.getY() == road.get(i).getY())
 				return i;
 		return -1;
 	}
-	
+	/**
+	 * Utvonalkereses a legkozelebbi folthoz a Road listaban az adott indextol balra,visszaadja milyen tavolsagra van balfele indulva a legkozelebbi folt (ha nincs folt -1)
+	 * @param posIndex
+	 * @return cnt
+	 */
 	private int searchLeft(int posIndex){
 		int cnt = 0;
 		for(int i = posIndex; i>=0 ; i--){
@@ -175,7 +185,11 @@ public class MapHandler implements Observer {
 		}
 		return -1;
 	}
-	
+	/**
+	 * Utvonalkereses a legkozelebbi folthoz a Road listaban az adott indextol jobbra,visszaadja milyen tavolsagra van jobbfele indulva a legkozelebbi folt(ha nincs folt -1)
+	 * @param posIndex
+	 * @return cnt
+	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
 		for(int i = posIndex; i<road.size() ; i++){
@@ -194,7 +208,12 @@ public class MapHandler implements Observer {
 		}
 		return -1;
 	}
-	
+	/**
+	 * A jelenlegi pozicionkbol megadja milyen iranyban helyeykedik el a a megadott (szomszedos!) pozicio
+	 * @param o
+	 * @param n
+	 * @return hdir
+	 */
 	private HeadDirection newPosDirection(Position o, Position n){
 		HeadDirection hdir;
 		
@@ -217,7 +236,12 @@ public class MapHandler implements Observer {
 		//System.out.println("hdir: " + hdir);
 		return hdir;
 	}
-	
+	/**
+	 * Az regi HeadDir es az uj HeadDir alapjan megadja milyen Direction parancsot kell kiadni a MicroMachine-nek hogy az uj HeadDir fele mozduljon
+	 * @param o
+	 * @param n
+	 * @return Direction
+	 */
 	private Direction headDirToDir(HeadDirection o,HeadDirection n){
 		if(o == n){
 			return Direction.FORWARD;
@@ -233,7 +257,14 @@ public class MapHandler implements Observer {
 		
 		}
 	}
-	
+	/**
+	 * MicroMachinek iranyito fuggvenye itt szamoljuk ki merre kell indulni a legkozelebbi folt fele a Direction megadasaval a MicroMachinnek.
+	 * A MM poziciojatol mindket iranyban vegignezzuk az utat a legkozelebbi foltok tavolsagaert,majd amelyik iranyban volt kozelebb arra inditjuk a dir valtozojanak beallitasaval,
+	 * ha folton all akkor STAY parancsal jelezzuk hogy helyben van es takaritson,ha ugyannolyan tavra van mindket irany,vagy nincsenek foltok,akkor orajarasaval megeggyezo iranyba indulunk az uton.
+	 * A kisrobotok referenciait hozzaadjuk a 
+	 * Ha kisrobot utkozik kisrobottal akkor nem adunk uj iranyt,mert akkor a regi iranya mar meginvertalodott,es az alapjan fog lepni.
+	 * @param microMachine
+	 */
 	public void setMMDirection(MicroMachine microMachine) {
 		Position pos = microMachine.getPosition();
 		HeadDirection hdir;

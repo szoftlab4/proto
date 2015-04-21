@@ -132,7 +132,7 @@ public class Game {
 			if(!myTimerTask.isOver())
 				gameEnd = false;
 			
-			//TODO Lekezelni a jatek veget
+			
 		}
 
 		private void createMicroMachine(){
