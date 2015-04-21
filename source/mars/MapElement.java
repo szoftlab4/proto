@@ -2,12 +2,22 @@ package mars;
 
 import java.util.ArrayList;
 
+/**
+ * Tárolja a saját pozícióját és az esetlegesen rajta lévõ foltot. Képes új folt hozzáadására/törlésére és
+ *  a benne lévõ folt valamint a MapHandler közötti interakcióra. Tárolja az odalépett játékosok és kisrobotok 
+ *  referenciáját, valamint ezek alapján ütközteti õket. Ellenõrzi, hogy kell-e törölni a rajta foltot.
+ */
 public class MapElement {
 	private Position pos;
 	private Spot spot;
 	private ArrayList<Player> refPlayer;
 	private ArrayList<MicroMachine> refMM;
 	
+	/**
+	 * Inicializálás.
+	 * @param pos: új mapElement pozíciója
+	 * @param spot: új mapElementen lévõ spot
+	 */
 	public MapElement(Position pos, Spot spot){
 		this.pos = pos;
 		this.spot = spot;
@@ -15,18 +25,34 @@ public class MapElement {
 		refMM = new ArrayList<MicroMachine>();
 	}
 
+	/**
+	 * Új folt hozzáadása a pályaelemhez.
+	 * @param spot: új folt
+	 */
 	public void addSpot(Spot spot) {
 		this.spot = spot;
 	}
 	
+	/*
+	 * Ideiglenesen eltárolja a játékos referenciáját, hogy az ütközésnél
+	 *  ellenõrizni tudja, hogy állnak-e rajta játékosok.
+	 */
 	public void addPlayerRef(Player p){
 		refPlayer.add(p);
 	}
 	
+	/**
+	 * Ideiglenesen eltárolja a kisrobot referenciáját, hogy az ütközésnél
+	 *  ellenõrizni tudja, hogy állnak-e rajta kisrobotok.
+	 */
 	public void addMMRef(MicroMachine mm){
 		refMM.add(mm);
 	}
 
+	/**
+	 * Ellenõrzi, hogy van-e a pályaelemen folt és ha van akkor meghívja a
+	 *  folt handlePlayer metódusát.
+	 */
 	public void handle(Player player) {
 		if(hasSpot()){
 			spot.handlePlayer(player);
@@ -34,20 +60,32 @@ public class MapElement {
 		addPlayerRef(player);
 	}
 
+	/**
+	 *  Megnézi, hogy kell-e törölni a rajta lévõ foltot és ha kell, akkor törli.
+	 */
 	public void checkSpot() {
 		if(spot != null && spot.isDeletable()){
 			deleteSpot();
 		}
 	}
 
+	/**
+	 * Törli a rajta lévõ foltot.
+	 */
 	public void deleteSpot() {
 		spot = null;
 	}
 	
+	/**
+	 * Van-e folt, játékos, vagy kisrobot az elemen.
+	 */
 	public boolean isFree(){
 		return (refPlayer.isEmpty() && refMM.isEmpty() && spot==null);
 	}
 	
+	/**
+	 * A játékosok ütközésének lekezelése.
+	 */
 	private void collidePlayers(){
 		System.out.println("collide players");
 		int maxspeed = 0;
@@ -99,11 +137,15 @@ public class MapElement {
 			}
 		}
 		
+		/*
 		System.out.println("Maxspeed: " + maxspeed + " ,vertoratlag: " + intavg + " , more than 1 max: " + moreThanOneMax);
 		System.out.println("x: " + x + " y: " + y + " utkozott jatekosok szama: " + refPlayer.size());
-		
+		*/		
 	}
 	
+	/**
+	 * A helyben lévõ ütköztetéseket ellenõrzi, majd ütközteti.
+	 */
 	public void handleCollision() {
 		//Van-e jatekos
 		if(!refPlayer.isEmpty()){
@@ -132,15 +174,32 @@ public class MapElement {
 		}
 	}
 
+	/**
+	 * Visszaadja, hogy van-e rajta folt.
+	 */
 	public boolean hasSpot() {
 		return spot != null;
 		
 	}
 
+	/**
+	 * Törli az ideiglenes referenciákat az ütközés megvizsgálása után.
+	 */
 	private void clearRobotRefs(){
 		refPlayer.clear();
 		refMM.clear();
 	}
+	
+	/**
+	 * Visszaadja, hogy a mapElement dummy elem-e (rajta van-e a pályán).
+	 */
+	public boolean isDummy(){
+		return (pos.getX() == -1 && pos.getY() == -1);
+	}
+	
+	/**
+	 * Getterek.
+	 */
 	
 	public Spot getSpot(){
 		return spot;
@@ -148,9 +207,5 @@ public class MapElement {
 
 	public Position getPos() {
 		return pos;
-	}
-	
-	public boolean isDummy(){
-		return (pos.getX() == -1 && pos.getY() == -1);
 	}
 }

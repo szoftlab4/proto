@@ -3,18 +3,24 @@ package mars;
 import java.util.ArrayList;
 import java.util.Timer;
 
-
-//KAPJATOK BE
-
+/**
+ * Létrehozza a játékhoz szükséges objektumokat.
+ * Regisztrálja az observereket.
+ */
 public class Game {
 	private MyTimerTask myTimerTask;
 	private ArrayList<Player> players;
 	private MapHandler mapHandler;
 	private ArrayList<MicroMachine> microMashines;
 	private Timer timer;
-	private Supervisor supervisor;
+	@SuppressWarnings("unused")
+	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
 	private int playerCount;	
 	
+	/**
+	 * Game konstruktora, inicializál.
+	 * @param cnt: A létrehozandó játékosok száma.
+	 */
 	public Game(int cnt){
 		playerCount = cnt;
 		mapHandler = new MapHandler();
@@ -23,6 +29,9 @@ public class Game {
 		init();
 	}
 
+	/**
+	 * Objektumok létrehozása és inicializálása.
+	 */
 	public void init() {
 		myTimerTask = new MyTimerTask(1000,20000);
 		timer = new Timer();
@@ -38,6 +47,30 @@ public class Game {
 		//supervisor = new Supervisor();
 	}
 	
+	/**
+	 * Hozzáadja a paraméterben átadott Playert a players-hez és regisztrálja a timertaskra observerként.
+	 * @param player
+	 */
+	public void addPlayer(Player player){
+		players.add(player);
+		myTimerTask.registerObserver(player);
+		player.addObserver(mapHandler);
+	}
+	
+	/**
+	 * Hozzáadja a paraméterben átadott MicroMachinet a micromashines-hez és regisztrálja a timertaskra observerként.
+	 * @param mm
+	 */
+	public void addMicroMachine(MicroMachine mm){
+		microMashines.add(mm);
+		myTimerTask.registerObserver(mm);
+	}
+	
+	
+	/**
+	 * Getterek, setterek.
+	 */
+	
 	public MapHandler getMapHandler(){
 		return mapHandler;
 	}
@@ -49,7 +82,15 @@ public class Game {
 	public ArrayList<MicroMachine> getMicroMachine(){
 		return microMashines;
 	}
+	
+	
+	
+	
+	/**
+	 * Nincs használva a prototípusban
+	 */
 
+	@SuppressWarnings("unused")
 	private void addPlayers(){
 		for(int i=0; i<playerCount; i++){
 			Position freePos = mapHandler.getAvailablePos();
@@ -57,21 +98,6 @@ public class Game {
 			Player p = new Player("Player " + (i+1),freePos,dir);
 			addPlayer(p);
 		}
-	}
-	
-	public void reset() {
-		
-	}
-	
-	public void addPlayer(Player player){
-		players.add(player);
-		myTimerTask.registerObserver(player);
-		player.addObserver(mapHandler);
-	}
-	
-	public void addMicroMachine(MicroMachine mm){
-		microMashines.add(mm);
-		myTimerTask.registerObserver(mm);
 	}
 	
 	public class Supervisor  implements Runnable{
@@ -98,6 +124,7 @@ public class Game {
 		}
 
 		public void checkGameEnd() {
+			@SuppressWarnings("unused")
 			boolean gameEnd = true;
 			for(Player player : players){
 				if(player.isAlive())
