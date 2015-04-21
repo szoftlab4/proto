@@ -108,12 +108,20 @@ public class Main {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
 					if(words[2].equalsIgnoreCase("oil"))
-						player.putOilSpot();
+						player.setSpotCommand(SpotCommand.OIL);
 					else if(words[2].equalsIgnoreCase("goo"))
-						player.putGooSpot();
+						player.setSpotCommand(SpotCommand.GOO);
 				}
 				else
 					System.out.println("Nincs ilyen játékos.");
+			}
+			else if (words[0].equalsIgnoreCase("baszki")) {
+				for (MapElement map : game.getMapHandler().getMap()) {
+					if(map.hasSpot())
+						System.out.println("(" + map.getPos().getX() + ":" + map.getPos().getY() + ")" + "  spot: " + map.getSpot().toString());
+					else
+						System.out.println("(" + map.getPos().getX() + ":" + map.getPos().getY() + ")" + "  spot: " + map.hasSpot());
+				}
 			}
 			//kész
 			else if (words[0].equalsIgnoreCase("changeDirection")) {
@@ -162,11 +170,15 @@ public class Main {
 			}
 			else if (words[0].equalsIgnoreCase("listPlayers")) {
 				System.out.println("----------------------------------------------------------------------");
-				for (Player player : game.getPlayers()) {
-					if(player.isAlive())
-						System.out.println(player.getName() + ", ("	+ player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", alive");
-					else
-						System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", dead");
+				if(game.getPlayers().size() == 0)
+					System.out.println("Nincsenek játékosok a pályán.");
+				else{
+					for (Player player : game.getPlayers()) {
+						if(player.isAlive())
+							System.out.println(player.getName() + ", ("	+ player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", " + player.getOilFlag() + ", alive");
+						else
+							System.out.println(player.getName() + ", (" + player.getPosition().getX() + ";" + player.getPosition().getY() + "), " + player.getHeadDirection() + ", " + player.getSpeed() + ", " + player.getSpotCount() + ", " + player.getOilFlag() + ", dead");
+					}
 				}
 			}
 			else if (words[0].equalsIgnoreCase("listRobots")) {
@@ -180,7 +192,10 @@ public class Main {
 				game.getMapHandler().getSpots(true);
 			}
 			else if (words[0].equalsIgnoreCase("loadMap")) {
-				game.getMapHandler().loadMap(words[1]);
+				if(game.getMapHandler().getMapName() == null)
+					game.getMapHandler().loadMap(words[1]);
+				else
+					System.out.println("Van már pálya betöltve.");
 			}
 			else if (words[0].equalsIgnoreCase("reset")) {
 				game = null;
@@ -188,23 +203,31 @@ public class Main {
 			}
 			//kész
 			else if (words[0].equalsIgnoreCase("setPlayerPosition")) {
-				Player player = getFindPlayer(words[1]);
-				player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
+				if(findPlayer(words[1])){
+					Player player = getFindPlayer(words[1]);
+					player.setPosition(new Position(Integer.parseInt(words[2]), Integer.parseInt(words[3])));
+				}
+				else
+					System.out.println("Nincs ilyen játékos.");
 			}
 			else if (words[0].equalsIgnoreCase("stepPlayer")) {
-				for (Player player : game.getPlayers()) {
-					if(player.getName().equalsIgnoreCase(words[1]) && player.isAlive()){
-						player.testStep();
-						game.getMapHandler().checkPosition(player);
+				if(findPlayer(words[1])){
+					for (Player player : game.getPlayers()) {
+						if(player.getName().equalsIgnoreCase(words[1])){
+							System.out.println("teststepet hívok");
+							player.testStep();
+						}
 					}
 				}
-			}
+				else
+					System.out.println("Nincs ilyen játékos.");
+			}/*
 			else if (words[0].equalsIgnoreCase("stepRobot")) {
 				for (MicroMachine robot : game.getMicroMachine()) {
 					if(robot.getIndex() == Integer.parseInt(words[1]))
 						robot.step();
 				}
-			}
+			}*/
 			else
 				System.out.println("Hibás parancs: " + words[0]);
 		
@@ -228,7 +251,7 @@ public class Main {
 		System.out.println("exit: \n\t Leírás: Kilép a programból \n\t Opciók: - \n");
 		System.out.println("incTime: \n\t Leírás: Paraméterben megadott idõ eltelése \n\t Opciók: Idõ (sec)\n");
 		System.out.println("help: \n\t Leírás: Kilistázza a használható parancsokat\n");
-		System.out.println("listPlayers: \n\t Leírás: Kilistázza a játékosokat, és adataikat \n\t Opciók: - \n\t Kimenet: <név><koordináták><irány><sebesség><lerakható foltok száma><állapot(él-e)>\n");
+		System.out.println("listPlayers: \n\t Leírás: Kilistázza a játékosokat, és adataikat \n\t Opciók: - \n\t Kimenet: <név><koordináták><irány><sebesség><lerakható foltok száma><Oilflag><állapot(él-e)>\n");
 		System.out.println("listRobots: \n\t Leírás: Kilistázza a kis robotok azonosítóját, pozícióját és irányát \n\t Opciók: - \n\t Kimenet: <azonosító><koordináták><irány>\n");
 		System.out.println("listSpots: \n\t Leírás: Kilistázza a pályán lévõ foltokat, és pozíciójukat \n\t Opciók: - \n\t Kimenet: <koordináták><fajta(olaj, vagy ragacs)><ha ragacs:mennyien léptek rá(db), ha olaj, akkor mennyi idõ telt el(sec)>\n");
 		System.out.println("loadMap: \n\t Leírás: Egy pálya betöltése \n\t Opciók: A betöltendõ pálya neve \n\t Kimenet: <sikeres/sikertelen>\n");
@@ -244,7 +267,10 @@ public class Main {
 		
 		init(System.in, System.out);
 		
-		info();
+		//info();
+		game.getMapHandler().loadMap("test1.map");
+		game.getMapHandler().writeWidthHeight();
+		game.getMapHandler().writeElements();
 		
 		while (getNextCommand()) {
 			;
