@@ -125,6 +125,10 @@ public class MapHandler implements Observer {
 		}
 	}
 	
+	public ArrayList<MapElement> getMap(){
+		return map;
+	}
+	
 	public void reset() {
 		//TODO
 	}
