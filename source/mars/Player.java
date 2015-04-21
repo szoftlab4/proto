@@ -156,22 +156,27 @@ public class Player extends Robot {
 	}
 	
 	public void putOilSpot() {
+		System.out.println("setchanged meghivva");
 		setChanged();
 		if(spotCount > 0){
+			System.out.println("spotCount csokkent");
 			spotCount--;
+			System.out.println("Notify meghivodott new Oil()-al");
 			this.notifyObservers(new Oil());
 		}
 		else
+			System.out.println("Sima notify hivodott");
 			this.notifyObservers();
 		
 	}
 	
 	public void putGooSpot() {
+		setChanged();
 		if(spotCount > 0){
-		spotCount--;
-		this.notifyObservers(new Goo());
+			spotCount--;
+			this.notifyObservers(new Goo());
 		}
-		this.notifyObservers();
+			this.notifyObservers();
 	}
 	
 	public int getSpotCount(){
