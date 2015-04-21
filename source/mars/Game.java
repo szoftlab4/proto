@@ -3,7 +3,6 @@ package mars;
 import java.util.ArrayList;
 import java.util.Timer;
 
-import javax.crypto.AEADBadTagException;
 
 //KAPJATOK BE
 
@@ -14,7 +13,7 @@ public class Game {
 	private ArrayList<MicroMachine> microMashines;
 	private Timer timer;
 	private Supervisor supervisor;
-	private int playerCount;
+	private int playerCount;	
 	
 	public Game(int cnt){
 		playerCount = cnt;
@@ -53,7 +52,6 @@ public class Game {
 
 	private void addPlayers(){
 		for(int i=0; i<playerCount; i++){
-			//
 			Position freePos = mapHandler.getAvailablePos();
 			HeadDirection dir = mapHandler.getValidHeadDir(freePos);
 			Player p = new Player("Player " + (i+1),freePos,dir);
