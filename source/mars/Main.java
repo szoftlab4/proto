@@ -1,27 +1,37 @@
 package mars;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
-
 
 public class Main {
-	private static BufferedWriter bw;
+	
+	/**
+	 * br az XML fájlból való olvasás miatt.
+	 * currentline az aktuális parancs sora.
+	 */
 	private static BufferedReader br;
 	private static String currentLine;
 	private static Game game;
 	
-	//bemenet kimenet init
-	public static void init(InputStream in, PrintStream out) throws IOException {
-		br = new BufferedReader(new InputStreamReader(in)); // TODO filereader, writer...
-		bw = new BufferedWriter(new OutputStreamWriter(out));
+	
+	/**
+	 * 
+	 * @param in: beol
+	 * @throws IOException: IO kivétel
+	 */
+	public static void init(InputStream in) throws IOException {
+		br = new BufferedReader(new InputStreamReader(in));
 		game = new Game(0);
 	}
 	
+	
+	/**
+	 * Egy stringbõl csinál HeadDirection-t.
+	 * @param s: Ezt a stringet alakítsuk át.
+	 * @return Visszaadjuk a stringnek megfelelõ HeadDirection-t.
+	 */
 	public static HeadDirection setDirection(String s){
 		if(s.equalsIgnoreCase("right"))
 			return HeadDirection.RIGHT;
@@ -33,6 +43,12 @@ public class Main {
 			return HeadDirection.DOWN;
 	}
 	
+	
+	/**
+	 * Megkeresi a paraméterben megadott nevû játékost a game-ben, és visszaadja.
+	 * @param name: Keresendõ játékos neve.
+	 * @return Megtalált játékos referenciája (vagy ha nincs, akkor null).
+	 */
 	public static Player getFindPlayer(String name){
 		for (Player player : game.getPlayers()) {
 			if(player.getName().equalsIgnoreCase(name))
@@ -41,6 +57,12 @@ public class Main {
 		return null;
 	}
 	
+	
+	/**
+	 * Megkeresi a paraméterben megadott nevû játékost a game-ben, és igazzal tér vissza, ha megtalálta.
+	 * @param name: Keresendõ játékos neve.
+	 * @return Találat esetén true, különben false.
+	 */
 	public static boolean findPlayer(String name){
 		Boolean findEquals = false;
 		for (Player player : game.getPlayers()) {
@@ -50,26 +72,48 @@ public class Main {
 		return findEquals;
 	}
 	
+	
+	/**
+	 * Parancsok kezelése.
+	 * @return Igaz, ha sikeresen lefutott, különben false.
+	 */
 	public static boolean getNextCommand(){
 		try {
+			
+			/**
+			 * Betesszük a currentLineba az elsõ sort.
+			 */
 			if (currentLine == null) {
 				currentLine = br.readLine();
 			}
 			
+			/**
+			 * Ha nem érvényes, kilép.
+			 */
 			if (currentLine == null)
 				return false;
 			
+			/**
+			 * words: Egy sorban lévõ parancsot, és a paramétereit tároló tömb. 
+			 */
 			String[] words = currentLine.split(" ");
 			
-			try{
-				// TODO kommentet kiírni, h #-gel kezdõdjön.....
-				if (words[0].length() < 1 || words[0].charAt(0) == '#') {
-					currentLine = null;
-					return true;
-				}
-			}catch(Exception e){}
+			/**
+			 * Ha nincs érték, vagy #-gel kezdõdik, akkor nem történik semmi. (#-gel kezdõdõ sorok kommentek)
+			 */
+			if (words.length < 1 || words[0].charAt(0) == '#') {
+				currentLine = null;
+				return true;
+			}
 			
-			// parancsok feldolgozása
+			/**
+			 * Parancsok feldolgozása
+			 */
+			
+			/**
+			 * A megadott koordinátának megfelelõ kezdõpozícióra lerak egy megadott nevû új játékost,
+			 *  a megadott kezdõiránnyal és egységnyi sebességgel
+			 */
 			if (words[0].equalsIgnoreCase("addPlayer") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != ""){
 				if(!findPlayer(words[1])){
 					if(words[4].equalsIgnoreCase("up"))
@@ -84,6 +128,11 @@ public class Main {
 				else
 					System.out.println("Ez a név már foglalt.");
 			}
+			
+			/**
+			 * A megadott koordinátának megfelelõ kezdõpozícióra lerak egy kis robotot, a megadott
+			 *  kezdõiránnyal, illetve (megváltoztathatatlan) egységnyi sebességgel.
+			 */
 			else if (words[0].equalsIgnoreCase("addRobot") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				
 				if(words[3].equalsIgnoreCase("up"))
@@ -95,14 +144,20 @@ public class Main {
 				else if(words[3].equalsIgnoreCase("left"))
 					game.addMicroMachine(new MicroMachine(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), HeadDirection.LEFT));
 			}
-			//kész
+			
+			/**
+			 * A megadott koordinátának megfelelõ pályaelemre lerak egy megadott típusú foltot.
+			 */
 			else if (words[0].equalsIgnoreCase("addSpot") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				if(words[3].equalsIgnoreCase("oil"))
 					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Oil());
 				else if(words[3].equalsIgnoreCase("goo"))
 					game.getMapHandler().addSpot(new Position(Integer.parseInt(words[1]), Integer.parseInt(words[2])), new Goo());
 			}
-			//kész
+			
+			/**
+			 * A játékos jelenlegi pozíciójára lerak egy megadott típusú foltot, miután a játékos tovább lépett.
+			 */
 			else if (words[0].equalsIgnoreCase("addSpotPlayer") &&  words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
@@ -114,7 +169,10 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
-			//kész
+			
+			/**
+			 * A megadott játékos irányát megváltoztatja a megadott értékre.
+			 */
 			else if (words[0].equalsIgnoreCase("changeDirection") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
@@ -130,7 +188,10 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
-			//kész
+			
+			/**
+			 * A megadott játékos sebességét megváltoztatja a megadott értékre.
+			 */
 			else if (words[0].equalsIgnoreCase("changeSpeed") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
@@ -140,13 +201,17 @@ public class Main {
 					System.out.println("Nincs ilyen játékos.");
 			}
 			
-			//kész
+			/**
+			 * Kilép a konzolból.
+			 */
 			else if (words[0].equalsIgnoreCase("exit")) {
 				br.close();												
-				bw.close();
 				System.exit(0);
 			}
 			
+			/**
+			 * Az eltelt idõ a megadott mennyiséggel nõ.
+			 */
 			else if (words[0].equalsIgnoreCase("incTime") && words.length > 1 && words[1] != "") {				
 				for (MapElement mapElement : game.getMapHandler().getSpots(false)) {
 					if(mapElement.getSpot().toString().equalsIgnoreCase("oil"))
@@ -154,9 +219,18 @@ public class Main {
 				}
 				game.getMapHandler().checkSpots();
 			}
+			
+			/**
+			 * Help kiírása.
+			 */
 			else if (words[0].equalsIgnoreCase("help")) {
 				info();
 			}
+			
+			/**
+			 * Kiírja a képernyõre külön sorba a játékosok nevét, koordinátáit, irányát, sebességét, a 
+			 * lerakható foltok számát, az oilflag értékét, illetve azt, hogy él-e még
+			 */
 			else if (words[0].equalsIgnoreCase("listPlayers")) {
 				System.out.println("----------------------------------------------------------------------");
 				if(game.getPlayers().size() == 0)
@@ -170,27 +244,47 @@ public class Main {
 					}
 				}
 			}
+			
+			/**
+			 * Kiírja a képernyõre soronként a kis robotok pozícióját, illetve aktuális irányát.
+			 */
 			else if (words[0].equalsIgnoreCase("listRobots")) {
 				System.out.println("----------------------------------------------------------------------");
 				for (int i = 0; i < game.getMicroMachine().size(); i++) {
 					System.out.println((i + 1) + "., (" + game.getMicroMachine().get(i).getPosition().getX() + ";" + game.getMicroMachine().get(i).getPosition().getY() + "), " + game.getMicroMachine().get(i).getDirection());
 				}
 			}
+			
+			/**
+			 * Kilistázza a pályán található összes foltot, azok koordinátáját, fajtáját, illetve ha olaj,
+			 *  akkor azt, hogy mennyien léptek rá(db), ha ragacs, akkor azt, hogy mennyi idõ telt el(sec).
+			 */
 			else if (words[0].equalsIgnoreCase("listSpots")) {
 				System.out.println("----------------------------------------------------------------------");
 				game.getMapHandler().getSpots(true);
 			}
+			
+			/**
+			 * A bementeten megadott nevû pályát betölti, ha létezik olyan, illetve kiírja, hogy sikeres volt-e a betöltés, különben kiírja, hogy sikertelen.
+			 */
 			else if (words[0].equalsIgnoreCase("loadMap") && words.length > 1 && words[1] != "") {
 				if(game.getMapHandler().getMapName() == null)
 					game.getMapHandler().loadMap(words[1]);
 				else
 					System.out.println("Van már pálya betöltve.");
 			}
+			
+			/**
+			 * Resetel mindent.
+			 */
 			else if (words[0].equalsIgnoreCase("reset")) {
 				game = null;
 				game = new Game(0);
 			}
-			//kész
+			
+			/**
+			 * Egy megadott játékosnak beállítja a pozícióját a megadott koordinátákra.
+			 */
 			else if (words[0].equalsIgnoreCase("setPlayerPosition") && words.length > 1 && words[1] != "" && words.length > 2 && words[2] != "" &&  words.length > 3 && words[3] != "") {
 				if(findPlayer(words[1])){
 					Player player = getFindPlayer(words[1]);
@@ -199,9 +293,17 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
+			
+			/**
+			 * Ütközésdetektálás indítása.
+			 */
 			else if (words[0].equalsIgnoreCase("startCollisions")) {
 				game.getMapHandler().startCollisions();
 			}
+			
+			/**
+			 * Lép egyet a paraméterben megadott nevû játékos.
+			 */
 			else if (words[0].equalsIgnoreCase("stepPlayer") && words.length > 1 && words[1] != "") {
 				if(findPlayer(words[1])){
 					for (Player player : game.getPlayers()) {
@@ -214,6 +316,10 @@ public class Main {
 				else
 					System.out.println("Nincs ilyen játékos.");
 			}
+			
+			/**
+			 * Lép egyet a paraméterben megadott indexû robot.
+			 */
 			else if (words[0].equalsIgnoreCase("stepRobot")) {
 				for (MicroMachine robot : game.getMicroMachine()) {
 					if(robot.getIndex() == Integer.parseInt(words[1])){
@@ -223,6 +329,10 @@ public class Main {
 					}
 				}
 			}
+			
+			/**
+			 * Hibás parancs kezelése.
+			 */
 			else
 				System.out.println("Hibás parancs: " + words[0]);
 		
@@ -230,12 +340,17 @@ public class Main {
 			System.out.println("A bemeneti fájl olvasása nem sikerült!");
 			return false;
 		}
+		
 		currentLine = null;
 		return true;
 	}
 	
+	/**
+	 * Információt ad a teszttel kapcsolatban, illetve kilistázza a használható parancsokat, leírásukat és használatuk módját.
+	 */
 	public static void info(){
 		System.out.println("**********************************************************************");
+		System.out.println("A kommenteket #-gel kell kezdeni.\n\n");
 		System.out.println("Használható parancsok:\n");
 		System.out.println("addPlayer: \n\t Leírás: Elhelyez egy új játékost a pályán \n\t Opciók: Az új játékos neve, pozíciója, iránya\n");
 		System.out.println("addRobot: \n\t Leírás: Egy új kisrobot rakunk le a pályára \n\t Opciók: A kisrobot neve, és kezdõpozíciója\n");
@@ -259,13 +374,22 @@ public class Main {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		// TODO Auto-generated method stub
 		
-		init(System.in, System.out);
+		/**
+		 * Inicializálás.
+		 */
+		init(System.in);
 		
 		//info();
+		
+		/**
+		 * Betöltjük elõre a pályát.
+		 */
 		game.getMapHandler().loadMap("test1.map");
 		
+		/**
+		 * Várakozunk a beérkezõ parancsokra.
+		 */
 		while (getNextCommand()) {
 			;
 		}
