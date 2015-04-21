@@ -51,7 +51,7 @@ public class MapElement {
 	private void collidePlayers(){
 		System.out.println("collide players");
 		int maxspeed = 0;
-		double sum = 0;
+		double avg = 0;
 		int x = 0;
 		int y = 0;
 		boolean moreThanOneMax = false;
@@ -80,24 +80,26 @@ public class MapElement {
 			}
 			y = Math.abs(y);
 			x = Math.abs(x);
-			sum = Math.sqrt(x*x + y*y);
+			avg = Math.sqrt(x*x + y*y);
 		}
-		int avg = (int) sum/refPlayer.size();
-		if(avg < 1)
-			avg = 1;
+		
+		int intavg = (int) avg;
+		
+		if(intavg < 1)
+			intavg = 1;
 		for(Player p : refPlayer){
 			if(moreThanOneMax){
 				p.setAlive(false);
 			}
 			else{
 				if(p.getSpeed() == maxspeed)
-					p.setSpeed(avg);
+					p.setSpeed(intavg);
 				else
 					p.setAlive(false);
 			}
 		}
 		
-		System.out.println("Maxspeed: " + maxspeed + " ,sum: " + sum + ", avg: " + avg + " , more than 1 max: " + moreThanOneMax);
+		System.out.println("Maxspeed: " + maxspeed + " ,vertoratlag: " + intavg + " , more than 1 max: " + moreThanOneMax);
 		System.out.println("x: " + x + " y: " + y + " utkozott jatekosok szama: " + refPlayer.size());
 		
 	}
