@@ -85,6 +85,13 @@ public class Game {
 		}
 		
 		public void checkMachines() {
+
+			for(MicroMachine mm : microMashines){
+				if(mm.isDoneCleaning()){
+					mapHandler.deleteSpot(mm.pos);
+				}
+			}
+			
 			for(MicroMachine mm : microMashines){
 				mapHandler.setMMDirection(mm);
 			}

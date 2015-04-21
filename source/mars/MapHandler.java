@@ -141,7 +141,7 @@ public class MapHandler implements Observer {
 
 	private int findPosIndexOnRoad(Position pos){
 		for(int i=0; i<road.size();i++)
-			if(pos == road.get(i))
+			if(pos.getX() == road.get(i).getX() && pos.getY() == road.get(i).getY())
 				return i;
 		return -1;
 	}
@@ -186,19 +186,24 @@ public class MapHandler implements Observer {
 	
 	private HeadDirection newPosDirection(Position o, Position n){
 		HeadDirection hdir;
+		
+		System.out.println("old: " + o.getX() +" " + o.getY() + " ,new: " + n.getX() + " " + n.getY());
+		
 		int x = n.getX() - o.getX();
 		int y = n.getY() - o.getY();
 		if( x == 0 && y == 1){
-			hdir = HeadDirection.UP;
+			hdir = HeadDirection.DOWN;
 		}
 		else if( x == 0 && y == -1) {
-			hdir = HeadDirection.DOWN;
+			hdir = HeadDirection.UP;
 		}
 		else if( x == 1 && y == 0 ){
 			hdir = HeadDirection.RIGHT;
 		}
 		else
 			hdir = HeadDirection.LEFT;
+		
+		System.out.println("hdir: " + hdir);
 		return hdir;
 	}
 	private Direction headDirToDir(HeadDirection o,HeadDirection n){
@@ -221,8 +226,11 @@ public class MapHandler implements Observer {
 		Position pos = microMachine.getPosition();
 		HeadDirection hdir;
 		int idx = findPosIndexOnRoad(pos);
+		System.out.println("Pos: " + pos.getX() + " " + pos.getY() + " ,Index: " + idx);
 		int left = searchLeft(idx);
+		System.out.println("Balra ennyi lepesben talalt: " + left);
 		int right = searchRight(idx);
+		System.out.println("Jobbra ennyi lepesben talalt: " + right);
 		if(left>right){
 			int nextIdx = idx + 1;
 			if(nextIdx == road.size())
@@ -353,6 +361,12 @@ public class MapHandler implements Observer {
 		}
 		else{
 			player.setAlive(false);
+		}
+	}
+	
+	public void testMMCleaningStatus(MicroMachine mm){
+		if(mm.isDoneCleaning()){
+			this.deleteSpot(mm.pos);
 		}
 	}
 	

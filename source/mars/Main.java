@@ -217,6 +217,7 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("stepRobot")) {
 				for (MicroMachine robot : game.getMicroMachine()) {
 					if(robot.getIndex() == Integer.parseInt(words[1])){
+						game.getMapHandler().testMMCleaningStatus(robot);
 						game.getMapHandler().setMMDirection(robot);
 						robot.testupdate();
 					}
