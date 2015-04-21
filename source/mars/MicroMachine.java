@@ -68,15 +68,18 @@ public class MicroMachine extends Robot {
 	}
 	
 	public void invertDir(){
-		if(dir==Direction.STAY){
+		if(dir==Direction.STAY && doneCleaning == false){
 			dir=Direction.STAY;
 		}
 		else
 			dir=Direction.BACKWARD;
+
 	}
 	
 	//ez private
 	public void step(){
+		this.setCollided(false);
+
 		headDir=this.convertDir();
 		switch(headDir){
 		case UP:
