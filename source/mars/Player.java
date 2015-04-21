@@ -199,6 +199,7 @@ public class Player extends Robot {
 			spotCount--;
 			this.notifyObservers(new Goo());
 		}
+		else
 			this.notifyObservers();
 	}
 	
