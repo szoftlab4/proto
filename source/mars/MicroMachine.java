@@ -4,12 +4,31 @@ package mars;
  * Pályán lévõ foltok takarításáért felelõs kisrobot. Létrehozza az olajfoltot, ami majd halálakor a helyére kerül.
  */
 public class MicroMachine extends Robot {
+	/**
+	 * takaritas befejeyesenek jelzese
+	 */
 	private boolean doneCleaning;
+	/**
+	 * takaritas allapota
+	 */
 	private int progress;
+	/**
+	 * Micromachine ID szama
+	 */
 	private int index;
+	/**
+	 * kovetkezo MicroMachine ID szama
+	 */
 	private static int cntr = 0;
+	/**
+	 * Micromachine utkozesenek syamon tartasa
+	 */
 	private boolean collided;
-	
+	/**
+	 * MicroMachine konstruktora
+	 * @param pos
+	 * @param headDir
+	 */
 	public MicroMachine(Position pos,HeadDirection headDir){
 		doneCleaning=false;
 		progress=0;
@@ -19,13 +38,20 @@ public class MicroMachine extends Robot {
 		dir = Direction.FORWARD;
 		cntr++;
 		index = cntr;
-		setCollided(false);
+		collided=false;
 	}
-
+	/**
+	 * cntr szamlalo settere,a MicroMachine ID szamainak
+	 * @param i
+	 */
 	public static void setCntr(int i){
 		cntr = i;
 	}
-	
+	/**
+	 * Ha a kisrobot STAY parancsot kapott akkor helyben takarit,egyebkent lep
+	 * @param Obs
+	 * @param Obj
+	 */
 	public void update(Object Obs, Object Obj) {
 		if(dir == Direction.STAY){
 			this.checkProgress();
@@ -34,10 +60,13 @@ public class MicroMachine extends Robot {
 			this.step();
 		
 	}
-	
+	/**
+	 * update metodus tesztelesi celokra publikusan duplikalva
+	 */
 	public void testupdate() {
 		if(dir == Direction.STAY){
 			this.checkProgress();
+			this.setCollided(false);
 		}
 		else
 			this.step();
