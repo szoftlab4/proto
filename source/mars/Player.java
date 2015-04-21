@@ -177,6 +177,10 @@ public class Player extends Robot {
 			this.notifyObservers();
 	}
 	
+	public boolean getOilFlag(){
+		return oilFlag;
+	}
+	
 	public int getSpotCount(){
 		return spotCount;
 	}
