@@ -261,7 +261,7 @@ public class MapHandler implements Observer {
 	 * MicroMachinek iranyito fuggvenye itt szamoljuk ki merre kell indulni a legkozelebbi folt fele a Direction megadasaval a MicroMachinnek.
 	 * A MM poziciojatol mindket iranyban vegignezzuk az utat a legkozelebbi foltok tavolsagaert,majd amelyik iranyban volt kozelebb arra inditjuk a dir valtozojanak beallitasaval,
 	 * ha folton all akkor STAY parancsal jelezzuk hogy helyben van es takaritson,ha ugyannolyan tavra van mindket irany,vagy nincsenek foltok,akkor orajarasaval megeggyezo iranyba indulunk az uton.
-	 * A kisrobotok referenciait hozzaadjuk a 
+	 * A kisrobotok referenciait hozzaadjuk az utkozes elvegzesere
 	 * Ha kisrobot utkozik kisrobottal akkor nem adunk uj iranyt,mert akkor a regi iranya mar meginvertalodott,es az alapjan fog lepni.
 	 * @param microMachine
 	 */
