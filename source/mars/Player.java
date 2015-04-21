@@ -87,10 +87,12 @@ public class Player extends Robot {
 	
 	// TODO
 	public void update(Object observable, Object object) {
+		System.out.println("Player update-je");
 		if(this.isAlive()){
 			this.step();
 			switch(spotCommand){
 				case NOSPOT:
+					setChanged();
 					notifyObservers();
 					break;
 				case GOO:
@@ -156,16 +158,12 @@ public class Player extends Robot {
 	}
 	
 	public void putOilSpot() {
-		System.out.println("setchanged meghivva");
 		setChanged();
 		if(spotCount > 0){
-			System.out.println("spotCount csokkent");
 			spotCount--;
-			System.out.println("Notify meghivodott new Oil()-al");
 			this.notifyObservers(new Oil());
 		}
 		else
-			System.out.println("Sima notify hivodott");
 			this.notifyObservers();
 		
 	}
