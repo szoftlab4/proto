@@ -250,6 +250,7 @@ public class MapHandler implements Observer {
 	}
 
 	public void startCollisions() {
+		System.out.println("elindult az utkoztetes...");
 		for(Position pos : road){
 			map.get(posToIndex(pos)).handleCollision();
 		}

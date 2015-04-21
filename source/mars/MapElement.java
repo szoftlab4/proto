@@ -49,6 +49,7 @@ public class MapElement {
 	}
 	
 	private void collidePlayers(){
+		System.out.println("collide players");
 		int maxspeed = 0;
 		double sum = 0;
 		int x = 0;
@@ -95,6 +96,10 @@ public class MapElement {
 					p.setAlive(false);
 			}
 		}
+		
+		System.out.println("Maxspeed: " + maxspeed + " ,sum: " + sum + ", avg: " + avg + " , more than 1 max: " + moreThanOneMax);
+		System.out.println("x: " + x + " y: " + y + " utkozott jatekosok szama: " + refPlayer.size());
+		
 	}
 	
 	public void handleCollision() {
