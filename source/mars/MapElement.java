@@ -168,6 +168,7 @@ public class MapElement {
 					//Ha van legalabb 2, akkor mindenkit visszaforditunk (stay eseten se lesz gond)
 					for(MicroMachine mm : refMM){
 						mm.invertDir();
+						mm.setCollided(true);
 					}
 			}
 			//Toroljuk mindenkeppen a referenciakat

@@ -8,6 +8,7 @@ public class MicroMachine extends Robot {
 	private int progress;
 	private int index;
 	private static int cntr = 0;
+	private boolean collided;
 	
 	public MicroMachine(Position pos,HeadDirection headDir){
 		doneCleaning=false;
@@ -18,6 +19,7 @@ public class MicroMachine extends Robot {
 		dir = Direction.FORWARD;
 		cntr++;
 		index = cntr;
+		setCollided(false);
 	}
 
 	public void update(Object Obs, Object Obj) {
@@ -114,5 +116,13 @@ public class MicroMachine extends Robot {
 	
 	public int getIndex(){
 		return index;
+	}
+
+	public boolean isCollided() {
+		return collided;
+	}
+
+	public void setCollided(boolean collided) {
+		this.collided = collided;
 	}
 }

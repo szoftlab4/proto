@@ -249,7 +249,8 @@ public class MapHandler implements Observer {
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+			if(microMachine.isCollided())
+				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 		else if(left<right){
 			int prevIdx = idx - 1;
@@ -257,10 +258,12 @@ public class MapHandler implements Observer {
 				prevIdx = road.size() - 1;
 			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
 			map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
-			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+			if(microMachine.isCollided())
+				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 		else if(left == 0 && right == 0){
 			microMachine.setDirection(Direction.STAY);
+			map.get(this.posToIndex(pos)).addMMRef(microMachine);
 		}
 		else{
 			int nextIdx = idx + 1;
@@ -268,7 +271,8 @@ public class MapHandler implements Observer {
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+			if(microMachine.isCollided())
+				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 	}
 
