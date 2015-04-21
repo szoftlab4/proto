@@ -31,39 +31,66 @@ public class Player extends Robot {
 		spotCommand = SpotCommand.NOSPOT;
 		nextPos = new Position(0, 0);
 	}
-	
+	/**
+	 * Name getter fuggveny
+	 * @return name
+	 */
 	public String getName(){
 		return name;
 	}
-	
+	/**
+	 * Distance getter fuggveny
+	 * @return distance
+	 */
 	public int getDistance() {
 		return this.distance;
 	}
-
+	/**
+	 * Speed getter fuggveny
+	 * @return speed
+	 */
 	public int getSpeed() {
 		return this.speed;
 	}
-
+	/**
+	 * Oilflag setter fuggveny
+	 * @param value
+	 */
 	public void setOilFlag(boolean value) {
 		this.oilFlag = value;
 	}
-
+/**
+ * Speed setter fuggveny
+ * @param speed
+ */
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
-	
+	/**
+	 * Position setter fuggveny (jelenlegi position)
+	 * @param pos
+	 */
 	public void setPosition(Position pos){
 		this.pos = pos;
 	}
-	
+	/**
+	 * Direction setter fuggveny
+	 * @param dir
+	 */
 	public void setDirection(Direction dir){
 		this.dir = dir;
 	}
-
+	/**
+	 * Spotcommand setter fuggveny
+	 * @param sc
+	 */
 	public void setSpotCommand(SpotCommand sc){
 		this.spotCommand = sc;
 	}
-	
+	/**
+	 * Nextpos getter fuggveny(lepes utani position) 
+	 * @return
+	 */
 	public Position getNextPos() {
 		return this.nextPos;
 	}
@@ -78,7 +105,9 @@ public class Player extends Robot {
 		dir = Direction.FORWARD;
 		
 	}
-
+	/**
+	 * teszt metodus a jatekos leptetesere
+	 */
 	public void testStep(){
 		//this.step();
 		//this.calculateNewPos();
@@ -89,7 +118,12 @@ public class Player extends Robot {
 		//update(null,null);
 		testUpdate();
 	}
-	
+	/**
+	 * Az update metodus timer nelkuli tesztelesere
+	 * Ellenorizzik hogy el-e a jatekos lepes elott
+	 * A spotCommand valtozonk alapjan tudjuk hogy a jatekos lepeskor akart-e foltot letenni
+	 * Ha nem akkor csak lep,ha akart Goo-t vagy oil-t tenni akkor aszerint hivjuk a folt lerako fuggvenyeket 
+	 */
 	private void testUpdate(){
 		if(this.isAlive()){
 			this.step();
@@ -109,7 +143,14 @@ public class Player extends Robot {
 		}
 	}
 	
-	// TODO
+		/**
+		 * Ellenorizzik hogy el-e a jatekos lepes elott
+		 * A spotCommand valtozonk alapjan tudjuk hogy a jatekos lepeskor akart-e foltot letenni
+		 * Ha nem akkor csak lep,ha akart Goo-t vagy oil-t tenni akkor aszerint hivjuk a folt lerako fuggvenyeket
+		 * spotCommand alaphelyzetbe allitasa (NOSPOT)
+		 * @param observable
+		 * @param object
+		 */
 	public void update(Object observable, Object object) {
 		if(this.isAlive()){
 			this.step();
