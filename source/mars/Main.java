@@ -101,7 +101,7 @@ public class Main {
 			/**
 			 * Ha nincs érték, akkor nem történik semmi.
 			 */
-			if (words.length < 1 ) {
+			if (currentLine.isEmpty() || words.length < 1) {
 				currentLine = null;
 				return true;
 			}
@@ -109,9 +109,8 @@ public class Main {
 			/**
 			 *  Ha #-gel kezdõdik, akkor az a sor komment, és kiíródik.
 			 */
-			if(words.length < 1 && words[0].charAt(0) == '#') {
-				if(words[0].charAt(0) == '#')
-					System.out.println(currentLine.substring(0,1));
+			if(currentLine.contains("#")) {
+				System.out.println(currentLine.substring(1, currentLine.length()-1));
 				currentLine = null;
 				return true;
 			}
