@@ -109,12 +109,13 @@ public class Main {
 			/**
 			 *  Ha #-gel kezdõdik, akkor az a sor komment, és kiíródik.
 			 */
-			if(words[0].charAt(0) == '#') {
-				System.out.println(currentLine.substring(0,1));
+			if(words.length < 1 && words[0].charAt(0) == '#') {
+				if(words[0].charAt(0) == '#')
+					System.out.println(currentLine.substring(0,1));
 				currentLine = null;
 				return true;
 			}
-			
+
 			/**
 			 * Parancsok feldolgozása
 			 */
