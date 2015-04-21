@@ -4,50 +4,44 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * 
- *          NAGYJÁBÓL KÉSZEN VAN....................................................!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
- *
+ * Absztrakt õsosztálya a játékos- és kisrobotoknak. Közös tulajdonságaikat valósítja meg.
  */
-
 public class Robot extends Observable implements Observer {
 	private boolean alive;
 	protected Position pos;
 	protected HeadDirection headDir;	// koordináta-rendszerhez képest
 	protected Direction dir;			// játékoshoz képest
-	
-	public Direction getDirection() {
-		return dir;
-	}
-	
-	public HeadDirection getHeadDirection() {
-		return headDir;
-	}
-	
-	public void setHeadDirection(HeadDirection hd) {
-		headDir = hd;
-	}
-	
-	public Position getPosition() {
-		return pos;
-		
-	}
 
+	/**
+	 * Visszaadja, hogy él-e még a robot.
+	 */
 	public boolean isAlive() {
 		return this.alive;
 	}
 
-	// TODO
+	/**
+	 * Alapértelmezett értékre állítja az állapotot.
+	 */
 	public void reset() {
 		alive = true;
 	}
 
+	/**
+	 * Beállítja a játékos állapotát a paraméterben megadott értékkel.
+	 */
 	public void setAlive(boolean value) {
 		this.alive = value;
 	}
 
+	/**
+	 * A gyerekosztályokban felül lesz definiálva.
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) { }
 	
+	/**
+	 * Konvertáljuk a irányt a koordinátarendszerhez és a játékoshoz képest.
+	 */
 	protected HeadDirection convertDir() {
 		if(dir == Direction.STAY)
 			return headDir;
@@ -91,5 +85,24 @@ public class Robot extends Observable implements Observer {
 			else
 				return HeadDirection.UP;
 		}
+	}
+	
+	/**
+	 * Getterek, setterek.
+	 */
+	public Direction getDirection() {
+		return dir;
+	}
+	
+	public HeadDirection getHeadDirection() {
+		return headDir;
+	}
+	
+	public void setHeadDirection(HeadDirection hd) {
+		headDir = hd;
+	}
+	
+	public Position getPosition() {
+		return pos;
 	}
 }

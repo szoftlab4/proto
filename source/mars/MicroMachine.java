@@ -1,5 +1,8 @@
 package mars;
 
+/**
+ * Pályán lévõ foltok takarításáért felelõs kisrobot. Létrehozza az olajfoltot, ami majd halálakor a helyére kerül.
+ */
 public class MicroMachine extends Robot {
 	private boolean doneCleaning;
 	private int progress;

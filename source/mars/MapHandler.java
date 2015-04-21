@@ -15,21 +15,27 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-/**********
- * 
- * @author Khongi
- *
- * Meg kozel sincs kesz...
- *
+/**
+ * Itt töltõdik be a pálya. Tartalmazza a pályaelemeket egy mátrix adatszerkezetben és 
+ * a pálya alakját (csak pozíciók) egy listában. Attól függõen, hogy hova lépett, lekezeli 
+ * a játékost. Ellenõrzi, hogy a játékos a pályára lépett-e, ha nem akkor ‘megöli’ a játékost.
+ * Átadja a játékos referenciáját a pályaelemnek. Kiszámolja és megállapítja egy kisrobot esetén,
+ * hogy merre van a legközelebbi folt. Végigiterál a pályelemeken és meghívja az ellenõrzõ függvényeiket.
  */
-
 public class MapHandler implements Observer {
+	/**
+	 * map: Ebben vannak a mapElementek
+	 * road: Ebben csak a pályaelemet tartalmazó Positionok vannak
+	 */
 	private ArrayList<MapElement> map;
 	private ArrayList<Position> road;
 	private int mapWidth;
 	private String mapName; //pálya neve
 	private int mapHeight;
 
+	/**
+	 * Inicializálás.
+	 */
 	public MapHandler(){
 		map = new ArrayList<MapElement>();
 		road = new ArrayList<Position>();
@@ -37,10 +43,17 @@ public class MapHandler implements Observer {
 		mapName = null;
 	}
 
+	/**
+	 * Betölti a pályát a paraméterben kapott fájlnév szerint.
+	 * @param filepath: fájlnév, amit betölt
+	 */
 	public void loadMap(String filepath){
 		try {
 			File file = new File("res\\" + filepath);
 			
+			/**
+			 * XML feldolgozó.
+			 */
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			Document doc = db.parse(file);
@@ -56,6 +69,9 @@ public class MapHandler implements Observer {
 			String spot;
 			ArrayList<MapElement> unsorted = new ArrayList<MapElement>();
 			
+			/**
+			 * Feltöltjük az unsorted listát a pályaelemekkel.
+			 */
 			for (int i = 0; i < listOfMapElement.getLength(); i++) {
 				
 				Node node = listOfMapElement.item(i);
@@ -97,6 +113,9 @@ public class MapHandler implements Observer {
 			
 			Boolean rowEnd = false;
 			
+			/**
+			 * A map-et feltöltõ algoritmus, ami az unsorted szerint tölti fel pályaelemekkel, illetve dummy elemekkel.
+			 */
 			for(int j = 0; j < mapHeight; j++){
 				for(int i = 0; i < mapWidth; i++){
 					for(int l = 0; l < unsorted.size(); l++){
@@ -123,14 +142,6 @@ public class MapHandler implements Observer {
 			e.printStackTrace();
 			System.out.println("\nSikertelen a pálya betöltése.");
 		}
-	}
-	
-	public ArrayList<MapElement> getMap(){
-		return map;
-	}
-	
-	public void reset() {
-		//TODO
 	}
 
 	public void checkSpots() {
@@ -206,6 +217,7 @@ public class MapHandler implements Observer {
 		//System.out.println("hdir: " + hdir);
 		return hdir;
 	}
+	
 	private Direction headDirToDir(HeadDirection o,HeadDirection n){
 		if(o == n){
 			return Direction.FORWARD;
@@ -260,10 +272,16 @@ public class MapHandler implements Observer {
 		}
 	}
 
+	/**
+	 * A paraméterben megadott pozíción lévõ spotot törli.
+	 */
 	public void deleteSpot(Position pos) {
 		map.get(posToIndex(pos)).deleteSpot();
 	}
 
+	/**
+	 * Ütköztetés elindítása.
+	 */
 	public void startCollisions() {
 		System.out.println("elindult az utkoztetes...");
 		for(Position pos : road){
@@ -271,35 +289,26 @@ public class MapHandler implements Observer {
 		}
 	}
 	
-	
-	/// DEBUG FOR TEST START
+	/**
+	 * Visszaadja a pálya nevét.
+	 * @return
+	 */
 	public String getMapName(){
 		return mapName;
 	}
 	
-	///DEBUG FOR TEST END
-	
+	/**
+	 * A paraméterben megadott pozícióból egy indexet hoz létre. (Így tudjuk kezelni a
+	 * sorfolytonos mátrixunkat (Lista))
+	 */
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
 		return pos.getY() * mapWidth + pos.getX();
 	}
 	
-	public ArrayList<MapElement> getSpots(Boolean console){
-		ArrayList<MapElement> spots = new ArrayList<MapElement>();
-		for(MapElement mapelement : map){
-			if(mapelement.hasSpot() && !mapelement.isDummy()){
-				
-				if(mapelement.getSpot().toString().equalsIgnoreCase("oil") && console)
-					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
-				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo") && console)
-					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
-				
-				spots.add(mapelement);
-			}
-		}
-		return spots;
-	}
-	
+	/**
+	 * Visszaad egy olyan véletlenszerû pozíciót, amelyre tudunk robotot rakni.
+	 */
 	public Position getAvailablePos(){
 		Position freePos = new Position(-1,-1);
 		boolean done = false;
@@ -328,10 +337,16 @@ public class MapHandler implements Observer {
 		return freePos;
 	}
 
+	/**
+	 * Visszaadja, hogy a koordináta a játéktéren belül van-e.
+	 */
 	private boolean isValidCoordinate(int x, int y){
 		return !((y<0) || (y>mapHeight) || (x<0) || (x>mapWidth));
 	}
 	
+	/**
+	 * Keres egy irányt, amerre van egy érvényes pályaelem.
+	 */
 	public HeadDirection getValidHeadDir(Position pos){
 		int x = pos.getX();
 		int y = pos.getY();
@@ -350,6 +365,10 @@ public class MapHandler implements Observer {
 		return HeadDirection.DOWN;
 	}
 	
+	/**
+	 * Ez hívódik meg a mapHandlerben. Megnézi, hogy pályaelemre lépett-e. Ha igen, akkor él
+	 * és tovább adja a player referenciáját, ha nem, akkor meghalt.
+	 */
 	public void checkPosition(Player player){
 		Position playerPos = player.getNextPos();
 		boolean playerIsAlive = false;
@@ -367,17 +386,30 @@ public class MapHandler implements Observer {
 		}
 	}
 	
+	/**
+	 * Megvizsgálja, hogy a kisrobot készen van-e a takarítással. Ha igen, akkor
+	 * a kisrobot helyén lévõ spotot kitörli.
+	 */
 	public void testMMCleaningStatus(MicroMachine mm){
 		if(mm.isDoneCleaning()){
 			this.deleteSpot(mm.pos);
 		}
 	}
 	
+	/**
+	 * A megadott pozícióra leteszi a megadott foltot.
+	 * @param pos: pozíció
+	 * @param spot: folt típusa
+	 */
 	public void addSpot(Position pos, Spot spot){
 		//if(!map.get(posToIndex(pos)).isDummy())
 			map.get(posToIndex(pos)).addSpot(spot);
 	}
-
+	
+	/**
+	 * Player lépésekor fut le, ha a player le akar tenni egy foltot, akkor azt is megkapja az argumentumban,
+	 * és megvizsgálja, hogy hova ugrott.
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		//Elvileg kesz
@@ -386,6 +418,33 @@ public class MapHandler implements Observer {
 			addSpot(player.getPosition(),(Spot)arg);
 		
 		checkPosition(player);
-
+	}
+	
+	/**
+	 * Getterek.
+	 */
+	
+	public ArrayList<MapElement> getMap(){
+		return map;
+	}
+	
+	/**
+	 * Visszaadja azokat a mapElementeket, melyeken van spot.
+	 * @param console: ha true, akkor ki is írja õket.
+	 */
+	public ArrayList<MapElement> getSpots(Boolean console){
+		ArrayList<MapElement> spots = new ArrayList<MapElement>();
+		for(MapElement mapelement : map){
+			if(mapelement.hasSpot() && !mapelement.isDummy()){
+				
+				if(mapelement.getSpot().toString().equalsIgnoreCase("oil") && console)
+					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
+				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo") && console)
+					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
+				
+				spots.add(mapelement);
+			}
+		}
+		return spots;
 	}
 }
