@@ -236,6 +236,7 @@ public class MapHandler implements Observer {
 			if(nextIdx == road.size())
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
 			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 		else if(left<right){
@@ -243,6 +244,7 @@ public class MapHandler implements Observer {
 			if(prevIdx < 0)
 				prevIdx = road.size() - 1;
 			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
+			map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
 			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 		else if(left == 0 && right == 0){
@@ -253,6 +255,7 @@ public class MapHandler implements Observer {
 			if(nextIdx == road.size())
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
 			microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 		}
 	}
