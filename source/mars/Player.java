@@ -156,6 +156,7 @@ public class Player extends Robot {
 	}
 	
 	public void putOilSpot() {
+		setChanged();
 		if(spotCount > 0){
 			spotCount--;
 			this.notifyObservers(new Oil());
