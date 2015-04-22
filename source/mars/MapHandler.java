@@ -133,14 +133,14 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			System.out.println("\nSikeresen betöltöttük a pályát.");
+			//System.out.println("\nSikeresen betöltöttük a pályát.");
 			
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
-			System.out.println("\nSikertelen a pálya betöltése.");
+			//System.out.println("\nSikertelen a pálya betöltése.");
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("\nSikertelen a pálya betöltése.");
+			//System.out.println("\nSikertelen a pálya betöltése.");
 		}
 	}
 	/**

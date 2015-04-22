@@ -111,7 +111,7 @@ public class Main {
 			 */
 			if(words.length > 1 && words[0].charAt(0) == '#') {
 				if(words[0].charAt(0) == '#')
-					System.out.println(currentLine.substring(0,1));
+					System.out.println(currentLine);
 				currentLine = null;
 				return true;
 			}
@@ -285,8 +285,8 @@ public class Main {
 			else if (words[0].equalsIgnoreCase("loadMap") && words.length > 1 && words[1] != "") {
 				if(game.getMapHandler().getMapName() == null)
 					game.getMapHandler().loadMap(words[1]);
-				else
-					System.out.println("Van már pálya betöltve.");
+				//else
+					//System.out.println("Van már pálya betöltve.");
 			}
 			
 			/**

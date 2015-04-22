@@ -87,7 +87,7 @@ public class MapElement {
 	 * A játékosok ütközésének lekezelése.
 	 */
 	private void collidePlayers(){
-		System.out.println("collide players");
+		//System.out.println("collide players");
 		int maxspeed = 0;
 		double avg = 0;
 		int x = 0;
