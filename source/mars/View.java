@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 public class View extends JPanel{
 	JFrame frame;
 	
+	ArrayList<GMapElement> gMapElements;
+	
 	public View(){
 		init();
 	}
@@ -25,20 +27,27 @@ public class View extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.black);
+		g.setColor(Color.white);
 		g.fillRect(0, 0, 1000, 1000);
 	}
 	
-	public class GMapElement implements Drawable{
-		ArrayList<MapElement> list;
+	public class GMapElement{
 		
-		@Override
-		public void draw() {
+		MapElement mapElement;
+		int x;
+		int y;
+		
+		
+		public GMapElement(MapElement mapElement){
+			this.mapElement = mapElement;
+		}
+		
+		public void draw(Graphics g) {
+			
 		}
 	}
 	
-	public class GGoo implements Drawable{		
-		ArrayList<Goo> list;
+	public class GGoo implements Drawable{
 		
 		@Override
 		public void draw() {
@@ -46,7 +55,6 @@ public class View extends JPanel{
 	}
 	
 	public class GPlayer implements Drawable{
-		ArrayList<Player> list;
 		
 		@Override
 		public void draw() {
@@ -54,7 +62,6 @@ public class View extends JPanel{
 	}
 	
 	public class GMicroMachine implements Drawable{
-		ArrayList<MicroMachine> list;
 		
 		@Override
 		public void draw() {
@@ -62,7 +69,6 @@ public class View extends JPanel{
 	}
 	
 	public class GOil implements Drawable{
-		ArrayList<Oil> list;
 		
 		@Override
 		public void draw() {

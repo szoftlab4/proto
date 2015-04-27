@@ -21,6 +21,7 @@ public class Game {
 	private int playerCount;	
 	@SuppressWarnings("unused")
 	private Thread superThread;
+	private Controller controller;
 	
 	/**
 	 * Game konstruktora, inicializál.
@@ -42,17 +43,21 @@ public class Game {
 		timer = new Timer();
 		
 		//Meg ezt meg kell nezni
-		timer.schedule(myTimerTask,0);
+		
 		
 		//Pályabetöltés
 		mapHandler.loadMap("Test1.map");
 		
 		addPlayers();
 		
-		
 		supervisor = new Supervisor();
 		
-		Thread superThread = new Thread(supervisor);
+		superThread = new Thread(supervisor);
+		
+	}
+	
+	public void start(){
+		timer.schedule(myTimerTask,0,1000);
 		superThread.start();
 	}
 	
@@ -92,7 +97,9 @@ public class Game {
 		return microMashines;
 	}
 	
-	
+	public void addController(Controller controller){
+		this.controller = controller;
+	}
 	
 	
 	/**************************************
@@ -160,6 +167,10 @@ public class Game {
 			}
 		}
 		
+		public void addController(Controller controller){
+			
+		}
+		
 		@Override
 		public void run(){
 			while(true){
@@ -175,6 +186,7 @@ public class Game {
 				mapHandler.startCollisions();
 				checkGameEnd();
 				checkMachines();
+				controller.drawGame();
 			}
 		}
 	}
