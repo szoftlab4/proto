@@ -14,6 +14,7 @@ public class Main {
 	private static BufferedReader br;
 	private static String currentLine;
 	private static Game game;
+	private Controller controller;
 	
 	
 	/**
@@ -24,6 +25,8 @@ public class Main {
 	public static void init(InputStream in) throws IOException {
 		br = new BufferedReader(new InputStreamReader(in));
 		game = new Game(0);
+		//NE LEGYEN STATIC
+		controller = new Controller();
 	}
 	
 	
