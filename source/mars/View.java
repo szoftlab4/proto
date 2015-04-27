@@ -12,6 +12,7 @@ public class View extends JPanel{
 	
 	ArrayList<GCell> gMapElements;
 	ArrayList<GPlayer> gPlayers;
+	ArrayList<GMicroMachine> gRobot;
 	
 	public View(){
 		init();
@@ -27,6 +28,7 @@ public class View extends JPanel{
 		
 		gMapElements = new ArrayList<GCell>();
 		gPlayers = new ArrayList<GPlayer>();
+		gRobot = new ArrayList<GMicroMachine>();
 	}
 	
 	@Override
@@ -40,6 +42,9 @@ public class View extends JPanel{
 		}
 		for(GPlayer gpe : gPlayers){
 			gpe.draw(g);
+		}
+		for(GMicroMachine mm : gRobot){
+			mm.draw(g);
 		}
 	}
 	
@@ -59,6 +64,12 @@ public class View extends JPanel{
 			gpe.addPlayerRef(p);
 			gPlayers.add(gpe);
 		}
+	}
+
+	public void addMachine(MicroMachine mm){
+		GMicroMachine gmm = new GMicroMachine();
+		gmm.addMMRef(mm);
+		gRobot.add(gmm);
 	}
 	
 	public class GCell{
@@ -121,9 +132,22 @@ public class View extends JPanel{
 	}
 	
 	public class GMicroMachine{
+		private MicroMachine robot;
+		int x;
+		int y;
 		
+		public void addMMRef(MicroMachine mm){
+			robot = mm;
+		}
 		
 		public void draw(Graphics g) {
+			if(robot.isAlive()){
+				Position pos = robot.getPosition();
+				x = pos.getX();
+				y = pos.getY();
+			g.setColor(Color.GREEN);
+			g.drawRect(x*150+35, y*150+35, 50, 50);
+			}
 		}
 	}
 	

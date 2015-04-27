@@ -14,7 +14,7 @@ public class Game {
 	private MyTimerTask myTimerTask;
 	private ArrayList<Player> players;
 	private MapHandler mapHandler;
-	private ArrayList<MicroMachine> microMashines;
+	private ArrayList<MicroMachine> microMachines;
 	private Timer timer;
 	@SuppressWarnings("unused")
 	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
@@ -31,7 +31,7 @@ public class Game {
 		playerCount = cnt;
 		mapHandler = new MapHandler();
 		players = new ArrayList<Player>();
-		microMashines = new ArrayList<MicroMachine>();
+		microMachines = new ArrayList<MicroMachine>();
 		init();
 	}
 
@@ -77,7 +77,7 @@ public class Game {
 	 * @param mm
 	 */
 	public void addMicroMachine(MicroMachine mm){
-		microMashines.add(mm);
+		microMachines.add(mm);
 		myTimerTask.registerObserver(mm);
 	}
 	
@@ -95,13 +95,14 @@ public class Game {
 	}
 	
 	public ArrayList<MicroMachine> getMicroMachine(){
-		return microMashines;
+		return microMachines;
 	}
 	
 	public void addController(Controller controller){
 		this.controller = controller;
 		controller.addMap(mapHandler.getMap());
 		controller.addPlayers(players);
+
 	}
 	
 	
@@ -119,7 +120,7 @@ public class Game {
 	public class Supervisor  implements Runnable{
 
 		private int mmCreateCounter;
-		private final static int mmCreateFreq = 5;
+		private final static int mmCreateFreq = 3;
 		
 		
 		public Supervisor(){
@@ -128,13 +129,13 @@ public class Game {
 		
 		public void checkMachines() {
 
-			for(MicroMachine mm : microMashines){
+			for(MicroMachine mm : microMachines){
 				if(mm.isDoneCleaning()){
 					mapHandler.deleteSpot(mm.pos);
 				}
 			}
 			
-			for(MicroMachine mm : microMashines){
+			for(MicroMachine mm : microMachines){
 				mapHandler.setMMDirection(mm);
 			}
 		}
@@ -163,8 +164,9 @@ public class Game {
 				mmCreateCounter = 0;
 				Position pos = mapHandler.getAvailablePos();
 				MicroMachine mm = new MicroMachine(pos, HeadDirection.UP);
-				microMashines.add(mm);
+				microMachines.add(mm);
 				myTimerTask.registerObserver(mm);
+				controller.addMachine(mm);
 			}
 		}
 		

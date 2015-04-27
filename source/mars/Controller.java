@@ -24,6 +24,9 @@ public class Controller implements MouseListener, ActionListener{
 	public void addPlayers(ArrayList<Player> players){
 		view.initPlayers(players);
 	}
+	public void addMachine(MicroMachine mm){
+		view.addMachine(mm);
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
