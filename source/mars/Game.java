@@ -8,6 +8,9 @@ import java.util.Timer;
  * Regisztrálja az observereket.
  */
 public class Game {
+	
+	public static Object syncObject = new Object();
+	
 	private MyTimerTask myTimerTask;
 	private ArrayList<Player> players;
 	private MapHandler mapHandler;
@@ -123,11 +126,16 @@ public class Game {
 		}
 
 		public void checkGameEnd() {
+			
+			int alivePlayers = 0;
 			@SuppressWarnings("unused")
 			boolean gameEnd = true;
 			for(Player player : players){
-				if(player.isAlive())
+				if(player.isAlive()){
 					gameEnd = false;
+					alivePlayers++;
+				}
+				mapHandler.setAlivePlayers(alivePlayers);
 			}
 			if(!myTimerTask.isOver())
 				gameEnd = false;
@@ -148,10 +156,20 @@ public class Game {
 		
 		@Override
 		public void run(){
-			checkGameEnd();
-			createMicroMachine();
-			mapHandler.startCollisions();
-			checkMachines();
+			while(true){
+				synchronized (Game.syncObject) {
+					try {
+						Game.syncObject.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				createMicroMachine();
+				mapHandler.startCollisions();
+				checkGameEnd();
+				checkMachines();
+			}
 		}
 	}
 	

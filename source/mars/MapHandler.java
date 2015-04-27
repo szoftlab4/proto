@@ -32,6 +32,8 @@ public class MapHandler implements Observer {
 	private int mapWidth;
 	private String mapName; //pálya neve
 	private int mapHeight;
+	private int alivePlayers;
+	private int alivePlayersSoFar;
 
 	/**
 	 * Inicializálás.
@@ -41,6 +43,8 @@ public class MapHandler implements Observer {
 		road = new ArrayList<Position>();
 		mapWidth = 0;
 		mapName = null;
+		alivePlayers = 0;
+		alivePlayersSoFar = 0;
 	}
 
 	/**
@@ -419,6 +423,7 @@ public class MapHandler implements Observer {
 		}
 		else{
 			player.setAlive(false);
+			alivePlayers--;
 		}
 	}
 	
@@ -448,12 +453,24 @@ public class MapHandler implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		//Elvileg kesz
+		boolean notifySuperVisor = false;
+		alivePlayersSoFar++;
+		
+		if(alivePlayersSoFar == alivePlayers)
+			notifySuperVisor = true;
+		
 		Player player = (Player) o;
 		if(arg != null)
 			addSpot(player.getPosition(),(Spot)arg);
 		
 		checkPosition(player);
+		
+		if(notifySuperVisor){
+			synchronized (Game.syncObject) {
+				alivePlayersSoFar = 0;
+				Game.syncObject.notify();
+			}
+		}
 	}
 	
 	/**
@@ -482,5 +499,9 @@ public class MapHandler implements Observer {
 			}
 		}
 		return spots;
+	}
+
+	public void setAlivePlayers(int alivePlayers) {
+		this.alivePlayers = alivePlayers;
 	}
 }
