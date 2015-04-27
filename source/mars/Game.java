@@ -42,7 +42,8 @@ public class Game {
 		//Meg ezt meg kell nezni
 		timer.schedule(myTimerTask,0);
 		
-		//mapHandler.loadMap("IDE KELL A PALYA ELERESI UTVONALA");
+		//Pályabetöltés
+		mapHandler.loadMap("Test1.map");
 		
 		//addPlayers();
 		
