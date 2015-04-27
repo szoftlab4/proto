@@ -19,6 +19,8 @@ public class Game {
 	@SuppressWarnings("unused")
 	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
 	private int playerCount;	
+	@SuppressWarnings("unused")
+	private Thread superThread;
 	
 	/**
 	 * Game konstruktora, inicializál.
@@ -45,10 +47,13 @@ public class Game {
 		//Pályabetöltés
 		mapHandler.loadMap("Test1.map");
 		
-		//addPlayers();
+		addPlayers();
 		
-		//El kell majd inditani
-		//supervisor = new Supervisor();
+		
+		supervisor = new Supervisor();
+		
+		Thread superThread = new Thread(supervisor);
+		superThread.start();
 	}
 	
 	/**
