@@ -1,5 +1,7 @@
 package mars;
 
+import java.util.Observable;
+
 /**
  * A játékosok adatait és állapotát tárolja. Kiszámolja az új pozíciót a sebessége és
  * az iránya alapján(ugrás). A MapHandlerrel a notifyObservers metódusán keresztül
@@ -114,8 +116,10 @@ public class Player extends Robot {
 	 * @param observable
 	 * @param object
 	 */
-	public void update(Object observable, Object object) {
+	public void update(Observable observable, Object object) {
+		
 		if(this.isAlive()){
+			System.out.println("Player el");
 			this.step();
 			switch(spotCommand){
 				case NOSPOT:

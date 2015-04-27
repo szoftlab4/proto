@@ -47,6 +47,7 @@ public class Game {
 		
 		//Pályabetöltés
 		mapHandler.loadMap("Test1.map");
+		mapHandler.setPlayerCount(playerCount);
 		
 		addPlayers();
 		
@@ -148,7 +149,7 @@ public class Game {
 					gameEnd = false;
 					alivePlayers++;
 				}
-				mapHandler.setAlivePlayers(alivePlayers);
+				mapHandler.setPlayerCount(alivePlayers);
 			}
 			if(!myTimerTask.isOver())
 				gameEnd = false;
@@ -178,6 +179,7 @@ public class Game {
 						e.printStackTrace();
 					}
 				}
+				System.out.println("Supervisor felebredt");
 				createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();

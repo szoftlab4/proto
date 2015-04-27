@@ -1,6 +1,5 @@
 package mars;
 
-import java.util.Observable;
 import java.util.Observer;
 import java.util.TimerTask;
 
@@ -24,14 +23,14 @@ public class MyTimerTask extends TimerTask {
 	/**
 	 * Ezen keresztul ertesitjuk a robotokat.
 	 */
-	private Observable notifier;
+	private Notifier notifier;
 
 	public MyTimerTask(long interval, long gametime) {
 		this.interval = interval;
 		this.gametime = gametime;
 	
 		timeElapsed=0;
-		notifier=new Observable();
+		notifier=new Notifier();
 	}
 	
 	/**
@@ -73,7 +72,9 @@ public class MyTimerTask extends TimerTask {
 	 * @param robot
 	 */
 	public void registerObserver(Observer robot) {
+		System.out.println("notifier addObserver");
 		notifier.addObserver(robot);
+		System.out.println(notifier.countObservers());
 	}
 	
 	/**
@@ -82,8 +83,9 @@ public class MyTimerTask extends TimerTask {
 	 */
 	@Override
 	public void run() {
-
+		System.out.println("TimerTask run");
 		timeElapsed+=interval;
-		notifier.notifyObservers();
+		
+		notifier.notifyRobots();
 	}
 }

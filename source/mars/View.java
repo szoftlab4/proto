@@ -39,7 +39,6 @@ public class View extends JPanel{
 			gme.draw(g);
 		}
 		for(GPlayer gpe : gPlayers){
-			System.out.println("asfdaw");
 			gpe.draw(g);
 		}
 	}
@@ -111,11 +110,13 @@ public class View extends JPanel{
 		}
 		
 		public void draw(Graphics g) {
+			if(player.isAlive()){
 			Position pos = player.getPosition();
 			x = pos.getX();
 			y = pos.getY();
 			g.setColor(Color.RED);
 			g.fillRect(x*150+37, y*150+37, 75, 75);
+			}
 		}
 	}
 	

@@ -108,4 +108,5 @@ public class Robot extends Observable implements Observer {
 	public Position getPosition() {
 		return pos;
 	}
+
 }

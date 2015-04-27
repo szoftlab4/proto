@@ -32,7 +32,7 @@ public class MapHandler implements Observer {
 	private int mapWidth;
 	private String mapName; //pálya neve
 	private int mapHeight;
-	private int alivePlayers;
+	private int playerCount;
 	private int alivePlayersSoFar;
 
 	/**
@@ -43,7 +43,7 @@ public class MapHandler implements Observer {
 		road = new ArrayList<Position>();
 		mapWidth = 0;
 		mapName = null;
-		alivePlayers = 0;
+		playerCount = 0;
 		alivePlayersSoFar = 0;
 	}
 
@@ -424,7 +424,7 @@ public class MapHandler implements Observer {
 		}
 		else{
 			player.setAlive(false);
-			alivePlayers--;
+			playerCount--;
 		}
 	}
 	
@@ -454,10 +454,11 @@ public class MapHandler implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
+		System.out.println("MapHandler update");
 		boolean notifySuperVisor = false;
 		alivePlayersSoFar++;
 		
-		if(alivePlayersSoFar == alivePlayers)
+		if(alivePlayersSoFar == playerCount)
 			notifySuperVisor = true;
 		
 		Player player = (Player) o;
@@ -467,7 +468,9 @@ public class MapHandler implements Observer {
 		checkPosition(player);
 		
 		if(notifySuperVisor){
+			System.out.println("Teljesult a notify feltetel");
 			synchronized (Game.syncObject) {
+				System.out.println("Game Monitoraban vagyunk");
 				alivePlayersSoFar = 0;
 				Game.syncObject.notify();
 			}
@@ -502,7 +505,7 @@ public class MapHandler implements Observer {
 		return spots;
 	}
 
-	public void setAlivePlayers(int alivePlayers) {
-		this.alivePlayers = alivePlayers;
+	public void setPlayerCount(int playerCount) {
+		this.playerCount = playerCount;
 	}
 }
