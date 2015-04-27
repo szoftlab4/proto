@@ -99,6 +99,7 @@ public class Game {
 	
 	public void addController(Controller controller){
 		this.controller = controller;
+		controller.addMap(mapHandler.getMap());
 	}
 	
 	
@@ -165,10 +166,6 @@ public class Game {
 				microMashines.add(mm);
 				myTimerTask.registerObserver(mm);
 			}
-		}
-		
-		public void addController(Controller controller){
-			
 		}
 		
 		@Override
