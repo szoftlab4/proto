@@ -1,6 +1,7 @@
 package mars;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,37 +17,41 @@ public class View extends JPanel{
 	public void drawAll(){
 	}
 	
-	public class GMapElement implements Drawable{		
+	public class GMapElement implements Drawable{
+		ArrayList<MapElement> list;
+		
 		@Override
 		public void draw() {
 		}
 	}
 	
 	public class GGoo implements Drawable{		
+		ArrayList<Goo> list;
+		
 		@Override
 		public void draw() {
 		}
 	}
 	
-	public class GPlayer implements Drawable{		
+	public class GPlayer implements Drawable{
+		ArrayList<Player> list;
+		
 		@Override
 		public void draw() {
 		}
 	}
 	
-	public class GRobot implements Drawable{		
+	public class GMicroMachine implements Drawable{
+		ArrayList<MicroMachine> list;
+		
 		@Override
 		public void draw() {
 		}
 	}
 	
-	public class GOil implements Drawable{		
-		@Override
-		public void draw() {
-		}
-	}
-	
-	public class GDummyElement implements Drawable{		
+	public class GOil implements Drawable{
+		ArrayList<Oil> list;
+		
 		@Override
 		public void draw() {
 		}
