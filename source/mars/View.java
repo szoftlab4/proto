@@ -10,7 +10,8 @@ import javax.swing.JPanel;
 public class View extends JPanel{
 	JFrame frame;
 	
-	ArrayList<GMapElement> gMapElements;
+	ArrayList<GCell> gMapElements;
+	ArrayList<GPlayer> gPlayers;
 	
 	public View(){
 		init();
@@ -24,8 +25,8 @@ public class View extends JPanel{
 		frame.setVisible(true);
 		
 		
-		gMapElements = new ArrayList<GMapElement>();
-		
+		gMapElements = new ArrayList<GCell>();
+		gPlayers = new ArrayList<GPlayer>();
 	}
 	
 	@Override
@@ -34,8 +35,12 @@ public class View extends JPanel{
 		g.setColor(Color.white);
 		g.fillRect(0, 0, 1000, 1000);
 		
-		for(GMapElement gme : gMapElements){
+		for(GCell gme : gMapElements){
 			gme.draw(g);
+		}
+		for(GPlayer gpe : gPlayers){
+			System.out.println("asfdaw");
+			gpe.draw(g);
 		}
 	}
 	
@@ -43,21 +48,28 @@ public class View extends JPanel{
 		for(MapElement me : map){
 			Position pos = me.getPos();
 			if(pos.getX() != -1 && pos.getY() != -1){
-				GMapElement gme = new GMapElement();
+				GCell gme = new GCell();
 				gme.addMapElementRef(me);
 				gMapElements.add(gme);
 			}
 		}
 	}
+	public void initPlayers(ArrayList<Player> players){
+		for(Player p : players){
+			GPlayer gpe = new GPlayer();
+			gpe.addPlayerRef(p);
+			gPlayers.add(gpe);
+		}
+	}
 	
-	public class GMapElement{
+	public class GCell{
 		
 		MapElement mapElement;
 		int x;
 		int y;
 		
 		
-		public GMapElement(){
+		public GCell(){
 			
 		}
 		
@@ -67,37 +79,52 @@ public class View extends JPanel{
 			y = mapElement.getPos().getY();
 		}
 		
+		private void drawSpot(Graphics g){
+			if(mapElement.hasSpot()){
+				Spot s = mapElement.getSpot();
+				if(s instanceof Goo){
+					g.setColor(Color.GREEN);
+				}
+				else{
+					g.setColor(Color.ORANGE);
+				}
+				
+				g.fillOval(x*150+25, y*150+25, 100, 100);
+			}
+		}
+		
 		public void draw(Graphics g) {
 			g.setColor(Color.blue);
 			g.drawRect(x*150, y*150, 150, 150);
+			drawSpot(g);
 		}
 	}
 	
-	public class GGoo implements Drawable{
+	
+	public class GPlayer{
+		private Player player;
+		int x;
+		int y;
 		
-		@Override
-		public void draw() {
+		public void addPlayerRef(Player p){
+			player = p;
+		}
+		
+		public void draw(Graphics g) {
+			Position pos = player.getPosition();
+			x = pos.getX();
+			y = pos.getY();
+			g.setColor(Color.RED);
+			g.fillRect(x*150+37, y*150+37, 75, 75);
 		}
 	}
 	
-	public class GPlayer implements Drawable{
+	public class GMicroMachine{
 		
-		@Override
-		public void draw() {
+		
+		public void draw(Graphics g) {
 		}
 	}
 	
-	public class GMicroMachine implements Drawable{
-		
-		@Override
-		public void draw() {
-		}
-	}
-	
-	public class GOil implements Drawable{
-		
-		@Override
-		public void draw() {
-		}
-	}
+
 }

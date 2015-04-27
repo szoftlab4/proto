@@ -100,19 +100,18 @@ public class Game {
 	public void addController(Controller controller){
 		this.controller = controller;
 		controller.addMap(mapHandler.getMap());
+		controller.addPlayers(players);
 	}
 	
 	
-	/**************************************
-	 * Nincs használva a prototípusban
-	 */
-	@SuppressWarnings("unused")
 	private void addPlayers(){
 		for(int i=0; i<playerCount; i++){
 			Position freePos = mapHandler.getAvailablePos();
 			HeadDirection dir = mapHandler.getValidHeadDir(freePos);
 			Player p = new Player("Player " + (i+1),freePos,dir);
 			addPlayer(p);
+			
+			//TODO: ne lehessen ugyanoda tenni
 		}
 	}
 	

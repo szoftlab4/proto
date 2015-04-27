@@ -352,7 +352,7 @@ public class MapHandler implements Observer {
 	public Position getAvailablePos(){
 		Position freePos = new Position(-1,-1);
 		boolean done = false;
-		int range = map.size();
+		int range = road.size();
 		Random rnd = new Random();
 		int tryCount = 0;
 		while(!done){
@@ -390,7 +390,7 @@ public class MapHandler implements Observer {
 	public HeadDirection getValidHeadDir(Position pos){
 		int x = pos.getX();
 		int y = pos.getY();
-		if(isValidCoordinate(x,y+1))
+		if(isValidCoordinate(x,y-1))
 			if(!map.get(posToIndex(new Position(x,y-1))).isDummy())
 				return HeadDirection.UP;
 		if(isValidCoordinate(x+1,y))
@@ -399,8 +399,9 @@ public class MapHandler implements Observer {
 		if(isValidCoordinate(x-1,y))
 			if(!map.get(posToIndex(new Position(x-1,y))).isDummy())
 				return HeadDirection.LEFT;
-		if(isValidCoordinate(x,y-1))
+		if(isValidCoordinate(x,y+1))
 			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
+	
 				return HeadDirection.DOWN;
 		return HeadDirection.DOWN;
 	}

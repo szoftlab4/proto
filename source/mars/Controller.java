@@ -21,7 +21,9 @@ public class Controller implements MouseListener, ActionListener{
 	public void addMap(ArrayList<MapElement> map){
 		view.initMap(map);
 	}
-	
+	public void addPlayers(ArrayList<Player> players){
+		view.initPlayers(players);
+	}
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
