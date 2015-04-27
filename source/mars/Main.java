@@ -109,9 +109,14 @@ public class Main {
 			/**
 			 *  Ha #-gel kezdõdik, akkor az a sor komment, és kiíródik.
 			 */
-			if(words.length > 1 && words[0].charAt(0) == '#') {
-				if(words[0].charAt(0) == '#')
-					System.out.println(currentLine);
+			
+			if (currentLine.isEmpty() || words.length < 1) {
+				currentLine = null;
+				return true;
+			}
+			
+			if(currentLine.contains("#")) {
+				System.out.println(currentLine.substring(1, currentLine.length()-1));
 				currentLine = null;
 				return true;
 			}
