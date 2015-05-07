@@ -2,13 +2,11 @@ package mars;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Controller implements KeyListener, ActionListener{
+public class Controller implements MouseListener, ActionListener{
 
 	View view;
 	
@@ -18,6 +16,10 @@ public class Controller implements KeyListener, ActionListener{
 	
 	public void drawGame(){
 		view.repaint();
+	}
+	
+	public void drawMenu(){
+		view.drawMenu();
 	}
 	
 	public void addMap(ArrayList<MapElement> map){
@@ -36,19 +38,31 @@ public class Controller implements KeyListener, ActionListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
+	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyReleased(KeyEvent arg0) {
+	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void keyTyped(KeyEvent arg0) {
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
