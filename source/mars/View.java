@@ -8,10 +8,12 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -39,6 +41,8 @@ public class View extends JPanel{
 	ArrayList<GCell> gMapElements;
 	ArrayList<GPlayer> gPlayers;
 	ArrayList<GMicroMachine> gRobot;
+	
+	HashMap<ImageType,Image> imageMap;
 	
 	
 	
