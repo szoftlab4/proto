@@ -12,6 +12,7 @@ public class Controller implements MouseListener, ActionListener{
 	
 	public Controller(){
 		view = new View();
+		view.addKeyListener(this);
 	}
 	
 	public void drawGame(){
@@ -38,6 +39,7 @@ public class Controller implements MouseListener, ActionListener{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
@@ -52,6 +54,40 @@ public class Controller implements MouseListener, ActionListener{
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+=======
+	public void keyPressed(KeyEvent arg0) {
+		int keycode = arg0.getKeyCode();
+		switch(keycode){
+			case KeyEvent.VK_UP:
+				break;
+			case KeyEvent.VK_DOWN:
+				break;
+			case KeyEvent.VK_LEFT:
+				break;
+			case KeyEvent.VK_RIGHT:
+				break;
+				
+			case KeyEvent.VK_W:
+				break;
+			case KeyEvent.VK_A:
+				break;
+			case KeyEvent.VK_S:
+				break;
+			case KeyEvent.VK_D:
+				break;
+				
+			case KeyEvent.VK_U:
+				break;
+			case KeyEvent.VK_H:
+				break;
+			case KeyEvent.VK_J:
+				break;
+			case KeyEvent.VK_K:
+				break;
+			default:
+				break;
+		}
+>>>>>>> origin/master
 		
 	}
 
