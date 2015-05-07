@@ -173,13 +173,22 @@ public class Game {
 		@Override
 		public void run(){
 			while(true){
+				/*
 				synchronized (Game.syncObject) {
 					try {
 						Game.syncObject.wait();
+						
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+				}
+				*/
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 				System.out.println("Supervisor felebredt");
 				createMicroMachine();

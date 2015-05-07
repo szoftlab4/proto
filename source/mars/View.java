@@ -145,8 +145,8 @@ public class View extends JPanel{
 				Position pos = robot.getPosition();
 				x = pos.getX();
 				y = pos.getY();
-			g.setColor(Color.GREEN);
-			g.drawRect(x*150+35, y*150+35, 50, 50);
+			g.setColor(Color.CYAN);
+			g.fillRect(x*150+35, y*150+35, 50, 50);
 			}
 		}
 	}
