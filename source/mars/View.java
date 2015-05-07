@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -23,10 +24,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 
@@ -94,7 +97,7 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                System.out.println("A KURVA ANYÁD");
+                //TODO EREDMÉNYTÁBLA
             }
         });  
 		panel.add(highscorebtn, c);
@@ -114,7 +117,6 @@ public class View extends JPanel{
 		panel.add(exitbtn, c);
 		
 		frame.setVisible(true);
-		
 	}
 	
 	private void drawNewGameMenu(){
@@ -124,14 +126,67 @@ public class View extends JPanel{
 		panel.setLayout(new GridBagLayout());
 		GridBagConstraints c = new GridBagConstraints();
 	    c.fill = GridBagConstraints.VERTICAL;
+	    c.gridx = 1;
+	    c.weightx = 0.5;
+		c.insets = new Insets(0, 0, 100, 0);
 		
-		JLabel label1 = new JLabel("New Game");
-		label1.setHorizontalAlignment(SwingConstants.LEFT);
-		label1.setFont(new Font("Arial", Font.PLAIN, 36));
+	    JLabel label1 = new JLabel("New Game");
+		label1.setFont(new Font("Arial", Font.PLAIN, 48));
+		c.anchor = GridBagConstraints.PAGE_START;
+		c.gridy = 0;
+		panel.add(label1,c);
 		
-		panel.add(label1);
+
+		c.insets = new Insets(0, 0, 50, 0);
+		JLabel label2 = new JLabel("Player Count:");
+		label2.setFont(new Font("Arial", Font.PLAIN, 36));
+		c.gridy = 1;
+		c.gridx = 0;
+		panel.add(label2,c);
 		
+		JRadioButton rbtn1 = new JRadioButton("2");
+		rbtn1.setFont(new Font("Arial", Font.PLAIN, 36));
+		rbtn1.setBackground(new Color(194,194,194));
+		c.gridy = 2;
+		c.gridx = 0;
+		panel.add(rbtn1,c);
 		
+		JRadioButton rbtn2 = new JRadioButton("3");
+		rbtn2.setFont(new Font("Arial", Font.PLAIN, 36));
+		rbtn2.setBackground(new Color(194,194,194));
+		c.gridy = 2;
+		c.gridx = 1;
+		panel.add(rbtn2,c);
+
+		ButtonGroup group = new ButtonGroup();
+		group.add(rbtn1);
+		group.add(rbtn2);
+		
+		JLabel label3 = new JLabel("Map Select:");
+		label3.setFont(new Font("Arial", Font.PLAIN, 36));
+		c.gridy = 3;
+		c.gridx = 0;
+		panel.add(label3,c);
+
+		c.ipady = 175;
+		c.ipadx = 250;
+		JButton map1 = new JButton("");
+		map1.setBorder(new LineBorder(Color.BLACK, 3));
+		c.gridy = 4;
+		c.gridx = 0;
+		panel.add(map1, c);
+		
+		JButton map2 = new JButton("");
+		map2.setBorder(new LineBorder(Color.BLACK, 3));
+		c.gridy = 4;
+		c.gridx = 1;
+		panel.add(map2, c);
+		
+		JButton map3 = new JButton("");
+		map3.setBorder(new LineBorder(Color.BLACK, 3));
+		c.gridy = 4;
+		c.gridx = 2;
+		panel.add(map3, c);
 		
 		frame.setVisible(true);
 	}
