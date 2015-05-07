@@ -101,6 +101,10 @@ public class Game {
 		return microMachines;
 	}
 	
+	public int getPlayerCount(){
+		return playerCount;
+	}
+	
 	public void addController(Controller controller){
 		this.controller = controller;
 		controller.addMap(mapHandler.getMap());

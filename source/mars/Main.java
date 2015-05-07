@@ -7,6 +7,8 @@ public class Main {
 		Controller controller = new Controller();
 		
 		game.addController(controller);
+		controller.addGameReference(game);
+		
 		game.start();
 	}
 
