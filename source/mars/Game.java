@@ -16,8 +16,10 @@ public class Game {
 	private MapHandler mapHandler;
 	private ArrayList<MicroMachine> microMachines;
 	private Timer timer;
+	@SuppressWarnings("unused")
 	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
-	private int playerCount;
+	private int playerCount;	
+	@SuppressWarnings("unused")
 	private Thread superThread;
 	private Controller controller;
 	
@@ -57,6 +59,9 @@ public class Game {
 	
 	public void start(){
 		timer.schedule(myTimerTask,0,1000);
+		
+		controller.drawMenu();
+		
 		superThread.start();
 	}
 	
