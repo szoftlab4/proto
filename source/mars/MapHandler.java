@@ -454,7 +454,7 @@ public class MapHandler implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("MapHandler update");
+		//System.out.println("MapHandler update");
 		boolean notifySuperVisor = false;
 		alivePlayersSoFar++;
 		
@@ -468,9 +468,9 @@ public class MapHandler implements Observer {
 		checkPosition(player);
 		
 		if(notifySuperVisor){
-			System.out.println("Teljesult a notify feltetel");
+			//System.out.println("Teljesult a notify feltetel");
 			synchronized (Game.syncObject) {
-				System.out.println("Game Monitoraban vagyunk");
+				//System.out.println("Game Monitoraban vagyunk");
 				alivePlayersSoFar = 0;
 				Game.syncObject.notify();
 			}

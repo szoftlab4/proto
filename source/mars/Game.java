@@ -188,8 +188,8 @@ public class Game {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.out.println("Supervisor felebredt");
-				createMicroMachine();
+				//System.out.println("Supervisor felebredt");
+				//createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();
 				checkMachines();

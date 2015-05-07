@@ -16,6 +16,8 @@ public class View extends JPanel{
 	
 	public View(){
 		init();
+		// Billentyuk miatt kell
+		setFocusable(true); 
 	}
 	
 	public void init(){
