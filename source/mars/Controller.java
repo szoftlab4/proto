@@ -41,16 +41,30 @@ public class Controller implements KeyListener, ActionListener{
 		int keycode = arg0.getKeyCode();
 		switch(keycode){
 			case KeyEvent.VK_UP:
-				System.out.println("up");
 				break;
 			case KeyEvent.VK_DOWN:
-				System.out.println("down");
 				break;
 			case KeyEvent.VK_LEFT:
-				System.out.println("left");
 				break;
 			case KeyEvent.VK_RIGHT:
-				System.out.println("right");
+				break;
+				
+			case KeyEvent.VK_W:
+				break;
+			case KeyEvent.VK_A:
+				break;
+			case KeyEvent.VK_S:
+				break;
+			case KeyEvent.VK_D:
+				break;
+				
+			case KeyEvent.VK_U:
+				break;
+			case KeyEvent.VK_H:
+				break;
+			case KeyEvent.VK_J:
+				break;
+			case KeyEvent.VK_K:
 				break;
 			default:
 				break;
