@@ -119,7 +119,7 @@ public class Player extends Robot {
 	public void update(Observable observable, Object object) {
 		
 		if(this.isAlive()){
-			System.out.println("Player el");
+			//System.out.println("Player el");
 			this.step();
 			switch(spotCommand){
 				case NOSPOT:
@@ -168,6 +168,19 @@ public class Player extends Robot {
 			}
 		}		
 		setOilFlag(false);
+	}
+	
+	/**
+	 * Felul kell irni a Robot implementaciojat mivel BACKWARD-ra nem kell csinalni semmit
+	 */
+	@Override
+	protected HeadDirection convertDir(){
+		//Ha BACKWARD akkor nem csinalunk semmit
+		if(dir == Direction.BACKWARD)
+			return headDir;
+		
+		//Egyebkent pedig jo az ososztaly implementacio
+		return super.convertDir();
 	}
 	
 	/**
@@ -306,6 +319,19 @@ public class Player extends Robot {
 	 * @return
 	 */
 	public Position getNextPos() {
+
+		
 		return this.nextPos;
+	}
+	
+	/*************************************************************
+	 * IRANYITASHOZ KAPCSOLODO METHODUSOK
+	 ************************************************************/
+	
+	/**
+	 * Ezzel adunk 
+	 */
+	public void command(Direction dir){
+		this.dir = dir;
 	}
 }

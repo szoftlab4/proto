@@ -423,7 +423,8 @@ public class MapHandler implements Observer {
 			player.setPosition(playerPos);
 		}
 		else{
-			player.setAlive(false);
+			//TODO kivenni a kommentet
+			//player.setAlive(false);
 			playerCount--;
 		}
 	}
