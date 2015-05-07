@@ -2,8 +2,15 @@ package mars;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,6 +20,8 @@ public class View extends JPanel{
 	ArrayList<GCell> gMapElements;
 	ArrayList<GPlayer> gPlayers;
 	ArrayList<GMicroMachine> gRobot;
+	
+	
 	
 	public View(){
 		init();
@@ -40,13 +49,34 @@ public class View extends JPanel{
 		g.fillRect(0, 0, 1000, 1000);
 		
 		for(GCell gme : gMapElements){
-			gme.draw(g);
+			try {
+				gme.draw(g);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		for(GPlayer gpe : gPlayers){
-			gpe.draw(g);
+			try {
+				gpe.draw(g);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		for(GMicroMachine mm : gRobot){
-			mm.draw(g);
+			try {
+				mm.draw(g);
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -91,23 +121,27 @@ public class View extends JPanel{
 			y = mapElement.getPos().getY();
 		}
 		
-		private void drawSpot(Graphics g){
+		private void drawSpot(Graphics g) throws IOException{
 			if(mapElement.hasSpot()){
 				Spot s = mapElement.getSpot();
 				if(s instanceof Goo){
-					g.setColor(Color.GREEN);
+					
+					BufferedImage image = ImageIO.read(new FileInputStream("res/Goo.png"));
+					g.drawImage(image, x*150, y*150, 150, 150, null);
+					
 				}
 				else{
-					g.setColor(Color.ORANGE);
+					BufferedImage image = ImageIO.read(new FileInputStream("res/Oil.png"));
+					g.drawImage(image, x*150, y*150, 150, 150, null);
 				}
-				
-				g.fillOval(x*150+25, y*150+25, 100, 100);
 			}
 		}
 		
-		public void draw(Graphics g) {
-			g.setColor(Color.blue);
-			g.drawRect(x*150, y*150, 150, 150);
+		public void draw(Graphics g) throws IOException {
+
+			BufferedImage image = ImageIO.read(new FileInputStream("res/Lava Cracks.png"));
+			g.drawImage(image, x*150, y*150, 150, 150, null);
+			
 			drawSpot(g);
 		}
 	}
@@ -122,13 +156,14 @@ public class View extends JPanel{
 			player = p;
 		}
 		
-		public void draw(Graphics g) {
+		public void draw(Graphics g) throws FileNotFoundException, IOException {
 			if(player.isAlive()){
-			Position pos = player.getPosition();
-			x = pos.getX();
-			y = pos.getY();
-			g.setColor(Color.RED);
-			g.fillRect(x*150+37, y*150+37, 75, 75);
+				Position pos = player.getPosition();
+				x = pos.getX();
+				y = pos.getY();
+				
+				BufferedImage image = ImageIO.read(new FileInputStream("res/Eve.png"));
+				g.drawImage(image, x*150, y*150, 150, 150, null);
 			}
 		}
 	}
@@ -142,13 +177,14 @@ public class View extends JPanel{
 			robot = mm;
 		}
 		
-		public void draw(Graphics g) {
+		public void draw(Graphics g) throws FileNotFoundException, IOException {
 			if(robot.isAlive()){
 				Position pos = robot.getPosition();
 				x = pos.getX();
 				y = pos.getY();
-			g.setColor(Color.CYAN);
-			g.fillRect(x*150+35, y*150+35, 50, 50);
+			
+				BufferedImage image = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
+				g.drawImage(image, x*150, y*150, 150, 150, null);
 			}
 		}
 	}
