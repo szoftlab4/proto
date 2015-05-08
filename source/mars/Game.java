@@ -58,7 +58,7 @@ public class Game {
 	public void start(){
 		timer.schedule(myTimerTask,0,1000);
 		
-		//controller.drawMenu();
+		controller.drawMenu();
 		
 		superThread.start();
 	}
