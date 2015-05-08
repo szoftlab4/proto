@@ -16,10 +16,8 @@ public class Game {
 	private MapHandler mapHandler;
 	private ArrayList<MicroMachine> microMachines;
 	private Timer timer;
-	@SuppressWarnings("unused")
 	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
 	private int playerCount;	
-	@SuppressWarnings("unused")
 	private Thread superThread;
 	private Controller controller;
 	

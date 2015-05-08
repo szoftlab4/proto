@@ -89,6 +89,14 @@ public class Controller implements KeyListener, ActionListener{
 			case KeyEvent.VK_RIGHT:
 				p1.command(Direction.RIGHT);
 				break;
+			case KeyEvent.VK_O:
+				//TODO KICSIT FURA EZ IGY MOST
+				p1.setSpotCommand(SpotCommand.GOO);
+				break;
+			case KeyEvent.VK_P:
+				//TODO NYILVAN EZ IS
+				p1.setSpotCommand(SpotCommand.OIL);
+				break;
 				
 			case KeyEvent.VK_W:
 				if(p2enabled){

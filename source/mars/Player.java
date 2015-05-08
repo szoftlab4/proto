@@ -328,10 +328,9 @@ public class Player extends Robot {
 	 * IRANYITASHOZ KAPCSOLODO METHODUSOK
 	 ************************************************************/
 	
-	/**
-	 * Ezzel adunk 
-	 */
+	
 	public void command(Direction dir){
+		//Igy most nem lehet egyszerre iranyt es sebesseget valtoztatni
 		this.dir = dir;
 	}
 }
