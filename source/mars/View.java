@@ -27,6 +27,7 @@ import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -42,7 +43,7 @@ public class View extends JPanel{
 	ArrayList<GPlayer> gPlayers;
 	ArrayList<GMicroMachine> gRobot;
 	
-	HashMap<ImageType,Image> imageMap;
+	HashMap<ImageType,BufferedImage> imgMap;
 	
 	
 	
@@ -53,6 +54,7 @@ public class View extends JPanel{
 	}
 	
 	public void init(){
+		imgMap = new HashMap<ImageType,BufferedImage>();
 		frame = new JFrame("Proto");
 		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -62,8 +64,30 @@ public class View extends JPanel{
 		gMapElements = new ArrayList<GCell>();
 		gPlayers = new ArrayList<GPlayer>();
 		gRobot = new ArrayList<GMicroMachine>();
+		
+		try {
+			loadImages();
+		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
+		}		
 	}
 	
+	private void loadImages() throws FileNotFoundException, IOException {
+		BufferedImage img;
+		img = ImageIO.read(new FileInputStream("res/Goo.png"));
+		imgMap.put(ImageType.GOO, img);
+		img = ImageIO.read(new FileInputStream("res/Oil.png"));
+		imgMap.put(ImageType.OIL, img);
+		img = ImageIO.read(new FileInputStream("res/Lava Cracks.png"));
+		imgMap.put(ImageType.LAVA_CRACKS, img);
+		img = ImageIO.read(new FileInputStream("res/Eve.png"));
+		imgMap.put(ImageType.EVE, img);
+		img = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
+		imgMap.put(ImageType.MICRO_MACHINE, img);
+		img = ImageIO.read(new FileInputStream("res/MS Icon.png"));
+		imgMap.put(ImageType.MS_ICON, img);
+	}
+
 	public void drawMenu(){
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(194,194,194));
@@ -172,22 +196,25 @@ public class View extends JPanel{
 		c.gridx = 0;
 		panel.add(label3,c);
 
-		c.ipady = 175;
-		c.ipadx = 250;
 		JButton map1 = new JButton("");
 		map1.setBorder(new LineBorder(Color.BLACK, 3));
+		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON)));
 		c.gridy = 4;
 		c.gridx = 0;
 		panel.add(map1, c);
-		
+
+		c.ipady = 175;
+		c.ipadx = 250;
 		JButton map2 = new JButton("");
 		map2.setBorder(new LineBorder(Color.BLACK, 3));
+		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
 		panel.add(map2, c);
 		
 		JButton map3 = new JButton("");
 		map3.setBorder(new LineBorder(Color.BLACK, 3));
+		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
 		panel.add(map3, c);
@@ -279,21 +306,18 @@ public class View extends JPanel{
 				Spot s = mapElement.getSpot();
 				if(s instanceof Goo){
 					
-					BufferedImage image = ImageIO.read(new FileInputStream("res/Goo.png"));
-					g.drawImage(image, x*150, y*150, 150, 150, null);
+					g.drawImage(imgMap.get(ImageType.GOO), x*150, y*150, 150, 150, null);
 					
 				}
 				else{
-					BufferedImage image = ImageIO.read(new FileInputStream("res/Oil.png"));
-					g.drawImage(image, x*150, y*150, 150, 150, null);
+					g.drawImage(imgMap.get(ImageType.OIL), x*150, y*150, 150, 150, null);
 				}
 			}
 		}
 		
 		public void draw(Graphics g) throws IOException {
 
-			BufferedImage image = ImageIO.read(new FileInputStream("res/Lava Cracks.png"));
-			g.drawImage(image, x*150, y*150, 150, 150, null);
+			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*150, y*150, 150, 150, null);
 			
 			drawSpot(g);
 		}
@@ -315,8 +339,7 @@ public class View extends JPanel{
 				x = pos.getX();
 				y = pos.getY();
 				
-				BufferedImage image = ImageIO.read(new FileInputStream("res/Eve.png"));
-				g.drawImage(image, x*150, y*150, 150, 150, null);
+				g.drawImage(imgMap.get(ImageType.EVE), x*150, y*150, 150, 150, null);
 			}
 		}
 	}
@@ -336,8 +359,7 @@ public class View extends JPanel{
 				x = pos.getX();
 				y = pos.getY();
 			
-				BufferedImage image = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
-				g.drawImage(image, x*150, y*150, 150, 150, null);
+				g.drawImage(imgMap.get(ImageType.MICRO_MACHINE), x*150, y*150, 150, 150, null);
 			}
 		}
 	}
