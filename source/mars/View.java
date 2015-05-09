@@ -201,6 +201,13 @@ public class View extends JPanel{
 		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON)));
 		c.gridy = 4;
 		c.gridx = 0;
+		map1.addActionListener(new ActionListener() {
+	    	 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Start game - map 1? Egy kicsi problem,ez igy nem megy
+            }
+        });  
 		panel.add(map1, c);
 
 		c.ipady = 175;
@@ -210,6 +217,13 @@ public class View extends JPanel{
 		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
+		map2.addActionListener(new ActionListener() {
+	    	 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Start game - map 2?
+            }
+        });  
 		panel.add(map2, c);
 		
 		JButton map3 = new JButton("");
@@ -217,6 +231,13 @@ public class View extends JPanel{
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
+		map3.addActionListener(new ActionListener() {
+	    	 
+            public void actionPerformed(ActionEvent e)
+            {
+                //Start game - map 3?
+            }
+        });  
 		panel.add(map3, c);
 		
 		frame.setVisible(true);

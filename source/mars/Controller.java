@@ -100,43 +100,64 @@ public class Controller implements KeyListener, ActionListener{
 				
 			case KeyEvent.VK_W:
 				if(p2enabled){
-					
+					p2.command(Direction.FORWARD);
 				}
 				break;
 			case KeyEvent.VK_A:
 				if(p2enabled){
-					
+					p2.command(Direction.LEFT);
 				}
 				break;
 			case KeyEvent.VK_S:
 				if(p2enabled){
-					
+					p2.command(Direction.BACKWARD);
 				}
 				break;
 			case KeyEvent.VK_D:
 				if(p2enabled){
-					
+					p2.command(Direction.RIGHT);
+				}
+				break;
+				
+			case KeyEvent.VK_Q:
+				if(p2enabled){
+					p2.setSpotCommand(SpotCommand.GOO);
+				}
+				break;
+			case KeyEvent.VK_E:
+				if(p2enabled){
+					p2.setSpotCommand(SpotCommand.OIL);
 				}
 				break;
 				
 			case KeyEvent.VK_U:
 				if(p3enabled){
-					
+					p3.command(Direction.FORWARD);
 				}
 				break;
 			case KeyEvent.VK_H:
 				if(p3enabled){
-					
+					p3.command(Direction.LEFT);
 				}
 				break;
 			case KeyEvent.VK_J:
 				if(p3enabled){
-					
+					p3.command(Direction.BACKWARD);
 				}
 				break;
 			case KeyEvent.VK_K:
 				if(p3enabled){
-					
+					p3.command(Direction.RIGHT);
+				}
+				break;
+			case KeyEvent.VK_Z:
+				if(p3enabled){
+					p3.setSpotCommand(SpotCommand.GOO);
+				}
+				break;
+			case KeyEvent.VK_I:
+				if(p3enabled){
+					p3.setSpotCommand(SpotCommand.OIL);
 				}
 				break;
 			default:
