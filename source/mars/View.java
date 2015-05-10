@@ -175,14 +175,15 @@ public class View extends JPanel{
 		c.gridx = 0;
 		panel.add(label2,c);
 		
-		JRadioButton rbtn1 = new JRadioButton("2");
+		final JRadioButton rbtn1 = new JRadioButton("2");
 		rbtn1.setFont(new Font("Arial", Font.PLAIN, 36));
 		rbtn1.setBackground(new Color(194,194,194));
 		c.gridy = 2;
 		c.gridx = 0;
+		rbtn1.doClick();
 		panel.add(rbtn1,c);
 		
-		JRadioButton rbtn2 = new JRadioButton("3");
+		final JRadioButton rbtn2 = new JRadioButton("3");
 		rbtn2.setFont(new Font("Arial", Font.PLAIN, 36));
 		rbtn2.setBackground(new Color(194,194,194));
 		c.gridy = 2;
@@ -208,7 +209,11 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                controller.startGame(2, "Test1.map");
+            	if(rbtn1.isSelected()){
+            		controller.startGame(2, "Test1.map");	//elso terkep
+            	}else if(rbtn2.isSelected()){
+            		controller.startGame(3, "Test1.map");
+            	}
             }
         });  
 		panel.add(map1, c);
@@ -224,7 +229,11 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                //Start game - map 2?
+            	if(rbtn1.isSelected()){
+            		controller.startGame(2, "Test1.map");	//terkep 2-vel majd...
+            	}else if(rbtn2.isSelected()){
+            		controller.startGame(3, "Test1.map");
+            	}
             }
         });  
 		panel.add(map2, c);
@@ -238,7 +247,11 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                //Start game - map 3?
+            	if(rbtn1.isSelected()){
+            		controller.startGame(2, "Test1.map");	//terkep 3-mal majd...
+            	}else if(rbtn2.isSelected()){
+            		controller.startGame(3, "Test1.map");
+            	}
             }
         });  
 		panel.add(map3, c);
