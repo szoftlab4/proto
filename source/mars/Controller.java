@@ -19,9 +19,7 @@ public class Controller implements KeyListener, ActionListener{
 	Player p3;
 	
 	public Controller(){
-		view = new View();
-		view.addKeyListener(this);
-
+		
 	}
 	
 	private void init(){
@@ -47,10 +45,19 @@ public class Controller implements KeyListener, ActionListener{
 		view.repaint();
 	}
 	
-	public void drawMenu(){
-		view.drawMenu();
+	public void startGame(int number,String mapName){
+		game = new Game(number,mapName);
+		game.addController(this);
+		init();
+		view.drawGame();
+		game.start();
+		
+		
 	}
-	
+	public void addView(View view){
+		this.view=view;
+		view.addKeyListener(this);
+	}
 	public void addMap(ArrayList<MapElement> map){
 		view.initMap(map);
 	}
@@ -59,11 +66,6 @@ public class Controller implements KeyListener, ActionListener{
 	}
 	public void addMachine(MicroMachine mm){
 		view.addMachine(mm);
-	}
-	
-	public void addGameReference(Game gRef){
-		this.game = gRef;
-		init();
 	}
 	
 	@Override

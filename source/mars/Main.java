@@ -3,13 +3,14 @@ package mars;
 public class Main {
 
 	public static void main(String[] args){
-		Game game = new Game(1);
+		View view = new View();
 		Controller controller = new Controller();
+		controller.addView(view);
+		view.addController(controller);
+		view.drawMenu();
 		
-		game.addController(controller);
-		controller.addGameReference(game);
 		
-		game.start();
+		
 	}
 
 }

@@ -23,7 +23,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
@@ -42,7 +41,7 @@ public class View extends JPanel{
 	ArrayList<GCell> gMapElements;
 	ArrayList<GPlayer> gPlayers;
 	ArrayList<GMicroMachine> gRobot;
-	
+	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
 	
@@ -56,10 +55,10 @@ public class View extends JPanel{
 	public void init(){
 		imgMap = new HashMap<ImageType,BufferedImage>();
 		frame = new JFrame("Proto");
-		frame.add(this);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000, 1000);
 		frame.setVisible(true);
+		
 		
 		gMapElements = new ArrayList<GCell>();
 		gPlayers = new ArrayList<GPlayer>();
@@ -70,6 +69,10 @@ public class View extends JPanel{
 		} catch (FileNotFoundException e) {
 		} catch (IOException e) {
 		}		
+	}
+	
+	public void addController(Controller c){
+		controller = c;
 	}
 	
 	private void loadImages() throws FileNotFoundException, IOException {
@@ -205,7 +208,7 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                //Start game - map 1? Egy kicsi problem,ez igy nem megy
+                controller.startGame(2, "Test1.map");
             }
         });  
 		panel.add(map1, c);
@@ -242,7 +245,11 @@ public class View extends JPanel{
 		
 		frame.setVisible(true);
 	}
-
+	public void drawGame(){
+		frame.setContentPane(this);
+		frame.setVisible(true);
+	}
+	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

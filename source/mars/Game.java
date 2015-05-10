@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 
 /**
- * Létrehozza a játékhoz szükséges objektumokat.
- * Regisztrálja az observereket.
+ * Letrehozza a jatekhoz szukseges objektumokat.
+ * Regisztralja az observereket.
  */
 public class Game {
 	
@@ -16,17 +16,19 @@ public class Game {
 	private MapHandler mapHandler;
 	private ArrayList<MicroMachine> microMachines;
 	private Timer timer;
-	private Supervisor supervisor; // A prototípusnak még nincs rá szüksége
+	private Supervisor supervisor;
 	private int playerCount;	
+	private String mapName;
 	private Thread superThread;
 	private Controller controller;
 	
 	/**
 	 * Game konstruktora, inicializál.
-	 * @param cnt: A létrehozandó játékosok száma.
+	 * @param cnt: A letrehozando jatekosok szama.
 	 */
-	public Game(int cnt){
+	public Game(int cnt,String mapName){
 		playerCount = cnt;
+		this.mapName = mapName;
 		mapHandler = new MapHandler();
 		players = new ArrayList<Player>();
 		microMachines = new ArrayList<MicroMachine>();
@@ -34,7 +36,7 @@ public class Game {
 	}
 
 	/**
-	 * Objektumok létrehozása és inicializálása.
+	 * Objektumok letrehozasa es inicializalasa.
 	 */
 	public void init() {
 		myTimerTask = new MyTimerTask(1000,20000);
@@ -43,8 +45,8 @@ public class Game {
 		//Meg ezt meg kell nezni
 		
 		
-		//Pályabetöltés
-		mapHandler.loadMap("Test1.map");
+		//Palyabetoltese
+		mapHandler.loadMap(mapName);
 		mapHandler.setPlayerCount(playerCount);
 		
 		addPlayers();
@@ -58,13 +60,11 @@ public class Game {
 	public void start(){
 		timer.schedule(myTimerTask,0,1000);
 		
-		controller.drawMenu();
-		
 		superThread.start();
 	}
 	
 	/**
-	 * Hozzáadja a paraméterben átadott Playert a players-hez és regisztrálja a timertaskra observerként.
+	 * Hozzadja a parameterben atadott Playert a players-hez es regisztralja a timertaskra observerket.
 	 * @param player
 	 */
 	public void addPlayer(Player player){
@@ -74,7 +74,7 @@ public class Game {
 	}
 	
 	/**
-	 * Hozzáadja a paraméterben átadott MicroMachinet a micromashines-hez és regisztrálja a timertaskra observerként.
+	 * Hozzadja a parameterben atadott MicroMachinet a micromashines-hez es regisztralja a timertaskra observerket.
 	 * @param mm
 	 */
 	public void addMicroMachine(MicroMachine mm){
