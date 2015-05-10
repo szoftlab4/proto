@@ -260,13 +260,14 @@ public class View extends JPanel{
 	}
 	public void drawGame(){
 		frame.setContentPane(this);
+		this.grabFocus();
 		frame.setVisible(true);
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.fillRect(0, 0, 1000, 1000);
 		
 		for(GCell gme : gMapElements){

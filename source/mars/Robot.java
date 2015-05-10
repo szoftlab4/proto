@@ -4,46 +4,46 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * Absztrakt õsosztálya a játékos- és kisrobotoknak. Közös tulajdonságaikat valósítja meg.
+ * Absztrakt ososztalya a jatekos- es kisrobotoknak. Kozos tulajdonsagaikat valositja meg.
  */
 public class Robot extends Observable implements Observer {
 	private boolean alive;
 	protected Position pos;
-	protected HeadDirection headDir;	// koordináta-rendszerhez képest
-	protected Direction dir;			// játékoshoz képest
+	protected HeadDirection headDir;	// koordinata-rendszerhez kepest
+	protected Direction dir;			// jatekoshoz kepest
 
 	/**
-	 * Visszaadja, hogy él-e még a robot.
+	 * Visszaadja, hogy el-e meg a robot.
 	 */
 	public boolean isAlive() {
 		return this.alive;
 	}
 
 	/**
-	 * Alapértelmezett értékre állítja az állapotot.
+	 * Alapertelmezett ertekre allija az allapotot.
 	 */
 	public void reset() {
 		alive = true;
 	}
 
 	/**
-	 * Beállítja a játékos állapotát a paraméterben megadott értékkel.
+	 * Beallitja a jatekos allapotat a parameterben megadott ertekkel.
 	 */
 	public void setAlive(boolean value) {
 		this.alive = value;
 	}
 
 	/**
-	 * A gyerekosztályokban felül lesz definiálva.
+	 * A gyerekosztolyokban felul lesz definialva.
 	 */
 	@Override
 	public void update(Observable arg0, Object arg1) { }
 	
 	/**
-	 * Konvertáljuk a irányt a koordinátarendszerhez és a játékoshoz képest. A headDir jelöli,
-	 * hogy melyik irányba halad a pályán koordináta-szemszögbõl (up, down, left, right), 
-	 * a dir pedig azt, hogy ehhez képest milyen irányban fordult el (left, right), így a 
-	 * függvény visszaadja az új headDir értékét.
+	 * Konvertaljuk a iranyt a koordinatarendszerhez es a jatekoshoz kepest. A headDir jeloli,
+	 * hogy melyik iranyba halad a palyan koordinata-szemszogbol (up, down, left, right), 
+	 * a dir pedig azt, hogy ehhez kepest milyen iranyban fordult el (left, right), igy a 
+	 * fuggveny visszaadja az uj headDir erteket.
 	 */
 	protected HeadDirection convertDir() {
 		if(dir == Direction.STAY)

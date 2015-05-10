@@ -18,6 +18,7 @@ public class Game {
 	private Timer timer;
 	private Supervisor supervisor;
 	private int playerCount;	
+	private static final int gameSpeed = 1500;
 	private String mapName;
 	private Thread superThread;
 	private Controller controller;
@@ -39,7 +40,7 @@ public class Game {
 	 * Objektumok letrehozasa es inicializalasa.
 	 */
 	public void init() {
-		myTimerTask = new MyTimerTask(1000,20000);
+		myTimerTask = new MyTimerTask(gameSpeed,30000);
 		timer = new Timer();
 		
 		//Meg ezt meg kell nezni
@@ -58,7 +59,7 @@ public class Game {
 	}
 	
 	public void start(){
-		timer.schedule(myTimerTask,0,1000);
+		timer.schedule(myTimerTask,0,gameSpeed);
 		
 		superThread.start();
 	}
@@ -190,13 +191,13 @@ public class Game {
 				}
 				*/
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(gameSpeed);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				//System.out.println("Supervisor felebredt");
-				//createMicroMachine();
+				createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();
 				checkMachines();

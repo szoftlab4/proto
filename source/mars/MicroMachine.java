@@ -1,7 +1,9 @@
 package mars;
 
+import java.util.Observable;
+
 /**
- * Pályán lévõ foltok takarításáért felelõs kisrobot. Létrehozza az olajfoltot, ami majd halálakor a helyére kerül.
+ * Palyan levo foltok takaritasaert felelos kisrobot. Letrehozza az olajfoltot, ami majd halalakor a helyere kerul.
  */
 public class MicroMachine extends Robot {
 	/**
@@ -21,7 +23,7 @@ public class MicroMachine extends Robot {
 	 */
 	private static int cntr = 0;
 	/**
-	 * Micromachine utkozesenek syamon tartasa
+	 * Micromachine utkozesenek szamon tartasa
 	 */
 	private boolean collided;
 	/**
@@ -52,7 +54,7 @@ public class MicroMachine extends Robot {
 	 * @param Obs
 	 * @param Obj
 	 */
-	public void update(Object Obs, Object Obj) {
+	public void update(Observable Obs, Object Obj) {
 		if(dir == Direction.STAY){
 			this.checkProgress();
 			this.setCollided(false);
@@ -61,9 +63,11 @@ public class MicroMachine extends Robot {
 			this.step();
 		
 	}
+	
 	/**
 	 * update metodus tesztelesi celokra publikusan duplikalva
 	 */
+	/*
 	public void testupdate() {
 		if(dir == Direction.STAY){
 			this.checkProgress();
@@ -73,6 +77,8 @@ public class MicroMachine extends Robot {
 			this.step();
 		
 	}
+	*/
+	
 	/**
 	 * nem hasznalt fuggveny
 	 */
