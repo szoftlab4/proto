@@ -1,62 +1,46 @@
 package mars;
 
 /**
- * Megakadályozza a játékos sebességváltoztatását és irányváltoztatását egy körig.
+ * Megakadalyozza a jatekos sebessegvaltoztatasat es iranyvaltoztatasat egy korig.
  */
 public class Oil implements Spot {
-	@SuppressWarnings("unused")
 	private long timeCreated;
-	@SuppressWarnings("unused")
-	private static final long expireTime = 10000;
+	private static final long expireTime = 3000;
+	
 	/**
-	 * test_time: Tesztesetek esetén használatos. Az oil korát adja meg.
-	 */
-	private int test_time;
-
-	/**
-	 * Inicializálás.
+	 * Inicializalas.
 	 */
 	public Oil() {
-		//timeCreated = System.currentTimeMillis();
-		test_time = 0;
+		timeCreated = System.currentTimeMillis();
 	}
 	
 	/**
-	 *  A referenciául kapott játékos sebesség-és irányváltoztatását megakadályozza a Player oilFlag változójának beállításával.
+	 *  A referenciaul kapott jatekos sebesseg-es iranyvaltoztatasat megakadalyozza a Player oilFlag valtozojanak beallitasaval.
 	 */
 	public void handlePlayer(Player player) {
 		player.setOilFlag(true);
 	}
 
 	/**
-	 * Visszaadja, hogy felszáradt-e a folt.(ellenõrzése a timeCreated,jelenlegi idõ és expireTime felhasználásával)
+	 * Visszaadja, hogy felszaradt-e a folt.(ellenorzese a timeCreated,jelenlegi ido es expireTime felhasznalasaval)
 	 */
 	public boolean isDeletable() {
-		//if(System.currentTimeMillis() - timeCreated >= expireTime){
-		if(test_time > 9){
+		if(System.currentTimeMillis() - timeCreated >= expireTime)
 			return true;
-		}
 		else
 			return false;
 	}
 	
 	/**
-	 * A paraméterben megadott egész számmal(sec) növeli az oil korát.
-	 */
-	public void inc(int i){
-		test_time += i;
-	}
-	
-	/**
-	 * Visszaadja, hogy milyen idõs az oil.
+	 * Visszaadja, hogy milyen idos az oil.
 	 */
 	public long getExpiredTime(){
-		//return (System.currentTimeMillis() - timeCreated) / 1000;
-		return test_time;
+		return (System.currentTimeMillis() - timeCreated) / 1000;
+		
 	}
 	
 	/**
-	 * ToString felüldefiniálása.
+	 * ToString feluldefinialasa.
 	 */
 	public String toString(){
 		return "oil";		
