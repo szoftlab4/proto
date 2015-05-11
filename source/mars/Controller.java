@@ -100,6 +100,7 @@ public class Controller implements KeyListener, ActionListener{
 				p1.setSpotCommand(SpotCommand.OIL);
 				break;
 				
+			/* PLAYER 2 */
 			case KeyEvent.VK_W:
 				if(p2enabled){
 					p2.command(Direction.FORWARD);
@@ -131,7 +132,8 @@ public class Controller implements KeyListener, ActionListener{
 					p2.setSpotCommand(SpotCommand.OIL);
 				}
 				break;
-				
+			
+			/* PLAYER 3 */
 			case KeyEvent.VK_U:
 				if(p3enabled){
 					p3.command(Direction.FORWARD);

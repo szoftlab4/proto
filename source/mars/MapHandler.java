@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
 /**
   * Itt toltodik be a palya. Tartalmazza a palyaelemeket egy matrix adatszerkezetben es 
  * a pelya alakjat (csak poziciok) egy listaban. Attol fuggoen, hogy hova lepett, lekezeli 
- * a jatekost. Ellenorzi, hogy a jatekos a palyara lepett-e, ha nem akkor ÅemegoliÅf a jatekost.
+ * a jatekost. Ellenorzi, hogy a jatekos a palyara lepett-e, ha nem akkor ÔøΩemegoliÔøΩf a jatekost.
  * Atadja a jatekos referenciajat a palyaelemnek. Kiszamolja es megallapitja egy kisrobot eseten,
  * hogy merre van a legkozelebbi folt. Vegigiteral a palyelemeken es meghivja az ellenorzo fuggvenyeiket.
  */
@@ -102,6 +102,7 @@ public class MapHandler implements Observer {
 						mapHeight = y;
 					
 					road.add(new Position(x, y));
+					System.out.println("road x,y: " + x +"," + y);
 					
 					if (spot.equalsIgnoreCase("goo"))
 						unsorted.add(new MapElement(new Position(x, y), new Goo()));
@@ -340,9 +341,16 @@ public class MapHandler implements Observer {
 	public void startCollisions() {
 		//System.out.println("elindult az utkoztetes...");
 		for(Position pos : road){
-			map.get(posToIndex(pos)).handleCollision();
+			try{
+				int index = posToIndex(pos);
+				map.get(index).handleCollision();
+			}
+			catch(IndexOutOfBoundsException e){
+				e.printStackTrace();
+				System.err.println("Szarsag van megint az utkozesnel...");
+			}
 		}
-	}
+	}	
 	
 	/**
 	 * Visszaadja a palya nevet.
@@ -358,6 +366,7 @@ public class MapHandler implements Observer {
 	 */
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
+		System.out.println("Y: " + pos.getY() + " X: " + pos.getX());
 		return pos.getY() * mapWidth + pos.getX();
 	}
 	
@@ -372,7 +381,7 @@ public class MapHandler implements Observer {
 		int tryCount = 0;
 		while(!done){
 			int idx = rnd.nextInt(range);
-			freePos = road.get(idx);
+			freePos = new Position(road.get(idx).getX(),road.get(idx).getY());
 			MapElement me = map.get(posToIndex(freePos));
 			if(me.isFree())
 				done = true;
@@ -383,7 +392,7 @@ public class MapHandler implements Observer {
 					me = map.get(posToIndex(pos));
 					if(me.isFree()){
 						done = true;
-						freePos = pos;
+						freePos = new Position(pos.getX(),pos.getY());
 					}
 				}
 			}
@@ -439,7 +448,7 @@ public class MapHandler implements Observer {
 		}
 		else{
 			//TODO kivenni a kommentet
-			//player.setAlive(false);
+			player.setAlive(false);
 			playerCount--;
 		}
 	}

@@ -58,7 +58,6 @@ public class View extends JPanel{
 		frame.setSize(1000, 1000);
 		frame.setVisible(true);
 		
-		
 		gMapElements = new ArrayList<GCell>();
 		gPlayers = new ArrayList<GPlayer>();
 		gRobot = new ArrayList<GMicroMachine>();
@@ -84,6 +83,10 @@ public class View extends JPanel{
 		imgMap.put(ImageType.LAVA_CRACKS, img);
 		img = ImageIO.read(new FileInputStream("res/Eve.png"));
 		imgMap.put(ImageType.EVE, img);
+		img = ImageIO.read(new FileInputStream("res/Eve_Gold.png"));
+		imgMap.put(ImageType.EVE_GOLD, img);
+		img = ImageIO.read(new FileInputStream("res/Eve_Blue.png"));
+		imgMap.put(ImageType.EVE_BLUE, img);
 		img = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
 		imgMap.put(ImageType.MICRO_MACHINE, img);
 		img = ImageIO.read(new FileInputStream("res/MS Icon.png"));
@@ -214,7 +217,7 @@ public class View extends JPanel{
             		controller.startGame(3, "Test1.map");
             	}
             }
-        });  
+        });
 		panel.add(map1, c);
 
 		c.ipady = 175;
@@ -387,10 +390,22 @@ public class View extends JPanel{
 		}
 	}
 	public void initPlayers(ArrayList<Player> players){
+		int i=1;
 		for(Player p : players){
 			GPlayer gpe = new GPlayer();
 			gpe.addPlayerRef(p);
 			gPlayers.add(gpe);
+			
+			if(i == 1){
+				gpe.addImage(ImageType.EVE);
+			}
+			else if( i == 2){
+				gpe.addImage(ImageType.EVE_GOLD);
+			}
+			else
+				gpe.addImage(ImageType.EVE_BLUE);
+			
+			i++;
 		}
 	}
 
@@ -439,19 +454,23 @@ public class View extends JPanel{
 		}
 	}
 	
-	
 	public class GPlayer{
 		private Player player;
+		private ImageType img;
 		
 		public void addPlayerRef(Player p){
 			player = p;
+		}
+		
+		public void addImage(ImageType imgType){
+			img = imgType;
 		}
 		
 		public void draw(Graphics g) throws FileNotFoundException, IOException {
 			if(player.isAlive()){
 				Position pos = player.getPosition();
 				
-				g.drawImage(imgMap.get(ImageType.EVE), pos.getX()*150, pos.getY()*150, 150, 150, null);
+				g.drawImage(imgMap.get(img), pos.getX()*150, pos.getY()*150, 150, 150, null);
 			}
 		}
 	}
