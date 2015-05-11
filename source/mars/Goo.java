@@ -37,16 +37,18 @@ public class Goo implements Spot {
 		return ImageType.GOO;
 	}
 	/**
-	 * Getter.
+	 * Getter.						//Protohoz tartzo fuggvenyek
 	 */
+	/*
 	public int getDurability(){
 		return durability;
 	}
-	
+	*/
 	/**
 	 * toString felüldefiniálása.
 	 */
+	/*
 	public String toString(){
 		return "goo";		
-	}
+	}*/
 }

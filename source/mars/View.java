@@ -442,7 +442,7 @@ public class View extends JPanel{
 		
 		public void draw(Graphics g) throws IOException {
 
-			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*150, y*150, 150, 150, null);
+			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*100, y*100, 100, 100, null);
 			
 			drawSpot(g);
 		}
