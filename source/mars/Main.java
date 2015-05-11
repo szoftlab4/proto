@@ -1,7 +1,7 @@
 package mars;
 
 public class Main {
-	static Highscore highscore;	// TODO mb
+	static Highscore highscore;
 	
 	public static void main(String[] args){
 		View view = new View();
@@ -14,13 +14,9 @@ public class Main {
 		highscore = new Highscore();
 		
 		//teszt
-		highscore.add("asd",15);
+		/*highscore.add("asd",15);
 		highscore.add("asd",2);
-		highscore.add("asd",5);
-		highscore.add("asd",10);
-		highscore.add("asd",9);
-		highscore.add("asd",5);
-		highscore.add("asd",4);
+		highscore.add("asd",5);*/
 	}
 
 }
