@@ -43,6 +43,8 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
+	private final static int cellSize = 100;
+	
 	
 	
 	public View(){
@@ -347,7 +349,7 @@ public class View extends JPanel{
 		super.paintComponent(g);
 		//g.setColor(Color.black);
 		//g.fillRect(0, 0, 1000, 1000);
-		g.drawImage(imgMap.get(ImageType.BACKGROUND), 0,0,1000,1000, null);
+		g.drawImage(imgMap.get(ImageType.BACKGROUND), 0,0,1500,1000, null);
 		g.translate(100,250);
 		for(GCell gme : gMapElements){
 			try {
@@ -431,12 +433,12 @@ public class View extends JPanel{
 		
 		private void drawSpot(Graphics g) throws IOException{
 			if(mapElement.hasSpot())			
-				g.drawImage(imgMap.get(mapElement.getSpot().getType()), x*150, y*150, 150, 150, null);	
+				g.drawImage(imgMap.get(mapElement.getSpot().getType()), x*cellSize, y*cellSize, cellSize, cellSize, null);	
 		}
 		
 		public void draw(Graphics g) throws IOException {
 
-			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*100, y*100, 100, 100, null);
+			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*cellSize, y*cellSize, cellSize, cellSize, null);
 			
 			drawSpot(g);
 		}
@@ -458,7 +460,7 @@ public class View extends JPanel{
 			if(player.isAlive()){
 				Position pos = player.getPosition();
 				
-				g.drawImage(imgMap.get(img), pos.getX()*150, pos.getY()*150, 150, 150, null);
+				g.drawImage(imgMap.get(img), pos.getX()*cellSize, pos.getY()*cellSize, cellSize,cellSize, null);
 			}
 		}
 	}
@@ -474,7 +476,7 @@ public class View extends JPanel{
 			if(robot.isAlive()){
 				Position pos = robot.getPosition();
 			
-				g.drawImage(imgMap.get(ImageType.MICRO_MACHINE), pos.getX()*150, pos.getY()*150, 150, 150, null);
+				g.drawImage(imgMap.get(ImageType.MICRO_MACHINE), pos.getX()*cellSize, pos.getY()*cellSize, cellSize,cellSize, null);
 			}
 		}
 	}
