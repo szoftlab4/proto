@@ -102,7 +102,7 @@ public class MapHandler implements Observer {
 						mapHeight = y;
 					
 					road.add(new Position(x, y));
-					System.out.println("road x,y: " + x +"," + y);
+					//System.out.println("road x,y: " + x +"," + y);
 					
 					if (spot.equalsIgnoreCase("goo"))
 						unsorted.add(new MapElement(new Position(x, y), new Goo()));
