@@ -146,6 +146,7 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
+				Main.highscore.serialize();
                 System.exit(0);
             }
         });  
@@ -294,7 +295,6 @@ public class View extends JPanel{
 				}
 		});
 		panel_2.add(exit);
-		
 
 		JLabel hlabel1 = new JLabel("Rank");
 		hlabel1.setFont(new Font("Arial", Font.BOLD, 18));
@@ -336,7 +336,6 @@ public class View extends JPanel{
 		dialog.setVisible(true);
 	}
 	
-	
 	public void drawGame(){
 		frame.setContentPane(this);
 		this.grabFocus();
@@ -354,7 +353,6 @@ public class View extends JPanel{
 			try {
 				gme.draw(g);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -362,10 +360,8 @@ public class View extends JPanel{
 			try {
 				gpe.draw(g);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -373,10 +369,8 @@ public class View extends JPanel{
 			try {
 				mm.draw(g);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
