@@ -237,9 +237,9 @@ public class View extends JPanel{
             public void actionPerformed(ActionEvent e)
             {
             	if(rbtn1.isSelected()){
-            		controller.startGame(2, "Test1.map");	//terkep 2-vel majd...
+            		controller.startGame(2, "map2.map");	//terkep 2-vel majd...
             	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "Test1.map");
+            		controller.startGame(3, "map3.map");
             	}
             }
         });  
