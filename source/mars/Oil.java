@@ -5,7 +5,7 @@ package mars;
  */
 public class Oil implements Spot {
 	private long timeCreated;
-	private static final long expireTime = 10000;
+	private static final long expireTime = 30000;
 	
 	/**
 	 * Inicializalas.
@@ -29,6 +29,10 @@ public class Oil implements Spot {
 			return true;
 		else
 			return false;
+	}
+	
+	public ImageType getType(){
+		return ImageType.OIL;
 	}
 	
 	/**

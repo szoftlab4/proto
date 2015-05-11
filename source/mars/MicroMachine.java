@@ -169,7 +169,7 @@ public class MicroMachine extends Robot {
 	 */
 	private void checkProgress(){
 		progress++;
-		if(progress == 2){
+		if(progress == 3){
 			doneCleaning = true;
 			progress = 0;
 		}

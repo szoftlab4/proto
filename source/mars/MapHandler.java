@@ -424,8 +424,8 @@ public class MapHandler implements Observer {
 				return HeadDirection.LEFT;
 		if(isValidCoordinate(x,y+1))
 			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
-	
 				return HeadDirection.DOWN;
+		
 		return HeadDirection.DOWN;
 	}
 	
@@ -447,8 +447,8 @@ public class MapHandler implements Observer {
 		}
 		else{
 			//TODO kivenni a kommentet
-			//player.setAlive(false);
-			//playerCount--;
+			player.setAlive(false);
+			playerCount--;
 		}
 	}
 	

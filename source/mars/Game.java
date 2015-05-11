@@ -128,7 +128,7 @@ public class Game {
 	public class Supervisor  implements Runnable{
 
 		private int mmCreateCounter;
-		private final static int mmCreateFreq =6;
+		private int mmCreateFreq = 4;
 		
 		
 		public Supervisor(){
@@ -170,6 +170,7 @@ public class Game {
 			mmCreateCounter++;
 			if(mmCreateCounter == mmCreateFreq){
 				mmCreateCounter = 0;
+				mmCreateFreq++;
 				Position pos = mapHandler.getAvailablePos();
 				MicroMachine mm = new MicroMachine(pos, HeadDirection.UP);
 				microMachines.add(mm);
@@ -199,7 +200,7 @@ public class Game {
 					e.printStackTrace();
 				}
 				//System.out.println("Supervisor felebredt");
-				//createMicroMachine();
+				createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();
 				checkMachines();

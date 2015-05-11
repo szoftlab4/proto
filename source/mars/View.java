@@ -91,6 +91,8 @@ public class View extends JPanel{
 		imgMap.put(ImageType.MICRO_MACHINE, img);
 		img = ImageIO.read(new FileInputStream("res/MS Icon.png"));
 		imgMap.put(ImageType.MS_ICON, img);
+		img = ImageIO.read(new FileInputStream("res/Background_lava2.png"));
+		imgMap.put(ImageType.BACKGROUND, img);
 	}
 
 	public void drawMenu(){
@@ -344,9 +346,10 @@ public class View extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.setColor(Color.black);
-		g.fillRect(0, 0, 1000, 1000);
-		
+		//g.setColor(Color.black);
+		//g.fillRect(0, 0, 1000, 1000);
+		g.drawImage(imgMap.get(ImageType.BACKGROUND), 0,0,1000,1000, null);
+		g.translate(100,250);
 		for(GCell gme : gMapElements){
 			try {
 				gme.draw(g);
@@ -433,17 +436,8 @@ public class View extends JPanel{
 		}
 		
 		private void drawSpot(Graphics g) throws IOException{
-			if(mapElement.hasSpot()){
-				Spot s = mapElement.getSpot();
-				if(s instanceof Goo){
-					
-					g.drawImage(imgMap.get(ImageType.GOO), x*150, y*150, 150, 150, null);
-					
-				}
-				else{
-					g.drawImage(imgMap.get(ImageType.OIL), x*150, y*150, 150, 150, null);
-				}
-			}
+			if(mapElement.hasSpot())			
+				g.drawImage(imgMap.get(mapElement.getSpot().getType()), x*150, y*150, 150, 150, null);	
 		}
 		
 		public void draw(Graphics g) throws IOException {
