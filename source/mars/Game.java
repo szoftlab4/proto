@@ -199,10 +199,11 @@ public class Game {
 					e.printStackTrace();
 				}
 				//System.out.println("Supervisor felebredt");
-				createMicroMachine();
+				//createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();
 				checkMachines();
+				mapHandler.checkSpots();
 				controller.drawGame();
 			}
 		}

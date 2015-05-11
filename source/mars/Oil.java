@@ -5,7 +5,7 @@ package mars;
  */
 public class Oil implements Spot {
 	private long timeCreated;
-	private static final long expireTime = 3000;
+	private static final long expireTime = 10000;
 	
 	/**
 	 * Inicializalas.
@@ -32,17 +32,19 @@ public class Oil implements Spot {
 	}
 	
 	/**
-	 * Visszaadja, hogy milyen idos az oil.
+	 * Visszaadja, hogy milyen idos az oil.		//Csak a protohoz kellettek azthiszem
 	 */
+	
+	/*
 	public long getExpiredTime(){
 		return (System.currentTimeMillis() - timeCreated) / 1000;
 		
-	}
+	}*/
 	
 	/**
 	 * ToString feluldefinialasa.
-	 */
+	 *//*
 	public String toString(){
 		return "oil";		
-	}
+	}*/
 }

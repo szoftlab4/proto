@@ -366,7 +366,6 @@ public class MapHandler implements Observer {
 	 */
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
-		System.out.println("Y: " + pos.getY() + " X: " + pos.getX());
 		return pos.getY() * mapWidth + pos.getX();
 	}
 	
@@ -448,8 +447,8 @@ public class MapHandler implements Observer {
 		}
 		else{
 			//TODO kivenni a kommentet
-			player.setAlive(false);
-			playerCount--;
+			//player.setAlive(false);
+			//playerCount--;
 		}
 	}
 	
@@ -512,8 +511,9 @@ public class MapHandler implements Observer {
 	
 	/**
 	 * Visszaadja azokat a mapElementeket, melyeken van spot.
-	 * @param console: ha true, akkor ki is irja oket.
+	 * @param console: ha true, akkor ki is irja oket.					//Ha minden igaz ez csak a protohoz kellett
 	 */
+	/*
 	public ArrayList<MapElement> getSpots(Boolean console){
 		ArrayList<MapElement> spots = new ArrayList<MapElement>();
 		for(MapElement mapelement : map){
@@ -529,7 +529,8 @@ public class MapHandler implements Observer {
 		}
 		return spots;
 	}
-
+*/
+	
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount;
 	}
