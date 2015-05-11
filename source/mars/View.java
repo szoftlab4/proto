@@ -2,14 +2,14 @@ package mars;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,20 +19,19 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
-import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 public class View extends JPanel{
@@ -128,7 +127,7 @@ public class View extends JPanel{
 	    	 
             public void actionPerformed(ActionEvent e)
             {
-                //TODO EREDMÉNYTÁBLA
+            	drawHighscoreMenu();
             }
         });  
 		panel.add(highscorebtn, c);
@@ -258,6 +257,81 @@ public class View extends JPanel{
 		
 		frame.setVisible(true);
 	}
+	
+	public void drawHighscoreMenu(){
+		JDialog dialog = new JDialog(frame, "Highscores");
+		
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		
+		JPanel panel_1 = new JPanel(new GridLayout(11,3));
+		panel_1.setBackground(new Color(194,194,194));
+		
+		JPanel panel_2 = new JPanel(new FlowLayout());
+		panel_2.setBackground(new Color(194,194,194));
+		
+		JButton clear = new JButton("Clear");
+		clear.setBackground(Color.white);
+		clear.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Main.highscore.clear();
+				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+				w.dispose();
+			}
+		});
+		panel_2.add(clear);
+		JButton exit = new JButton("Exit");
+		exit.setBackground(Color.white);
+		exit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+				w.dispose();
+				}
+		});
+		panel_2.add(exit);
+		
+
+		JLabel hlabel1 = new JLabel("Rank");
+		hlabel1.setFont(new Font("Arial", Font.BOLD, 18));
+		panel_1.add(hlabel1);
+		JLabel hlabel2 = new JLabel("Name");
+		hlabel2.setFont(new Font("Arial", Font.BOLD, 18));
+		panel_1.add(hlabel2);
+		JLabel hlabel3 = new JLabel("Distance");
+		hlabel3.setFont(new Font("Arial", Font.BOLD, 18));
+		panel_1.add(hlabel3);
+		
+		for(int i = 0; i < 10; i++){
+			if(i < Highscore.list.size()){
+				JLabel label1 = new JLabel(Integer.toString(i+1));
+				label1.setFont(new Font("Arial", Font.PLAIN, 18));
+				panel_1.add(label1);
+				JLabel label2 = new JLabel(Highscore.list.get(i).getName());
+				label2.setFont(new Font("Arial", Font.PLAIN, 18));
+				panel_1.add(label2);
+				JLabel label3 = new JLabel(Integer.toString(Highscore.list.get(i).getDistance()));
+				label3.setFont(new Font("Arial", Font.PLAIN, 18));
+				panel_1.add(label3);
+			}
+			else{
+				panel_1.add(new JLabel("-"));
+				panel_1.add(new JLabel("-"));
+				panel_1.add(new JLabel("-"));
+			}
+		}
+
+		panel.add(panel_1);
+		panel.add(panel_2);
+		
+		dialog.add(panel);
+		
+		dialog.pack();
+		dialog.setSize(450,320);
+		dialog.setLocationRelativeTo(frame);
+		dialog.setVisible(true);
+	}
+	
+	
 	public void drawGame(){
 		frame.setContentPane(this);
 		this.grabFocus();

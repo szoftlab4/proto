@@ -3,6 +3,8 @@ package mars;
 import java.util.ArrayList;
 import java.util.Timer;
 
+import mars.Highscore.Record;
+
 /**
  * Letrehozza a jatekhoz szukseges objektumokat.
  * Regisztralja az observereket.
@@ -33,6 +35,7 @@ public class Game {
 		mapHandler = new MapHandler();
 		players = new ArrayList<Player>();
 		microMachines = new ArrayList<MicroMachine>();
+		
 		init();
 	}
 
