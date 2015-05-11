@@ -27,6 +27,10 @@ public class MicroMachine extends Robot {
 	 */
 	private boolean collided;
 	/**
+	 * A MicroMachine regi pozicioja elmentve ha invertaljuk az iranyt nem kell szamolni az utkozes poziciojat
+	 */
+	private Position oldPos;
+	/**
 	 * MicroMachine konstruktora
 	 * @param pos
 	 * @param headDir
@@ -36,6 +40,7 @@ public class MicroMachine extends Robot {
 		progress=0;
 		this.setAlive(true);
 		this.pos=pos;
+		this.oldPos = new Position(pos.getX(),pos.getY());
 		this.headDir=headDir;
 		dir = Direction.FORWARD;
 		cntr++;
@@ -104,6 +109,13 @@ public class MicroMachine extends Robot {
 		return headDir;
 	}
 	/**
+	 * visszater a MicroMachine old poziciojaval
+	 * @return oldpos
+	 */
+	public Position getOldPos(){
+		return oldPos;
+	}
+	/**
 	 * Direction setter fuggveny
 	 * @param D
 	 */
@@ -133,7 +145,7 @@ public class MicroMachine extends Robot {
 	 */
 	private void step(){
 		this.setCollided(false);
-
+		oldPos.setPosition(pos.getX(),pos.getY());
 		headDir=this.convertDir();
 		switch(headDir){
 		case UP:

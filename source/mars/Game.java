@@ -126,7 +126,7 @@ public class Game {
 	public class Supervisor  implements Runnable{
 
 		private int mmCreateCounter;
-		private final static int mmCreateFreq = 3;
+		private final static int mmCreateFreq =6;
 		
 		
 		public Supervisor(){

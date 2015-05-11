@@ -368,8 +368,6 @@ public class View extends JPanel{
 	
 	public class GPlayer{
 		private Player player;
-		int x;
-		int y;
 		
 		public void addPlayerRef(Player p){
 			player = p;
@@ -378,18 +376,14 @@ public class View extends JPanel{
 		public void draw(Graphics g) throws FileNotFoundException, IOException {
 			if(player.isAlive()){
 				Position pos = player.getPosition();
-				x = pos.getX();
-				y = pos.getY();
 				
-				g.drawImage(imgMap.get(ImageType.EVE), x*150, y*150, 150, 150, null);
+				g.drawImage(imgMap.get(ImageType.EVE), pos.getX()*150, pos.getY()*150, 150, 150, null);
 			}
 		}
 	}
 	
 	public class GMicroMachine{
 		private MicroMachine robot;
-		int x;
-		int y;
 		
 		public void addMMRef(MicroMachine mm){
 			robot = mm;
@@ -398,10 +392,8 @@ public class View extends JPanel{
 		public void draw(Graphics g) throws FileNotFoundException, IOException {
 			if(robot.isAlive()){
 				Position pos = robot.getPosition();
-				x = pos.getX();
-				y = pos.getY();
 			
-				g.drawImage(imgMap.get(ImageType.MICRO_MACHINE), x*150, y*150, 150, 150, null);
+				g.drawImage(imgMap.get(ImageType.MICRO_MACHINE), pos.getX()*150, pos.getY()*150, 150, 150, null);
 			}
 		}
 	}

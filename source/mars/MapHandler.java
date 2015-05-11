@@ -16,27 +16,27 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * Itt töltõdik be a pálya. Tartalmazza a pályaelemeket egy mátrix adatszerkezetben és 
- * a pálya alakját (csak pozíciók) egy listában. Attól függõen, hogy hova lépett, lekezeli 
- * a játékost. Ellenõrzi, hogy a játékos a pályára lépett-e, ha nem akkor ‘megöli’ a játékost.
- * Átadja a játékos referenciáját a pályaelemnek. Kiszámolja és megállapítja egy kisrobot esetén,
- * hogy merre van a legközelebbi folt. Végigiterál a pályelemeken és meghívja az ellenõrzõ függvényeiket.
+  * Itt toltodik be a palya. Tartalmazza a palyaelemeket egy matrix adatszerkezetben es 
+ * a pelya alakjat (csak poziciok) egy listaban. Attol fuggoen, hogy hova lepett, lekezeli 
+ * a jatekost. Ellenorzi, hogy a jatekos a palyara lepett-e, ha nem akkor emegolif a jatekost.
+ * Atadja a jatekos referenciajat a palyaelemnek. Kiszamolja es megallapitja egy kisrobot eseten,
+ * hogy merre van a legkozelebbi folt. Vegigiteral a palyelemeken es meghivja az ellenorzo fuggvenyeiket.
  */
 public class MapHandler implements Observer {
 	/**
 	 * map: Ebben vannak a mapElementek
-	 * road: Ebben csak a pályaelemet tartalmazó Positionok vannak
+	 * road: Ebben csak a palyaelemet tartalmazo Positionok vannak
 	 */
 	private ArrayList<MapElement> map;
 	private ArrayList<Position> road;
 	private int mapWidth;
-	private String mapName; //pálya neve
+	private String mapName; //palya neve
 	private int mapHeight;
 	private int playerCount;
 	private int alivePlayersSoFar;
 
 	/**
-	 * Inicializálás.
+	 * Inicializalas.
 	 */
 	public MapHandler(){
 		map = new ArrayList<MapElement>();
@@ -48,15 +48,15 @@ public class MapHandler implements Observer {
 	}
 
 	/**
-	 * Betölti a pályát a paraméterben kapott fájlnév szerint.
-	 * @param filepath: fájlnév, amit betölt
+	 * Betolti a palyat a parameterben kapott fajlnev szerint
+	 * @param filepath: fajlnev, amit betolt
 	 */
 	public void loadMap(String filepath){
 		try {
 			File file = new File("res\\" + filepath);
 			
 			/**
-			 * XML feldolgozó.
+			 * XML feldolgozo.
 			 */
 			DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			DocumentBuilder db = dbf.newDocumentBuilder();
@@ -74,7 +74,7 @@ public class MapHandler implements Observer {
 			ArrayList<MapElement> unsorted = new ArrayList<MapElement>();
 			
 			/**
-			 * Feltöltjük az unsorted listát a pályaelemekkel.
+			 * Feltoltjuk az unsorted listat a palyaelemekkel.
 			 */
 			for (int i = 0; i < listOfMapElement.getLength(); i++) {
 				
@@ -118,7 +118,7 @@ public class MapHandler implements Observer {
 			Boolean rowEnd = false;
 			
 			/**
-			 * A map-et feltöltõ algoritmus, ami az unsorted szerint tölti fel pályaelemekkel, illetve dummy elemekkel.
+			 * A map-et feltolto algoritmus, ami az unsorted szerint tolti fel palyaelemekkel, illetve dummy elemekkel.
 			 */
 			for(int j = 0; j < mapHeight; j++){
 				for(int i = 0; i < mapWidth; i++){
@@ -137,14 +137,14 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			//System.out.println("\nSikeresen betöltöttük a pályát.");
+			//System.out.println("\nSikeresen betoltottuk a palyat.");
 			
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
-			//System.out.println("\nSikertelen a pálya betöltése.");
+			//System.out.println("\nSikertelen a palya betoltese.");
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println("\nSikertelen a pálya betöltése.");
+			//System.out.println("\nSikertelen a palya betoltese.");
 		}
 	}
 	/**
@@ -213,7 +213,7 @@ public class MapHandler implements Observer {
 		return -1;
 	}
 	/**
-	 * A jelenlegi pozicionkbol megadja milyen iranyban helyeykedik el a a megadott (szomszedos!) pozicio
+	 * A jelenlegi pozicionkbol megadja milyen iranyban helyezkedik el a a megadott (szomszedos!) pozicio
 	 * @param o
 	 * @param n
 	 * @return hdir
@@ -283,23 +283,34 @@ public class MapHandler implements Observer {
 			if(nextIdx == road.size())
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			if(!microMachine.isCollided())
+			
+			if(!microMachine.isCollided()){
 				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+			}else
+				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 		}
 		else if(left<right){
 			int prevIdx = idx - 1;
 			if(prevIdx < 0)
 				prevIdx = road.size() - 1;
 			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
-			map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
-			if(!microMachine.isCollided())
+			
+			if(!microMachine.isCollided()){
 				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+				map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
+			}else
+				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+				
 		}
 		else if(left == 0 && right == 0){
-			if(!microMachine.isCollided())
+			if(!microMachine.isCollided()){
 				microMachine.setDirection(Direction.STAY);
-			map.get(this.posToIndex(pos)).addMMRef(microMachine);
+				map.get(this.posToIndex(pos)).addMMRef(microMachine);
+			}else
+				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+				
+				
 		}
 		else{
 			int nextIdx = idx + 1;
@@ -307,20 +318,24 @@ public class MapHandler implements Observer {
 				nextIdx = 0;
 			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			if(!microMachine.isCollided())
+			if(!microMachine.isCollided()){
 				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+			}else
+				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+				
 		}
 	}
 
 	/**
-	 * A paraméterben megadott pozíción lévõ spotot törli.
+	 * A parameterben megadott pozicion levo spotot torli.
 	 */
 	public void deleteSpot(Position pos) {
 		map.get(posToIndex(pos)).deleteSpot();
 	}
 
 	/**
-	 * Ütköztetés elindítása.
+	 * Utkoztetes elinditasa.
 	 */
 	public void startCollisions() {
 		//System.out.println("elindult az utkoztetes...");
@@ -330,7 +345,7 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * Visszaadja a pálya nevét.
+	 * Visszaadja a palya nevet.
 	 * @return
 	 */
 	public String getMapName(){
@@ -338,8 +353,8 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * A paraméterben megadott pozícióból egy indexet hoz létre. (Így tudjuk kezelni a
-	 * sorfolytonos mátrixunkat (Lista))
+	 * A parameterben megadott poziciobol egy indexet hoz letre. (Igy tudjuk kezelni a
+	 * sorfolytonos matrixunkat (Lista))
 	 */
 	private int posToIndex(Position pos){
 		//Atmagiceli pos-t indexelheto alakba
@@ -347,7 +362,7 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * Visszaad egy olyan véletlenszerû pozíciót, amelyre tudunk robotot rakni.
+	 * Visszaad egy olyan veletlenszeru poziciot, amelyre tudunk robotot rakni.
 	 */
 	public Position getAvailablePos(){
 		Position freePos = new Position(-1,-1);
@@ -378,14 +393,14 @@ public class MapHandler implements Observer {
 	}
 
 	/**
-	 * Visszaadja, hogy a koordináta a játéktéren belül van-e.
+	 * Visszaadja, hogy a koordinata a jatekteren belul van-e.
 	 */
 	private boolean isValidCoordinate(int x, int y){
 		return !((y<0) || (y>mapHeight) || (x<0) || (x>mapWidth));
 	}
 	
 	/**
-	 * Keres egy irányt, amerre van egy érvényes pályaelem.
+	 * Keres egy iranyt, amerre van egy ervenyes palyaelem.
 	 */
 	public HeadDirection getValidHeadDir(Position pos){
 		int x = pos.getX();
@@ -407,8 +422,8 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * Ez hívódik meg a mapHandlerben. Megnézi, hogy pályaelemre lépett-e. Ha igen, akkor él
-	 * és tovább adja a player referenciáját, ha nem, akkor meghalt.
+	 * Ez hivodik meg a mapHandlerben. Megnezi, hogy palyaelemre lepett-e. Ha igen, akkor el
+	 * es tovabb adja a player referenciajat, ha nem, akkor meghalt.
 	 */
 	public void checkPosition(Player player){
 		Position playerPos = player.getNextPos();
@@ -430,8 +445,8 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * Megvizsgálja, hogy a kisrobot készen van-e a takarítással. Ha igen, akkor
-	 * a kisrobot helyén lévõ spotot kitörli.
+	 * Megvizsgalja, hogy a kisrobot keszen van-e a takaritassal. Ha igen, akkor
+	 * a kisrobot helyen levo spotot kitorli.
 	 */
 	public void testMMCleaningStatus(MicroMachine mm){
 		if(mm.isDoneCleaning()){
@@ -440,9 +455,9 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * A megadott pozícióra leteszi a megadott foltot.
-	 * @param pos: pozíció
-	 * @param spot: folt típusa
+	 * A megadott poziciora leteszi a megadott foltot.
+	 * @param pos: pozicio
+	 * @param spot: folt tipusa
 	 */
 	public void addSpot(Position pos, Spot spot){
 		//if(!map.get(posToIndex(pos)).isDummy())
@@ -450,8 +465,8 @@ public class MapHandler implements Observer {
 	}
 	
 	/**
-	 * Player lépésekor fut le, ha a player le akar tenni egy foltot, akkor azt is megkapja az argumentumban,
-	 * és megvizsgálja, hogy hova ugrott.
+	  * Player lepesekor fut le, ha a player le akar tenni egy foltot, akkor azt is megkapja az argumentumban,
+	 * es megvizsgalja, hogy hova ugrott.
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
@@ -488,7 +503,7 @@ public class MapHandler implements Observer {
 	
 	/**
 	 * Visszaadja azokat a mapElementeket, melyeken van spot.
-	 * @param console: ha true, akkor ki is írja õket.
+	 * @param console: ha true, akkor ki is irja oket.
 	 */
 	public ArrayList<MapElement> getSpots(Boolean console){
 		ArrayList<MapElement> spots = new ArrayList<MapElement>();
