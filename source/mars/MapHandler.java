@@ -18,7 +18,7 @@ import org.w3c.dom.NodeList;
 /**
   * Itt toltodik be a palya. Tartalmazza a palyaelemeket egy matrix adatszerkezetben es 
  * a pelya alakjat (csak poziciok) egy listaban. Attol fuggoen, hogy hova lepett, lekezeli 
- * a jatekost. Ellenorzi, hogy a jatekos a palyara lepett-e, ha nem akkor ï¿½emegoliï¿½f a jatekost.
+ * a jatekost. Ellenorzi, hogy a jatekos a palyara lepett-e, ha nem akkor megoli a jatekost.
  * Atadja a jatekos referenciajat a palyaelemnek. Kiszamolja es megallapitja egy kisrobot eseten,
  * hogy merre van a legkozelebbi folt. Vegigiteral a palyelemeken es meghivja az ellenorzo fuggvenyeiket.
  */
@@ -330,14 +330,9 @@ public class MapHandler implements Observer {
 					map.get(this.posToIndex(pos)).addMMRef(microMachine);
 				}else
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-					
-					
 			}
 			else{
-<<<<<<< HEAD
-				//System.out.println("Elméletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
-=======
->>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
+				//System.out.println("Elmeletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
 				int nextIdx = idx + 1;
 				if(nextIdx == road.size())
 					nextIdx = 0;
@@ -349,18 +344,11 @@ public class MapHandler implements Observer {
 				}else
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 					
-<<<<<<< HEAD
-		}
-		}catch(Exception e){
-			System.out.println("mmdirexcept");
-		}
-=======
-			}
-			}catch(Exception e){
+			}}catch(Exception e){
 				e.printStackTrace();
 				System.out.println("mmdirexcept");
 			}
->>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
+
 	}
 
 	/**
