@@ -199,33 +199,13 @@ public class MapHandler implements Observer {
 	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
-		try{
-			if(posIndex != -1){
-				for(int i = posIndex; i<road.size() ; i++){
-					MapElement m = map.get(posToIndex(road.get(i)));
-					if(!m.hasSpot())
-						cnt++;
-					else
-						return cnt;
-				}
-				for(int i = 0; i< posIndex ; i++ ){
-					MapElement m = map.get(posToIndex(road.get(i)));
-					if(!m.hasSpot())
-						cnt++;
-					else
-						return cnt;
-				}
-			}
-		} catch (Exception e){
-			System.out.println("asdasdasdsa");
-		}
 		System.out.println("kapott posIndex: " + posIndex);
 		for(int i = posIndex; i<road.size() ; i++){
 			//TODO try catch eltuntetese
 			try{
 				Position roadPos = road.get(i);
 				int idx = posToIndex(roadPos);
-				System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
+				//System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
 				MapElement m = map.get(idx);
 				
 				if(!m.hasSpot())
@@ -235,6 +215,9 @@ public class MapHandler implements Observer {
 			}catch(IndexOutOfBoundsException e){
 				e.printStackTrace();
 				System.err.println("Szarsag a search rightnal");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				System.err.println("Varatlan hiba");
 			}
 		}
 		for(int i = 0; i< posIndex ; i++ ){
@@ -244,6 +227,9 @@ public class MapHandler implements Observer {
 			else
 				return cnt;
 		}
+		
+		System.out.println("-1 return a searchRightnal");
+		
 		return -1;
 	}
 	/**
@@ -348,7 +334,10 @@ public class MapHandler implements Observer {
 					
 			}
 			else{
+<<<<<<< HEAD
 				//System.out.println("Elméletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
+=======
+>>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
 				int nextIdx = idx + 1;
 				if(nextIdx == road.size())
 					nextIdx = 0;
@@ -360,10 +349,18 @@ public class MapHandler implements Observer {
 				}else
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 					
+<<<<<<< HEAD
 		}
 		}catch(Exception e){
 			System.out.println("mmdirexcept");
 		}
+=======
+			}
+			}catch(Exception e){
+				e.printStackTrace();
+				System.out.println("mmdirexcept");
+			}
+>>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
 	}
 
 	/**
