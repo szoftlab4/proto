@@ -94,8 +94,10 @@ public class View extends JPanel{
 		imgMap.put(ImageType.EVE_BLUE, img);
 		img = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
 		imgMap.put(ImageType.MICRO_MACHINE, img);
-		img = ImageIO.read(new FileInputStream("res/MS Icon.png"));
-		imgMap.put(ImageType.MS_ICON, img);
+		img = ImageIO.read(new FileInputStream("res/MS_Icon_1.png"));
+		imgMap.put(ImageType.MS_ICON_1, img);
+		img = ImageIO.read(new FileInputStream("res/MS_Icon_2.png"));
+		imgMap.put(ImageType.MS_ICON_2, img);
 		img = ImageIO.read(new FileInputStream("res/Background_lava2.png"));
 		imgMap.put(ImageType.BACKGROUND, img);
 	}
@@ -197,51 +199,30 @@ public class View extends JPanel{
 		JButton map1 = new JButton("");
 		map1.setName("ng_ms_1");
 		map1.setBorder(new LineBorder(Color.BLACK, 3));
-		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON)));
+		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON_1)));
 		c.gridy = 4;
 		c.gridx = 0;
 		map1.addActionListener(controller);
 		panel.add(map1, c);
 
-		c.ipady = 175;
-		c.ipadx = 250;
 		JButton map2 = new JButton("");
 		map2.setName("ng_ms_2");
 		map2.setBorder(new LineBorder(Color.BLACK, 3));
+		map2.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON_2)));
 		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
-		map2.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if(rbtn1.isSelected()){
-            		controller.startGame(2, "map2.map");	//terkep 2-vel majd...
-            	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "map2.map");
-            	}
-            }
-        });  
 		map2.addActionListener(controller);
 		panel.add(map2, c);
-		
+
+		c.ipady = 175;
+		c.ipadx = 250;
 		JButton map3 = new JButton("");
 		map3.setName("ng_ms_3");
 		map3.setBorder(new LineBorder(Color.BLACK, 3));
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
-		map3.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if(rbtn1.isSelected()){
-            		controller.startGame(2, "Test1.map");	//terkep 3-mal majd...
-            	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "Test1.map");
-            	}
-            }
-        });  
 		map3.addActionListener(controller);
 		panel.add(map3, c);
 		
@@ -263,23 +244,12 @@ public class View extends JPanel{
 		JButton clear = new JButton("Clear");
 		clear.setName("hs_clr_btn");
 		clear.setBackground(Color.white);
-		clear.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Main.highscore.clear();
-				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
-				w.dispose();
-			}
-		});
+		clear.addActionListener(controller);
 		panel_2.add(clear);
 		JButton exit = new JButton("Exit");
 		exit.setName("hs_ex_btn");
 		exit.setBackground(Color.white);
-		exit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
-				w.dispose();
-				}
-		});
+		exit.addActionListener(controller);
 		panel_2.add(exit);
 
 		JLabel hlabel1 = new JLabel("Rank");

@@ -1,5 +1,7 @@
 package mars;
 
+import java.awt.Component;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -7,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.AbstractButton;
+import javax.swing.SwingUtilities;
 
 public class Controller implements KeyListener, ActionListener{
 
@@ -71,8 +74,8 @@ public class Controller implements KeyListener, ActionListener{
 	}
 	
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		String str = ((AbstractButton) arg0.getSource()).getName();
+	public void actionPerformed(ActionEvent e) {
+		String str = ((AbstractButton) e.getSource()).getName();
 		
 		if(str.equals("menu_ng_btn")){
 			view.drawNewGameMenu();
@@ -91,15 +94,28 @@ public class Controller implements KeyListener, ActionListener{
         		startGame(3, "Test1.map");
         	}
 		}
-		else if(str.equals("")){
+		else if(str.equals("ng_ms_2")){
+			if(view.rbtn1.isSelected()){
+        		startGame(2, "map2.map");
+        	}else if(view.rbtn2.isSelected()){
+        		startGame(3, "map2.map");
+        	}
 		}
-		else if(str.equals("")){
+		else if(str.equals("ng_ms_3")){
+			if(view.rbtn1.isSelected()){
+        		startGame(2, "map2.map");
+        	}else if(view.rbtn2.isSelected()){			//TODO
+        		startGame(3, "map2.map");
+        	}
 		}
-		else if(str.equals("")){
+		else if(str.equals("hs_clr_btn")){
+			Main.highscore.clear();
+			Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+			w.dispose();
 		}
-		else if(str.equals("")){
-		}
-		else if(str.equals("")){
+		else if(str.equals("hs_ex_btn")){
+			Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+			w.dispose();
 		}
 	}
 	

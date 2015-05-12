@@ -8,7 +8,8 @@ public enum ImageType {
 	EVE_GOLD,
 	EVE_BLUE,
 	MICRO_MACHINE,
-	MS_ICON, 
+	MS_ICON_1,
+	MS_ICON_2, 
 	BACKGROUND;
 	//stb
 }
