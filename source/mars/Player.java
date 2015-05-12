@@ -121,8 +121,6 @@ public class Player extends Robot {
 		if(this.isAlive()){
 			//System.out.println("Player el");
 			this.step();
-			this.distance++;
-			System.out.println("dis:" + distance);
 			switch(spotCommand){
 				case NOSPOT:
 					setChanged();
@@ -145,7 +143,9 @@ public class Player extends Robot {
 	 * Játékos léptetésének a lebonyolítása, megfelelõ függvénnyek meghívása
 	 */
 	private void step() {
+		
 		this.calculateNewSpeed();
+		this.distance+=speed;
 		this.calculateNewPos();
 		this.dir = Direction.STAY;
 	}

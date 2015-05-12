@@ -217,22 +217,11 @@ public class Game {
 		@Override
 		public void run(){
 			while(true){
-				/*
-				synchronized (Game.syncObject) {
-					try {
-						Game.syncObject.wait();
-						
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-				}
-				*/
 				try {
 					Thread.sleep(gameSpeed);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-				//System.out.println("Supervisor felebredt");
 				createMicroMachine();
 				mapHandler.startCollisions();
 				checkGameEnd();

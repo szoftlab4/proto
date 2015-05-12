@@ -166,7 +166,6 @@ public class MapHandler implements Observer {
 		for(int i=0; i<road.size();i++)
 			if(pos.getX() == road.get(i).getX() && pos.getY() == road.get(i).getY())
 				return i;
-		System.out.println("Hat itt bizony szopas lesz (findPosIndexOnRoad(-1)");
 		return -1;
 	}
 	/**
@@ -226,8 +225,6 @@ public class MapHandler implements Observer {
 			else
 				return cnt;
 		}
-		
-		System.out.println("-1 return a searchRightnal");
 		
 		return -1;
 	}
@@ -293,7 +290,7 @@ public class MapHandler implements Observer {
 		int idx = findPosIndexOnRoad(pos);
 		
 		if(idx == -1){
-			microMachine.setAlive(false);		//TODO NEM TUDTUK REPRODUKÁLNI A PROBLÉMÁT TODO
+			microMachine.setAlive(false);		//TODO NEM TUDTUK REPRODUKï¿½LNI A PROBLï¿½Mï¿½T TODO
 			return;
 		}
 		//System.out.println("Pos: " + pos.getX() + " " + pos.getY() + " ,Index: " + idx);
