@@ -16,15 +16,6 @@ public class MicroMachine extends Robot {
 	private int progress;
 	/**
 
-	 * Micromachine ID szama
-	 */
-	private int index;
-	/**
-	 * kovetkezo MicroMachine ID szama (eddigi MicroMachinek száma)
-	 */
-	private static int cntr = 0;
-	/**
-
 	 * Micromachine utkozesenek szamon tartasa
 	 */
 	private boolean collided;
@@ -64,7 +55,6 @@ public class MicroMachine extends Robot {
 				progress = 0;
 				doneCleaning = false;
 			}
-				
 		}
 	}
 

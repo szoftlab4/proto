@@ -12,6 +12,7 @@ import java.awt.Insets;
 import java.awt.Window;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -29,7 +30,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -37,6 +37,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 public class View extends JPanel{
+
 	JFrame frame;
 	
 	ArrayList<GCell> gMapElements;
@@ -89,6 +90,8 @@ public class View extends JPanel{
 	
 	private void loadImages() throws FileNotFoundException, IOException {
 		BufferedImage img;
+		img = ImageIO.read(new FileInputStream("res/halottrobot.png"));
+		imgMap.put(ImageType.D_MM, img);
 		img = ImageIO.read(new FileInputStream("res/Goo.png"));
 		imgMap.put(ImageType.GOO, img);
 		img = ImageIO.read(new FileInputStream("res/Oil.png"));
@@ -382,14 +385,22 @@ public class View extends JPanel{
 				e.printStackTrace();
 			}
 		}
-		for(GMicroMachine mm : gRobot){
-			try {
-				mm.draw(g);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
+		Iterator<GMicroMachine> iter = gRobot.iterator();
+
+		while (iter.hasNext()) {
+			GMicroMachine mm = iter.next();
+			
+			if(mm.getRobot().isAlive()){
+				try {
+					mm.draw(g);
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
+			else
+				iter.remove();
 		}
 	}
 	
@@ -485,6 +496,10 @@ public class View extends JPanel{
 		
 		public void addMMRef(MicroMachine mm){
 			robot = mm;
+		}
+		
+		public MicroMachine getRobot(){
+			return robot;
 		}
 		
 		public void draw(Graphics g) throws FileNotFoundException, IOException {

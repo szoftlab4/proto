@@ -291,6 +291,11 @@ public class MapHandler implements Observer {
 		Position pos = microMachine.getPosition();
 		HeadDirection hdir;
 		int idx = findPosIndexOnRoad(pos);
+		
+		if(idx == -1){
+			microMachine.setAlive(false);		//TODO NEM TUDTUK REPRODUKÁLNI A PROBLÉMÁT TODO
+			return;
+		}
 		//System.out.println("Pos: " + pos.getX() + " " + pos.getY() + " ,Index: " + idx);
 		int left = searchLeft(idx);
 		//System.out.println("Balra ennyi lepesben talalt: " + left);

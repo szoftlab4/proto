@@ -1,6 +1,7 @@
 package mars;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 
 
@@ -42,7 +43,7 @@ public class Game {
 	 * Objektumok letrehozasa es inicializalasa.
 	 */
 	public void init() {
-		myTimerTask = new MyTimerTask(gameSpeed,150000);
+		myTimerTask = new MyTimerTask(gameSpeed,75000);
 		timer = new Timer();
 		
 		//Meg ezt meg kell nezni
@@ -136,15 +137,19 @@ public class Game {
 		}
 		
 		public void checkMachines() {
+			Iterator<MicroMachine> iter = microMachines.iterator();
 
-			for(MicroMachine mm : microMachines){
-				if(mm.isDoneCleaning()){
-					mapHandler.deleteSpot(mm.pos);
+			while (iter.hasNext()) {
+				MicroMachine mm = iter.next();
+				
+				if(mm.isAlive()){
+					if(mm.isDoneCleaning()){
+						mapHandler.deleteSpot(mm.pos);
+					}
+					mapHandler.setMMDirection(mm);
 				}
-			}
-			
-			for(MicroMachine mm : microMachines){
-				mapHandler.setMMDirection(mm);
+				else
+					iter.remove();
 			}
 		}
 
