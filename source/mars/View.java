@@ -10,14 +10,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,8 +29,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
@@ -43,12 +45,20 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
+<<<<<<< HEAD
 	JRadioButton rbtn1;
 	JRadioButton rbtn2;
 
 	private final static int cellSize = 100;
 
 
+=======
+
+	JRadioButton rbtn1;
+	JRadioButton rbtn2;
+	private final static int cellSize = 100;
+
+>>>>>>> origin/master
 	public View(){
 		init();
 		// Billentyuk miatt kell
@@ -57,7 +67,7 @@ public class View extends JPanel{
 	
 	public void init(){
 		imgMap = new HashMap<ImageType,BufferedImage>();
-		frame = new JFrame("Proto");
+		frame = new JFrame("’R‹LTROBOTAN¡LSZEX W¡OW¡¡¡¡¡¡¡");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1506, 1029);
 		frame.setResizable(false);
@@ -94,8 +104,10 @@ public class View extends JPanel{
 		imgMap.put(ImageType.EVE_BLUE, img);
 		img = ImageIO.read(new FileInputStream("res/MicroMachine.png"));
 		imgMap.put(ImageType.MICRO_MACHINE, img);
-		img = ImageIO.read(new FileInputStream("res/MS Icon.png"));
-		imgMap.put(ImageType.MS_ICON, img);
+		img = ImageIO.read(new FileInputStream("res/MS_Icon_1.png"));
+		imgMap.put(ImageType.MS_ICON_1, img);
+		img = ImageIO.read(new FileInputStream("res/MS_Icon_2.png"));
+		imgMap.put(ImageType.MS_ICON_2, img);
 		img = ImageIO.read(new FileInputStream("res/Background_lava2.png"));
 		imgMap.put(ImageType.BACKGROUND, img);
 	}
@@ -161,7 +173,6 @@ public class View extends JPanel{
 		c.gridy = 0;
 		panel.add(label1,c);
 		
-
 		c.insets = new Insets(0, 0, 50, 0);
 		JLabel label2 = new JLabel("Player Count:");
 		label2.setFont(new Font("Arial", Font.PLAIN, 36));
@@ -197,20 +208,20 @@ public class View extends JPanel{
 		JButton map1 = new JButton("");
 		map1.setName("ng_ms_1");
 		map1.setBorder(new LineBorder(Color.BLACK, 3));
-		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON)));
+		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON_1)));
 		c.gridy = 4;
 		c.gridx = 0;
 		map1.addActionListener(controller);
 		panel.add(map1, c);
 
-		c.ipady = 175;
-		c.ipadx = 250;
 		JButton map2 = new JButton("");
 		map2.setName("ng_ms_2");
 		map2.setBorder(new LineBorder(Color.BLACK, 3));
+		map2.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON_2)));
 		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
+<<<<<<< HEAD
 		map2.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
@@ -222,15 +233,20 @@ public class View extends JPanel{
             	}
             }
         });  
+=======
+>>>>>>> origin/master
 		map2.addActionListener(controller);
 		panel.add(map2, c);
-		
+
+		c.ipady = 175;
+		c.ipadx = 250;
 		JButton map3 = new JButton("");
 		map3.setName("ng_ms_3");
 		map3.setBorder(new LineBorder(Color.BLACK, 3));
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
+<<<<<<< HEAD
 		map3.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
@@ -242,6 +258,8 @@ public class View extends JPanel{
             	}
             }
         });  
+=======
+>>>>>>> origin/master
 		map3.addActionListener(controller);
 		panel.add(map3, c);
 		
@@ -263,23 +281,12 @@ public class View extends JPanel{
 		JButton clear = new JButton("Clear");
 		clear.setName("hs_clr_btn");
 		clear.setBackground(Color.white);
-		clear.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Main.highscore.clear();
-				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
-				w.dispose();
-			}
-		});
+		clear.addActionListener(controller);
 		panel_2.add(clear);
 		JButton exit = new JButton("Exit");
 		exit.setName("hs_ex_btn");
 		exit.setBackground(Color.white);
-		exit.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e){
-				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
-				w.dispose();
-				}
-		});
+		exit.addActionListener(controller);
 		panel_2.add(exit);
 
 		JLabel hlabel1 = new JLabel("Rank");
@@ -318,6 +325,58 @@ public class View extends JPanel{
 		
 		dialog.pack();
 		dialog.setSize(450,320);
+		dialog.setLocationRelativeTo(frame);
+		dialog.setVisible(true);
+	}
+	
+	public void drawNameDialog(final int distance){
+		JDialog dialog = new JDialog(frame, "New Highscore");
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+	    c.fill = GridBagConstraints.VERTICAL;
+		panel_1.setBackground(new Color(194,194,194));
+		
+		JLabel label = new JLabel("Your Name: ");
+		label.setFont(new Font("Arial", Font.PLAIN, 18));
+		c.gridx = 0;
+		c.gridy = 0;
+		c.insets = new Insets(10, 0, 10, 230);
+		panel_1.add(label, c);
+		
+		final JTextField textfield = new JTextField(30);
+		c.gridy = 1;
+		c.insets = new Insets(0, 30, 10, 30);
+		panel_1.add(textfield, c);
+		
+		JPanel panel_2 = new JPanel(new FlowLayout());
+		panel_2.setBackground(new Color(194,194,194));
+		
+		JButton ok = new JButton("Ok");
+		ok.setName("nd_ok_btn");
+		ok.setBackground(Color.white);
+		ok.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.highscore.add(textfield.getText(),distance);
+				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+				w.dispose();
+				drawHighscoreMenu();
+			}
+		});
+		panel_2.add(ok);
+		
+		panel.add(panel_1);
+		panel.add(panel_2);
+		
+		dialog.add(panel);
+		
+		dialog.pack();
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
 	}

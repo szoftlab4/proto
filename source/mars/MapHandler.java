@@ -42,6 +42,7 @@ public class MapHandler implements Observer {
 		map = new ArrayList<MapElement>();
 		road = new ArrayList<Position>();
 		mapWidth = 0;
+		mapHeight = 0;
 		mapName = null;
 		playerCount = 0;
 		alivePlayersSoFar = 0;
@@ -397,6 +398,8 @@ public class MapHandler implements Observer {
 			}
 		}
 
+		System.out.println("A talalt ures pozicio: " + freePos.getX() + " " + freePos.getY());
+		
 		return freePos;
 	}
 
@@ -404,7 +407,7 @@ public class MapHandler implements Observer {
 	 * Visszaadja, hogy a koordinata a jatekteren belul van-e.
 	 */
 	private boolean isValidCoordinate(int x, int y){
-		return !((y<0) || (y>mapHeight) || (x<0) || (x>mapWidth));
+		return !((y<0) || (y>=mapHeight) || (x<0) || (x>=mapWidth));
 	}
 	
 	/**
@@ -414,17 +417,25 @@ public class MapHandler implements Observer {
 		int x = pos.getX();
 		int y = pos.getY();
 		if(isValidCoordinate(x,y-1))
-			if(!map.get(posToIndex(new Position(x,y-1))).isDummy())
+			if(!map.get(posToIndex(new Position(x,y-1))).isDummy()){
+				System.out.println("UP lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.UP;
+			}
 		if(isValidCoordinate(x+1,y))
-			if(!map.get(posToIndex(new Position(x+1,y))).isDummy())
+			if(!map.get(posToIndex(new Position(x+1,y))).isDummy()){
+				System.out.println("RIGHT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.RIGHT;
+			}
 		if(isValidCoordinate(x-1,y))
-			if(!map.get(posToIndex(new Position(x-1,y))).isDummy())
+			if(!map.get(posToIndex(new Position(x-1,y))).isDummy()){
+				System.out.println("LEFT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.LEFT;
+			}
 		if(isValidCoordinate(x,y+1))
-			if(!map.get(posToIndex(new Position(x,y+1))).isDummy())
+			if(!map.get(posToIndex(new Position(x,y+1))).isDummy()){
+				System.out.println("DOWN lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.DOWN;
+			}
 		
 		return HeadDirection.DOWN;
 	}
