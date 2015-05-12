@@ -199,7 +199,6 @@ public class MapHandler implements Observer {
 	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
-<<<<<<< HEAD
 		try{
 			if(posIndex != -1){
 				for(int i = posIndex; i<road.size() ; i++){
@@ -219,7 +218,7 @@ public class MapHandler implements Observer {
 			}
 		} catch (Exception e){
 			System.out.println("asdasdasdsa");
-=======
+		}
 		System.out.println("kapott posIndex: " + posIndex);
 		for(int i = posIndex; i<road.size() ; i++){
 			//TODO try catch eltuntetese
@@ -244,7 +243,6 @@ public class MapHandler implements Observer {
 				cnt++;
 			else
 				return cnt;
->>>>>>> origin/master
 		}
 		return -1;
 	}
