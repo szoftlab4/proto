@@ -43,15 +43,12 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
-<<<<<<< HEAD
+
 	JRadioButton rbtn1;
 	JRadioButton rbtn2;
-=======
+
 	private final static int cellSize = 100;
-	
-	
->>>>>>> origin/master
-	
+
 	public View(){
 		init();
 		// Billentyuk miatt kell
