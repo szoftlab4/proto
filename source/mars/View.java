@@ -56,6 +56,12 @@ public class View extends JPanel{
 		setFocusable(true); 
 	}
 	
+	public void reset(){
+		gMapElements.clear();
+		gPlayers.clear();
+		gRobot.clear();
+	}
+	
 	public void init(){
 		imgMap = new HashMap<ImageType,BufferedImage>();
 		frame = new JFrame("MARS-RACE");

@@ -42,7 +42,7 @@ public class Game {
 	 * Objektumok letrehozasa es inicializalasa.
 	 */
 	public void init() {
-		myTimerTask = new MyTimerTask(gameSpeed,30000);
+		myTimerTask = new MyTimerTask(gameSpeed,150000);
 		timer = new Timer();
 		
 		//Meg ezt meg kell nezni
@@ -189,6 +189,9 @@ public class Game {
 				}
 				
 				controller.view.drawMenu();
+				
+				controller.view.reset();
+				
 				superThread.stop();
 			}
 		}
