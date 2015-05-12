@@ -278,7 +278,6 @@ public class MapHandler implements Observer {
 		}
 		else  {
 			return Direction.BACKWARD;
-		
 		}
 	}
 	/**
@@ -334,10 +333,7 @@ public class MapHandler implements Observer {
 					
 			}
 			else{
-<<<<<<< HEAD
 				//System.out.println("Elméletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
-=======
->>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
 				int nextIdx = idx + 1;
 				if(nextIdx == road.size())
 					nextIdx = 0;
@@ -349,18 +345,11 @@ public class MapHandler implements Observer {
 				}else
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 					
-<<<<<<< HEAD
 		}
 		}catch(Exception e){
+			e.printStackTrace();
 			System.out.println("mmdirexcept");
 		}
-=======
-			}
-			}catch(Exception e){
-				e.printStackTrace();
-				System.out.println("mmdirexcept");
-			}
->>>>>>> 154be09fdc16483a35eab09feadec3898a033ef4
 	}
 
 	/**
