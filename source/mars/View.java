@@ -90,8 +90,6 @@ public class View extends JPanel{
 	
 	private void loadImages() throws FileNotFoundException, IOException {
 		BufferedImage img;
-		img = ImageIO.read(new FileInputStream("res/halottrobot.png"));
-		imgMap.put(ImageType.D_MM, img);
 		img = ImageIO.read(new FileInputStream("res/Goo.png"));
 		imgMap.put(ImageType.GOO, img);
 		img = ImageIO.read(new FileInputStream("res/Oil.png"));
