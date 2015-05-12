@@ -199,33 +199,13 @@ public class MapHandler implements Observer {
 	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
-		try{
-			if(posIndex != -1){
-				for(int i = posIndex; i<road.size() ; i++){
-					MapElement m = map.get(posToIndex(road.get(i)));
-					if(!m.hasSpot())
-						cnt++;
-					else
-						return cnt;
-				}
-				for(int i = 0; i< posIndex ; i++ ){
-					MapElement m = map.get(posToIndex(road.get(i)));
-					if(!m.hasSpot())
-						cnt++;
-					else
-						return cnt;
-				}
-			}
-		} catch (Exception e){
-			System.out.println("asdasdasdsa");
-		}
 		System.out.println("kapott posIndex: " + posIndex);
 		for(int i = posIndex; i<road.size() ; i++){
 			//TODO try catch eltuntetese
 			try{
 				Position roadPos = road.get(i);
 				int idx = posToIndex(roadPos);
-				System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
+				//System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
 				MapElement m = map.get(idx);
 				
 				if(!m.hasSpot())
@@ -235,6 +215,9 @@ public class MapHandler implements Observer {
 			}catch(IndexOutOfBoundsException e){
 				e.printStackTrace();
 				System.err.println("Szarsag a search rightnal");
+			}catch(Exception ex){
+				ex.printStackTrace();
+				System.err.println("Varatlan hiba");
 			}
 		}
 		for(int i = 0; i< posIndex ; i++ ){
@@ -244,6 +227,9 @@ public class MapHandler implements Observer {
 			else
 				return cnt;
 		}
+		
+		System.out.println("-1 return a searchRightnal");
+		
 		return -1;
 	}
 	/**
@@ -313,56 +299,57 @@ public class MapHandler implements Observer {
 		int right = searchRight(idx);
 		//System.out.println("Jobbra ennyi lepesben talalt: " + right);
 		try{
-		if(left>right){
-			int nextIdx = idx + 1;
-			if(nextIdx == road.size())
-				nextIdx = 0;
-			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-			
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+			if(left>right){
+				int nextIdx = idx + 1;
+				if(nextIdx == road.size())
+					nextIdx = 0;
+				hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+				
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+			}
+			else if(left<right){
+				int prevIdx = idx - 1;
+				if(prevIdx < 0)
+					prevIdx = road.size() - 1;
+				hdir = newPosDirection(road.get(idx), road.get(prevIdx));
+				
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
+			}
+			else if(left == 0 && right == 0){
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(Direction.STAY);
+					map.get(this.posToIndex(pos)).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
+					
+			}
+			else{
+				int nextIdx = idx + 1;
+				if(nextIdx == road.size())
+					nextIdx = 0;
+				hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-		}
-		else if(left<right){
-			int prevIdx = idx - 1;
-			if(prevIdx < 0)
-				prevIdx = road.size() - 1;
-			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
-			
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
-				map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
-		}
-		else if(left == 0 && right == 0){
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(Direction.STAY);
-				map.get(this.posToIndex(pos)).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
-				
-		}
-		else{
-			int nextIdx = idx + 1;
-			if(nextIdx == road.size())
-				nextIdx = 0;
-			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
-				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
-		}
-		}catch(Exception e){
-			System.out.println("mmdirexcept");
-		}
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
+			}
+			}catch(Exception e){
+				e.printStackTrace();
+				System.out.println("mmdirexcept");
+			}
 	}
 
 	/**
