@@ -341,7 +341,7 @@ public class MapHandler implements Observer {
 				if(nextIdx == road.size())
 					nextIdx = 0;
 				hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+				
 				if(!microMachine.isCollided()){
 					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
 					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
