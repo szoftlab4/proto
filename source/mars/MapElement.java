@@ -152,6 +152,7 @@ public class MapElement {
 			//Ha van akkor mindenkeppen meghalnak a kisrobotok
 			for(MicroMachine mm : refMM){
 				mm.setAlive(false);
+				System.out.println("Meghalt a " + mm.getPosition().getX() + "," + mm.getPosition().getY() + " MM");
 				this.spot=mm.getOilSpot();
 			}
 			//Utkoztetjuk a jatekosokat, egy jatekosra is mukodik
