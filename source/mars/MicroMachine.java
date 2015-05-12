@@ -62,6 +62,7 @@ public class MicroMachine extends Robot {
 			else{
 				this.step();
 				progress = 0;
+				doneCleaning = false;
 			}
 				
 		}
