@@ -313,52 +313,53 @@ public class MapHandler implements Observer {
 		int right = searchRight(idx);
 		//System.out.println("Jobbra ennyi lepesben talalt: " + right);
 		try{
-		if(left>right){
-			int nextIdx = idx + 1;
-			if(nextIdx == road.size())
-				nextIdx = 0;
-			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-			
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+			if(left>right){
+				int nextIdx = idx + 1;
+				if(nextIdx == road.size())
+					nextIdx = 0;
+				hdir = newPosDirection(road.get(idx), road.get(nextIdx));
+				
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+			}
+			else if(left<right){
+				int prevIdx = idx - 1;
+				if(prevIdx < 0)
+					prevIdx = road.size() - 1;
+				hdir = newPosDirection(road.get(idx), road.get(prevIdx));
+				
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
+			}
+			else if(left == 0 && right == 0){
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(Direction.STAY);
+					map.get(this.posToIndex(pos)).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
+					
+			}
+			else{
+				//System.out.println("Elméletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
+				int nextIdx = idx + 1;
+				if(nextIdx == road.size())
+					nextIdx = 0;
+				hdir = newPosDirection(road.get(idx), road.get(nextIdx));
 				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-		}
-		else if(left<right){
-			int prevIdx = idx - 1;
-			if(prevIdx < 0)
-				prevIdx = road.size() - 1;
-			hdir = newPosDirection(road.get(idx), road.get(prevIdx));
-			
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
-				map.get(this.posToIndex(road.get(prevIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
-		}
-		else if(left == 0 && right == 0){
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(Direction.STAY);
-				map.get(this.posToIndex(pos)).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
-				
-		}
-		else{
-			int nextIdx = idx + 1;
-			if(nextIdx == road.size())
-				nextIdx = 0;
-			hdir = newPosDirection(road.get(idx), road.get(nextIdx));
-			map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			if(!microMachine.isCollided()){
-				microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
-				map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
-			}else
-				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-				
+				if(!microMachine.isCollided()){
+					microMachine.setDirection(this.headDirToDir(microMachine.getHeadDir(), hdir));
+					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
+				}else
+					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
+					
 		}
 		}catch(Exception e){
 			System.out.println("mmdirexcept");

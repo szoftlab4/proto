@@ -15,6 +15,7 @@ public class MicroMachine extends Robot {
 	 */
 	private int progress;
 	/**
+
 	 * Micromachine ID szama
 	 */
 	private int index;
@@ -23,6 +24,7 @@ public class MicroMachine extends Robot {
 	 */
 	private static int cntr = 0;
 	/**
+
 	 * Micromachine utkozesenek szamon tartasa
 	 */
 	private boolean collided;
@@ -43,17 +45,9 @@ public class MicroMachine extends Robot {
 		this.oldPos = new Position(pos.getX(),pos.getY());
 		this.headDir=headDir;
 		dir = Direction.FORWARD;
-		cntr++;
-		index = cntr;
 		collided=false;
 	}
-	/**
-	 * cntr szamlalo settere,a MicroMachine ID szamainak
-	 * @param i
-	 */
-	public static void setCntr(int i){
-		cntr = i;
-	}
+
 	/**
 	 * Ha a kisrobot STAY parancsot kapott akkor helyben takarit,egyebkent lep
 	 * @param Obs
@@ -65,26 +59,14 @@ public class MicroMachine extends Robot {
 				this.checkProgress();
 				this.setCollided(false);
 			}
-			else
+			else{
 				this.step();
+				progress = 0;
+			}
+				
 		}
 	}
-	
-	/**
-	 * update metodus tesztelesi celokra publikusan duplikalva
-	 */
-	/*
-	public void testupdate() {
-		if(dir == Direction.STAY){
-			this.checkProgress();
-			this.setCollided(false);
-		}
-		else
-			this.step();
-		
-	}
-	*/
-	
+
 	/**
 	 * nem hasznalt fuggveny
 	 */
@@ -170,17 +152,10 @@ public class MicroMachine extends Robot {
 	 */
 	private void checkProgress(){
 		progress++;
-		if(progress == 3){
+		if(progress >= 2){
 			doneCleaning = true;
 			progress = 0;
 		}
-	}
-	/**
-	 * ID getter
-	 * @return index
-	 */
-	public int getIndex(){
-		return index;
 	}
 	/**
 	 * Collided boolean ellenorzese
