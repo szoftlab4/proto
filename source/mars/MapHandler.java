@@ -166,6 +166,7 @@ public class MapHandler implements Observer {
 		for(int i=0; i<road.size();i++)
 			if(pos.getX() == road.get(i).getX() && pos.getY() == road.get(i).getY())
 				return i;
+		System.out.println("Hat itt bizony szopas lesz (findPosIndexOnRoad(-1)");
 		return -1;
 	}
 	/**
@@ -198,12 +199,23 @@ public class MapHandler implements Observer {
 	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
+		System.out.println("kapott posIndex: " + posIndex);
 		for(int i = posIndex; i<road.size() ; i++){
-			MapElement m = map.get(posToIndex(road.get(i)));
-			if(!m.hasSpot())
-				cnt++;
-			else
-				return cnt;
+			//TODO try catch eltuntetese
+			try{
+				Position roadPos = road.get(i);
+				int idx = posToIndex(roadPos);
+				System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
+				MapElement m = map.get(idx);
+				
+				if(!m.hasSpot())
+					cnt++;
+				else
+					return cnt;
+			}catch(IndexOutOfBoundsException e){
+				e.printStackTrace();
+				System.err.println("Szarsag a search rightnal");
+			}
 		}
 		for(int i = 0; i< posIndex ; i++ ){
 			MapElement m = map.get(posToIndex(road.get(i)));
@@ -398,7 +410,7 @@ public class MapHandler implements Observer {
 			}
 		}
 
-		System.out.println("A talalt ures pozicio: " + freePos.getX() + " " + freePos.getY());
+		//System.out.println("A talalt ures pozicio: " + freePos.getX() + " " + freePos.getY());
 		
 		return freePos;
 	}
@@ -418,22 +430,22 @@ public class MapHandler implements Observer {
 		int y = pos.getY();
 		if(isValidCoordinate(x,y-1))
 			if(!map.get(posToIndex(new Position(x,y-1))).isDummy()){
-				System.out.println("UP lesz a " + x + "," + y + " helyen levonek az iranya");
+				//System.out.println("UP lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.UP;
 			}
 		if(isValidCoordinate(x+1,y))
 			if(!map.get(posToIndex(new Position(x+1,y))).isDummy()){
-				System.out.println("RIGHT lesz a " + x + "," + y + " helyen levonek az iranya");
+				//System.out.println("RIGHT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.RIGHT;
 			}
 		if(isValidCoordinate(x-1,y))
 			if(!map.get(posToIndex(new Position(x-1,y))).isDummy()){
-				System.out.println("LEFT lesz a " + x + "," + y + " helyen levonek az iranya");
+				//System.out.println("LEFT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.LEFT;
 			}
 		if(isValidCoordinate(x,y+1))
 			if(!map.get(posToIndex(new Position(x,y+1))).isDummy()){
-				System.out.println("DOWN lesz a " + x + "," + y + " helyen levonek az iranya");
+				//System.out.println("DOWN lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.DOWN;
 			}
 		
