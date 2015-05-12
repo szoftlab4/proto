@@ -278,7 +278,6 @@ public class MapHandler implements Observer {
 		}
 		else  {
 			return Direction.BACKWARD;
-		
 		}
 	}
 	/**
@@ -332,6 +331,7 @@ public class MapHandler implements Observer {
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 			}
 			else{
+
 				//System.out.println("Elmeletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
 				int nextIdx = idx + 1;
 				if(nextIdx == road.size())
@@ -343,7 +343,7 @@ public class MapHandler implements Observer {
 					map.get(this.posToIndex(road.get(nextIdx))).addMMRef(microMachine);
 				}else
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
-					
+			
 			}}catch(Exception e){
 				e.printStackTrace();
 				System.out.println("mmdirexcept");
