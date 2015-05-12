@@ -212,26 +212,6 @@ public class View extends JPanel{
 		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
-
-<<<<<<< HEAD
-		map2.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if(rbtn1.isSelected()){
-            		controller.startGame(2, "map2.map");	//terkep 2-vel...
-            	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "map2.map");
-            	}
-            }
-<<<<<<< HEAD
-        });  
-
-=======
-        });
->>>>>>> origin/master
-=======
->>>>>>> de9c49c066b4c83ed41d91ef786b388c4fe9a7b0
 		map2.addActionListener(controller);
 		panel.add(map2, c);
 
@@ -243,30 +223,6 @@ public class View extends JPanel{
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
-<<<<<<< HEAD
-
-=======
-		
-<<<<<<< HEAD
->>>>>>> origin/master
-		map3.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if(rbtn1.isSelected()){
-            		controller.startGame(2, "map3.map");	//terkep 3-mal...
-            	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "map3.map");
-            	}
-            }
-<<<<<<< HEAD
-        });  
-
-=======
-        });
->>>>>>> origin/master
-=======
->>>>>>> de9c49c066b4c83ed41d91ef786b388c4fe9a7b0
 		map3.addActionListener(controller);
 		panel.add(map3, c);
 		
