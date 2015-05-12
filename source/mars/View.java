@@ -43,15 +43,12 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
-<<<<<<< HEAD
 	JRadioButton rbtn1;
 	JRadioButton rbtn2;
-=======
+
 	private final static int cellSize = 100;
-	
-	
->>>>>>> origin/master
-	
+
+
 	public View(){
 		init();
 		// Billentyuk miatt kell
@@ -219,7 +216,7 @@ public class View extends JPanel{
             public void actionPerformed(ActionEvent e)
             {
             	if(rbtn1.isSelected()){
-            		controller.startGame(2, "map2.map");	//terkep 2-vel majd...
+            		controller.startGame(2, "map2.map");	//terkep 2-vel...
             	}else if(rbtn2.isSelected()){
             		controller.startGame(3, "map2.map");
             	}
@@ -239,9 +236,9 @@ public class View extends JPanel{
             public void actionPerformed(ActionEvent e)
             {
             	if(rbtn1.isSelected()){
-            		controller.startGame(2, "Test1.map");	//terkep 3-mal majd...
+            		controller.startGame(2, "map3.map");	//terkep 3-mal...
             	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "Test1.map");
+            		controller.startGame(3, "map3.map");
             	}
             }
         });  
