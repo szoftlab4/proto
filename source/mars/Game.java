@@ -148,13 +148,11 @@ public class Game {
 			}
 		}
 
+		@SuppressWarnings("deprecation")
 		public void checkGameEnd() {
 			
 			int alivePlayers = 0;
 			boolean gameEnd = true;
-			
-			//if(!myTimerTask.isOver())	TODO 	TODO 	TODO	TODO
-			//	gameEnd = false;
 			
 			for(Player player : players){
 				if(player.isAlive()){
@@ -163,6 +161,9 @@ public class Game {
 				}
 				mapHandler.setPlayerCount(alivePlayers);
 			}
+			
+			if(myTimerTask.isOver())
+				gameEnd = true;
 				
 			if(gameEnd == true){
 				int max = 0;
