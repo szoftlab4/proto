@@ -74,7 +74,7 @@ public class MyTimerTask extends TimerTask {
 	public void registerObserver(Observer robot) {
 		//System.out.println("notifier addObserver");
 		notifier.addObserver(robot);
-		System.out.println(notifier.countObservers());
+		//System.out.println(notifier.countObservers());
 	}
 	
 	/**
