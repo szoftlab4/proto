@@ -43,7 +43,8 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
-	
+	JRadioButton rbtn1;
+	JRadioButton rbtn2;
 	
 	public View(){
 		init();
@@ -110,52 +111,36 @@ public class View extends JPanel{
 	    c.insets = new Insets(100,0,100,0);
 
 		JButton newgamebtn = new JButton("New Game");
+		newgamebtn.setName("menu_ng_btn");
 		newgamebtn.setBorder(new LineBorder(Color.BLACK, 3));
 		newgamebtn.setBackground(Color.WHITE);
 		newgamebtn.setFont(new Font("Arial", Font.PLAIN, 26));
 	    c.gridy = 1;
-	    newgamebtn.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-                drawNewGameMenu();
-            }
-        });      
+	    newgamebtn.addActionListener(controller);
 		panel.add(newgamebtn, c);
 		
 		JButton highscorebtn = new JButton("Highscores");
+		highscorebtn.setName("menu_hs_btn");
 		highscorebtn.setBorder(new LineBorder(Color.BLACK, 3));
 		highscorebtn.setBackground(Color.WHITE);
 		highscorebtn.setFont(new Font("Arial", Font.PLAIN, 26));
 		c.gridy = 2;
-		highscorebtn.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	drawHighscoreMenu();
-            }
-        });  
+		highscorebtn.addActionListener(controller);
 		panel.add(highscorebtn, c);
 		
 		JButton exitbtn = new JButton("Exit");
+		exitbtn.setName("menu_ex_btn");
 		exitbtn.setBorder(new LineBorder(Color.BLACK, 3));
 		exitbtn.setBackground(Color.WHITE);
 		exitbtn.setFont(new Font("Arial", Font.PLAIN, 26));
 		c.gridy = 3;
-		exitbtn.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-				Main.highscore.serialize();
-                System.exit(0);
-            }
-        });  
+		exitbtn.addActionListener(controller);
 		panel.add(exitbtn, c);
 		
 		frame.setVisible(true);
 	}
 	
-	private void drawNewGameMenu(){
+	public void drawNewGameMenu(){
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(194,194,194));
 		frame.setContentPane(panel);
@@ -180,7 +165,7 @@ public class View extends JPanel{
 		c.gridx = 0;
 		panel.add(label2,c);
 		
-		final JRadioButton rbtn1 = new JRadioButton("2");
+		rbtn1 = new JRadioButton("2");
 		rbtn1.setFont(new Font("Arial", Font.PLAIN, 36));
 		rbtn1.setBackground(new Color(194,194,194));
 		c.gridy = 2;
@@ -188,7 +173,7 @@ public class View extends JPanel{
 		rbtn1.doClick();
 		panel.add(rbtn1,c);
 		
-		final JRadioButton rbtn2 = new JRadioButton("3");
+		rbtn2 = new JRadioButton("3");
 		rbtn2.setFont(new Font("Arial", Font.PLAIN, 36));
 		rbtn2.setBackground(new Color(194,194,194));
 		c.gridy = 2;
@@ -206,26 +191,18 @@ public class View extends JPanel{
 		panel.add(label3,c);
 
 		JButton map1 = new JButton("");
+		map1.setName("ng_ms_1");
 		map1.setBorder(new LineBorder(Color.BLACK, 3));
 		map1.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON)));
 		c.gridy = 4;
 		c.gridx = 0;
-		map1.addActionListener(new ActionListener() {
-	    	 
-            public void actionPerformed(ActionEvent e)
-            {
-            	if(rbtn1.isSelected()){
-            		controller.startGame(2, "Test1.map");	//elso terkep
-            	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "Test1.map");
-            	}
-            }
-        });
+		map1.addActionListener(controller);
 		panel.add(map1, c);
 
 		c.ipady = 175;
 		c.ipadx = 250;
 		JButton map2 = new JButton("");
+		map2.setName("ng_ms_2");
 		map2.setBorder(new LineBorder(Color.BLACK, 3));
 		map2.setBackground(Color.white);
 		c.gridy = 4;
@@ -241,9 +218,11 @@ public class View extends JPanel{
             	}
             }
         });  
+		map2.addActionListener(controller);
 		panel.add(map2, c);
 		
 		JButton map3 = new JButton("");
+		map3.setName("ng_ms_3");
 		map3.setBorder(new LineBorder(Color.BLACK, 3));
 		map3.setBackground(Color.white);
 		c.gridy = 4;
@@ -259,6 +238,7 @@ public class View extends JPanel{
             	}
             }
         });  
+		map3.addActionListener(controller);
 		panel.add(map3, c);
 		
 		frame.setVisible(true);
@@ -277,6 +257,7 @@ public class View extends JPanel{
 		panel_2.setBackground(new Color(194,194,194));
 		
 		JButton clear = new JButton("Clear");
+		clear.setName("hs_clr_btn");
 		clear.setBackground(Color.white);
 		clear.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){
@@ -287,6 +268,7 @@ public class View extends JPanel{
 		});
 		panel_2.add(clear);
 		JButton exit = new JButton("Exit");
+		exit.setName("hs_ex_btn");
 		exit.setBackground(Color.white);
 		exit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

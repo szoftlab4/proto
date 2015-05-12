@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+import javax.swing.AbstractButton;
+
 public class Controller implements KeyListener, ActionListener{
 
 	View view;
@@ -70,8 +72,35 @@ public class Controller implements KeyListener, ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		String str = ((AbstractButton) arg0.getSource()).getName();
 		
+		if(str.equals("menu_ng_btn")){
+			view.drawNewGameMenu();
+		}
+		else if(str.equals("menu_hs_btn")){
+			view.drawHighscoreMenu();
+		}
+		else if(str.equals("menu_ex_btn")){
+			Main.highscore.serialize();
+			System.exit(0);
+		}
+		else if(str.equals("ng_ms_1")){
+			if(view.rbtn1.isSelected()){
+        		startGame(2, "Test1.map");
+        	}else if(view.rbtn2.isSelected()){
+        		startGame(3, "Test1.map");
+        	}
+		}
+		else if(str.equals("")){
+		}
+		else if(str.equals("")){
+		}
+		else if(str.equals("")){
+		}
+		else if(str.equals("")){
+		}
+		else if(str.equals("")){
+		}
 	}
 	
 	@Override
