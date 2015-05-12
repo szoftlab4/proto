@@ -10,6 +10,7 @@ public enum ImageType {
 	MICRO_MACHINE,
 	MS_ICON_1,
 	MS_ICON_2, 
+	MS_ICON_3, 
 	BACKGROUND;
 	//stb
 }

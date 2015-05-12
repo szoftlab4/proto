@@ -6,12 +6,11 @@ public class Main {
 	public static void main(String[] args){
 		View view = new View();
 		Controller controller = new Controller();
+		highscore = new Highscore();
 		controller.addView(view);
 		view.addController(controller);
 		view.drawMenu();
 		
-		
-		highscore = new Highscore();
 		
 		//teszt
 		/*highscore.add("asd",15);

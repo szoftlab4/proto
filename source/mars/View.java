@@ -10,14 +10,14 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.Window;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,8 +29,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
@@ -46,7 +48,6 @@ public class View extends JPanel{
 
 	JRadioButton rbtn1;
 	JRadioButton rbtn2;
-
 	private final static int cellSize = 100;
 
 	public View(){
@@ -57,7 +58,7 @@ public class View extends JPanel{
 	
 	public void init(){
 		imgMap = new HashMap<ImageType,BufferedImage>();
-		frame = new JFrame("Proto");
+		frame = new JFrame("’R‹LTROBOTAN¡LSZEX W¡OW¡¡¡¡¡¡¡");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1506, 1029);
 		frame.setResizable(false);
@@ -163,7 +164,6 @@ public class View extends JPanel{
 		c.gridy = 0;
 		panel.add(label1,c);
 		
-
 		c.insets = new Insets(0, 0, 50, 0);
 		JLabel label2 = new JLabel("Player Count:");
 		label2.setFont(new Font("Arial", Font.PLAIN, 36));
@@ -288,6 +288,58 @@ public class View extends JPanel{
 		
 		dialog.pack();
 		dialog.setSize(450,320);
+		dialog.setLocationRelativeTo(frame);
+		dialog.setVisible(true);
+	}
+	
+	public void drawNameDialog(final int distance){
+		JDialog dialog = new JDialog(frame, "New Highscore");
+
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.PAGE_AXIS));
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+	    c.fill = GridBagConstraints.VERTICAL;
+		panel_1.setBackground(new Color(194,194,194));
+		
+		JLabel label = new JLabel("Your Name: ");
+		label.setFont(new Font("Arial", Font.PLAIN, 18));
+		c.gridx = 0;
+		c.gridy = 0;
+		c.insets = new Insets(10, 0, 10, 230);
+		panel_1.add(label, c);
+		
+		final JTextField textfield = new JTextField(30);
+		c.gridy = 1;
+		c.insets = new Insets(0, 30, 10, 30);
+		panel_1.add(textfield, c);
+		
+		JPanel panel_2 = new JPanel(new FlowLayout());
+		panel_2.setBackground(new Color(194,194,194));
+		
+		JButton ok = new JButton("Ok");
+		ok.setName("nd_ok_btn");
+		ok.setBackground(Color.white);
+		ok.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main.highscore.add(textfield.getText(),distance);
+				Window w = SwingUtilities.getWindowAncestor((Component) e.getSource());
+				w.dispose();
+				drawHighscoreMenu();
+			}
+		});
+		panel_2.add(ok);
+		
+		panel.add(panel_1);
+		panel.add(panel_2);
+		
+		dialog.add(panel);
+		
+		dialog.pack();
+		dialog.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		dialog.setLocationRelativeTo(frame);
 		dialog.setVisible(true);
 	}
