@@ -45,20 +45,11 @@ public class View extends JPanel{
 	Controller controller;
 	HashMap<ImageType,BufferedImage> imgMap;
 	
-<<<<<<< HEAD
 	JRadioButton rbtn1;
 	JRadioButton rbtn2;
 
 	private final static int cellSize = 100;
 
-
-=======
-
-	JRadioButton rbtn1;
-	JRadioButton rbtn2;
-	private final static int cellSize = 100;
-
->>>>>>> origin/master
 	public View(){
 		init();
 		// Billentyuk miatt kell
@@ -221,7 +212,7 @@ public class View extends JPanel{
 		map2.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 1;
-<<<<<<< HEAD
+
 		map2.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
@@ -233,8 +224,7 @@ public class View extends JPanel{
             	}
             }
         });  
-=======
->>>>>>> origin/master
+
 		map2.addActionListener(controller);
 		panel.add(map2, c);
 
@@ -246,7 +236,7 @@ public class View extends JPanel{
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
-<<<<<<< HEAD
+
 		map3.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
@@ -258,8 +248,7 @@ public class View extends JPanel{
             	}
             }
         });  
-=======
->>>>>>> origin/master
+
 		map3.addActionListener(controller);
 		panel.add(map3, c);
 		
