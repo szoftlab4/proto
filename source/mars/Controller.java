@@ -38,7 +38,7 @@ public class Controller implements KeyListener, ActionListener{
 			p2 = game.getPlayers().get(1);
 		}
 		else if(playerCount == 3){
-			p2enabled = true;
+			p3enabled = true;
 			p3 = game.getPlayers().get(2);
 		}
 		else if(playerCount > 3)
