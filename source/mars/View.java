@@ -99,6 +99,8 @@ public class View extends JPanel{
 		imgMap.put(ImageType.MS_ICON_1, img);
 		img = ImageIO.read(new FileInputStream("res/MS_Icon_2.png"));
 		imgMap.put(ImageType.MS_ICON_2, img);
+		img = ImageIO.read(new FileInputStream("res/MS_Icon_3.png"));
+		imgMap.put(ImageType.MS_ICON_3, img);
 		img = ImageIO.read(new FileInputStream("res/Background_lava2.png"));
 		imgMap.put(ImageType.BACKGROUND, img);
 	}
@@ -215,16 +217,17 @@ public class View extends JPanel{
 		map2.addActionListener(controller);
 		panel.add(map2, c);
 
-		c.ipady = 175;
-		c.ipadx = 250;
 		JButton map3 = new JButton("");
 		map3.setName("ng_ms_3");
 		map3.setBorder(new LineBorder(Color.BLACK, 3));
+		map3.setIcon(new ImageIcon(imgMap.get(ImageType.MS_ICON_3)));
 		map3.setBackground(Color.white);
 		c.gridy = 4;
 		c.gridx = 2;
 		map3.addActionListener(controller);
 		panel.add(map3, c);
+		
+
 		
 		frame.setVisible(true);
 	}
