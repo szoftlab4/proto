@@ -213,6 +213,7 @@ public class View extends JPanel{
 		c.gridy = 4;
 		c.gridx = 1;
 
+<<<<<<< HEAD
 		map2.addActionListener(new ActionListener() {
 	    	 
             public void actionPerformed(ActionEvent e)
@@ -229,6 +230,8 @@ public class View extends JPanel{
 =======
         });
 >>>>>>> origin/master
+=======
+>>>>>>> de9c49c066b4c83ed41d91ef786b388c4fe9a7b0
 		map2.addActionListener(controller);
 		panel.add(map2, c);
 
@@ -244,6 +247,7 @@ public class View extends JPanel{
 
 =======
 		
+<<<<<<< HEAD
 >>>>>>> origin/master
 		map3.addActionListener(new ActionListener() {
 	    	 
@@ -261,6 +265,8 @@ public class View extends JPanel{
 =======
         });
 >>>>>>> origin/master
+=======
+>>>>>>> de9c49c066b4c83ed41d91ef786b388c4fe9a7b0
 		map3.addActionListener(controller);
 		panel.add(map3, c);
 		

@@ -103,9 +103,9 @@ public class Controller implements KeyListener, ActionListener{
 		}
 		else if(str.equals("ng_ms_3")){
 			if(view.rbtn1.isSelected()){
-        		startGame(2, "map2.map");
-        	}else if(view.rbtn2.isSelected()){			//TODO
-        		startGame(3, "map2.map");
+        		startGame(2, "map3.map");
+        	}else if(view.rbtn2.isSelected()){
+        		startGame(3, "map3.map");
         	}
 		}
 		else if(str.equals("hs_clr_btn")){
