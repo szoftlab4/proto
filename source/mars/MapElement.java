@@ -196,7 +196,16 @@ public class MapElement {
 	 * Visszaadja, hogy a mapElement dummy elem-e (rajta van-e a pályán).
 	 */
 	public boolean isDummy(){
-		return (pos.getX() == -1 && pos.getY() == -1);
+		if(pos.getX() == -1 && pos.getY() == -1){
+			System.out.println(pos.getX() + "," + pos.getY() +" elvileg dummy");
+			return true;
+		}
+		else{
+			System.out.println(pos.getX() + "," + pos.getY() +" elvileg nem dummy");
+			return false;
+		}
+		
+		//return (pos.getX() == -1 && pos.getY() == -1);
 	}
 	
 	/**
