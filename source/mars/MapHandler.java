@@ -460,6 +460,7 @@ public class MapHandler implements Observer {
 			//TODO kivenni a kommentet
 			player.setAlive(false);
 			playerCount--;
+			
 		}
 	}
 	

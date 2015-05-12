@@ -58,7 +58,7 @@ public class View extends JPanel{
 	
 	public void init(){
 		imgMap = new HashMap<ImageType,BufferedImage>();
-		frame = new JFrame("’R‹LTROBOTAN¡LSZEX W¡OW¡¡¡¡¡¡¡");
+		frame = new JFrame("MARS-RACE");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1506, 1029);
 		frame.setResizable(false);
@@ -226,8 +226,6 @@ public class View extends JPanel{
 		c.gridx = 2;
 		map3.addActionListener(controller);
 		panel.add(map3, c);
-		
-
 		
 		frame.setVisible(true);
 	}

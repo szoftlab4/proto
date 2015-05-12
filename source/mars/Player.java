@@ -121,6 +121,8 @@ public class Player extends Robot {
 		if(this.isAlive()){
 			//System.out.println("Player el");
 			this.step();
+			this.distance++;
+			System.out.println("dis:" + distance);
 			switch(spotCommand){
 				case NOSPOT:
 					setChanged();

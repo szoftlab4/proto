@@ -151,8 +151,11 @@ public class Game {
 		public void checkGameEnd() {
 			
 			int alivePlayers = 0;
-			@SuppressWarnings("unused")
 			boolean gameEnd = true;
+			
+			//if(!myTimerTask.isOver())	TODO 	TODO 	TODO	TODO
+			//	gameEnd = false;
+			
 			for(Player player : players){
 				if(player.isAlive()){
 					gameEnd = false;
@@ -160,10 +163,33 @@ public class Game {
 				}
 				mapHandler.setPlayerCount(alivePlayers);
 			}
-			if(!myTimerTask.isOver())
-				gameEnd = false;
-			
-			
+				
+			if(gameEnd == true){
+				int max = 0;
+				for(Player player : players){
+					if(player.getDistance() > max)
+						max = player.getDistance();
+				}
+				timer.cancel();
+				timer.purge();
+				checkMachines();
+				mapHandler.checkSpots();
+				controller.drawGame();
+				
+				int n = Highscore.list.size();
+				
+				if(n < 10)
+					controller.view.drawNameDialog(max);
+				else if(n == 10){
+					if(max > Highscore.list.get(n-1).getDistance()){
+						Highscore.list.remove(n - 1);
+						controller.view.drawNameDialog(max);
+					}
+				}
+				
+				controller.view.drawMenu();
+				superThread.stop();
+			}
 		}
 
 		private void createMicroMachine(){
@@ -188,7 +214,6 @@ public class Game {
 						Game.syncObject.wait();
 						
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -196,7 +221,6 @@ public class Game {
 				try {
 					Thread.sleep(gameSpeed);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				//System.out.println("Supervisor felebredt");

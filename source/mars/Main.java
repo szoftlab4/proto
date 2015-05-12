@@ -14,8 +14,15 @@ public class Main {
 		
 		//teszt
 		/*highscore.add("asd",15);
-		highscore.add("asd",2);
-		highscore.add("asd",5);*/
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",15);
+		highscore.add("asd",1);*/
 	}
 
 }
