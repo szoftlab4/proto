@@ -19,7 +19,7 @@ public class MicroMachine extends Robot {
 	 */
 	private int index;
 	/**
-	 * kovetkezo MicroMachine ID szama
+	 * kovetkezo MicroMachine ID szama (eddigi MicroMachinek száma)
 	 */
 	private static int cntr = 0;
 	/**
