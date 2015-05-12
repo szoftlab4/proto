@@ -71,7 +71,9 @@ public class View extends JPanel{
 		try {
 			loadImages();
 		} catch (FileNotFoundException e) {
+			System.out.println("FIle not found!");
 		} catch (IOException e) {
+			System.out.println("Error during loading files!");
 		}		
 	}
 	
