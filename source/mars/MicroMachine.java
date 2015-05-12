@@ -60,13 +60,14 @@ public class MicroMachine extends Robot {
 	 * @param Obj
 	 */
 	public void update(Observable Obs, Object Obj) {
-		if(dir == Direction.STAY){
-			this.checkProgress();
-			this.setCollided(false);
+		if(this.isAlive()){
+			if(dir == Direction.STAY){
+				this.checkProgress();
+				this.setCollided(false);
+			}
+			else
+				this.step();
 		}
-		else
-			this.step();
-		
 	}
 	
 	/**

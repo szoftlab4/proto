@@ -198,19 +198,25 @@ public class MapHandler implements Observer {
 	 */
 	private int searchRight(int posIndex){
 		int cnt = 0;
-		for(int i = posIndex; i<road.size() ; i++){
-			MapElement m = map.get(posToIndex(road.get(i)));
-			if(!m.hasSpot())
-				cnt++;
-			else
-				return cnt;
-		}
-		for(int i = 0; i< posIndex ; i++ ){
-			MapElement m = map.get(posToIndex(road.get(i)));
-			if(!m.hasSpot())
-				cnt++;
-			else
-				return cnt;
+		try{
+			if(posIndex != -1){
+				for(int i = posIndex; i<road.size() ; i++){
+					MapElement m = map.get(posToIndex(road.get(i)));
+					if(!m.hasSpot())
+						cnt++;
+					else
+						return cnt;
+				}
+				for(int i = 0; i< posIndex ; i++ ){
+					MapElement m = map.get(posToIndex(road.get(i)));
+					if(!m.hasSpot())
+						cnt++;
+					else
+						return cnt;
+				}
+			}
+		} catch (Exception e){
+			System.out.println("asdasdasdsa");
 		}
 		return -1;
 	}
@@ -280,6 +286,7 @@ public class MapHandler implements Observer {
 		//System.out.println("Balra ennyi lepesben talalt: " + left);
 		int right = searchRight(idx);
 		//System.out.println("Jobbra ennyi lepesben talalt: " + right);
+		try{
 		if(left>right){
 			int nextIdx = idx + 1;
 			if(nextIdx == road.size())
@@ -327,13 +334,20 @@ public class MapHandler implements Observer {
 				map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 				
 		}
+		}catch(Exception e){
+			System.out.println("mmdirexcept");
+		}
 	}
 
 	/**
 	 * A parameterben megadott pozicion levo spotot torli.
 	 */
 	public void deleteSpot(Position pos) {
-		map.get(posToIndex(pos)).deleteSpot();
+		try{
+			map.get(posToIndex(pos)).deleteSpot();
+		} catch (Exception e){
+			System.out.println("asdasdasdasd");
+		}
 	}
 
 	/**
