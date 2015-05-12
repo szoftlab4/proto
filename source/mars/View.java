@@ -62,7 +62,8 @@ public class View extends JPanel{
 		imgMap = new HashMap<ImageType,BufferedImage>();
 		frame = new JFrame("Proto");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setSize(1000, 1000);
+		frame.setSize(1506, 1029);
+		frame.setResizable(false);
 		frame.setVisible(true);
 		
 		gMapElements = new ArrayList<GCell>();
@@ -220,7 +221,7 @@ public class View extends JPanel{
             	if(rbtn1.isSelected()){
             		controller.startGame(2, "map2.map");	//terkep 2-vel majd...
             	}else if(rbtn2.isSelected()){
-            		controller.startGame(3, "map3.map");
+            		controller.startGame(3, "map2.map");
             	}
             }
         });  
@@ -336,7 +337,7 @@ public class View extends JPanel{
 		//g.setColor(Color.black);
 		//g.fillRect(0, 0, 1000, 1000);
 		g.drawImage(imgMap.get(ImageType.BACKGROUND), 0,0,1500,1000, null);
-		g.translate(100,250);
+		//g.translate(100,250);
 		for(GCell gme : gMapElements){
 			try {
 				gme.draw(g);
