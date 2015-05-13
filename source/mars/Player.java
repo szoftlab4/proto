@@ -55,31 +55,11 @@ public class Player extends Robot {
 		spotCommand = SpotCommand.NOSPOT;
 		nextPos = new Position(0, 0);
 	}
-
-	/**
-	 * Nem használjuk a prototipusban.
-	 */
-	public void reset() {
-		speed = START_SPEED;
-		distance = 0;
-		oilFlag = false;
-		spotCount = MAX_SPOT;
-		setAlive(true);
-		dir = Direction.FORWARD;
-		
-	}
 	
 	/**
 	 * teszt metodus a jatekos leptetesere
 	 */
 	public void testStep(){
-		//this.step();
-		//this.calculateNewPos();
-		//this.pos = this.nextPos;
-		//A parametereket ugy se hasznaljuk es ez elvileg a timertol jonne
-		//Nem kene kulon olajat lerakni, hanem a SpotCommandot beallitani es ezt a fuggvenyt hivni
-		//Ez majd leptetni fogja a jatekost es lerakja a spotot ha kell
-		//update(null,null);
 		testUpdate();
 	}
 	
@@ -134,7 +114,6 @@ public class Player extends Robot {
 			}
 			
 			setSpotCommand(SpotCommand.NOSPOT);
-			
 		}
 	}
 	

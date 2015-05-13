@@ -38,6 +38,8 @@ import javax.swing.border.LineBorder;
 
 public class View extends JPanel{
 
+	private static final long serialVersionUID = 1L;
+
 	JFrame frame;
 	
 	ArrayList<GCell> gMapElements;
@@ -78,9 +80,9 @@ public class View extends JPanel{
 		try {
 			loadImages();
 		} catch (FileNotFoundException e) {
-			System.out.println("FIle not found!");
+			System.err.println("FIle not found!");
 		} catch (IOException e) {
-			System.out.println("Error during loading files!");
+			System.err.println("Error during loading files!");
 		}		
 	}
 	
@@ -363,10 +365,7 @@ public class View extends JPanel{
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		//g.setColor(Color.black);
-		//g.fillRect(0, 0, 1000, 1000);
 		g.drawImage(imgMap.get(ImageType.BACKGROUND), 0,0,1500,1000, null);
-		//g.translate(100,250);
 		for(GCell gme : gMapElements){
 			try {
 				gme.draw(g);

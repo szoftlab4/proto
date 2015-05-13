@@ -59,16 +59,6 @@ public class MicroMachine extends Robot {
 	}
 
 	/**
-	 * nem hasznalt fuggveny
-	 */
-	public void reset() {
-		doneCleaning = false;
-		progress = 0;
-		dir = Direction.FORWARD;
-		collided=false;
-		
-	}
-	/**
 	 * olajfolt letrehozasa es visszaadasa
 	 * @return new Oil()
 	 */

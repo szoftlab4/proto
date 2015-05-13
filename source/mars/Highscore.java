@@ -53,7 +53,7 @@ public class Highscore implements Serializable {
 				out.writeObject(list);
 				out.close();
 			} catch (IOException e){
-				System.out.println("Error saving toplist...");
+				System.err.println("Error saving toplist...");
 				e.printStackTrace();
 			}
 	}
@@ -70,10 +70,10 @@ public class Highscore implements Serializable {
 					list = (ArrayList<Record>) o;
 				ois.close();
 			} catch(IOException ex){
-				System.out.println("Error loading toplist...");
+				System.err.println("Error loading toplist...");
 				ex.printStackTrace();
 			} catch(ClassNotFoundException ex){
-				System.out.println("Error loading toplist...");
+				System.err.println("Error loading toplist...");
 				ex.printStackTrace();
 			}
 		}
@@ -91,12 +91,5 @@ public class Highscore implements Serializable {
 
 	public void clear(){
 		list.clear();
-	}
-	
-	public void kiir(){
-		for(int i = 0; i < list.size(); i++){
-			Record a = list.get(i);
-			System.out.println(a.getName() + " " + a.getDistance());
-		}
 	}
 }

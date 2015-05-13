@@ -46,9 +46,6 @@ public class Game {
 		myTimerTask = new MyTimerTask(gameSpeed,75000);
 		timer = new Timer();
 		
-		//Meg ezt meg kell nezni
-		
-		
 		//Palyabetoltese
 		mapHandler.loadMap(mapName);
 		mapHandler.setPlayerCount(playerCount);
@@ -121,8 +118,6 @@ public class Game {
 			HeadDirection dir = mapHandler.getValidHeadDir(freePos);
 			Player p = new Player("Player " + (i+1),freePos,dir);
 			addPlayer(p);
-			
-			//TODO: ne lehessen ugyanoda tenni
 		}
 	}
 	
@@ -217,11 +212,6 @@ public class Game {
 		@Override
 		public void run(){
 			while(true){
-				/*try {
-					Thread.sleep(gameSpeed);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}*/
 				synchronized (Game.syncObject) {
 					try {
 						Game.syncObject.wait();

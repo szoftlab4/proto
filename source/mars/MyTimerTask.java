@@ -72,9 +72,7 @@ public class MyTimerTask extends TimerTask {
 	 * @param robot
 	 */
 	public void registerObserver(Observer robot) {
-		//System.out.println("notifier addObserver");
 		notifier.addObserver(robot);
-		//System.out.println(notifier.countObservers());
 	}
 	
 	/**
@@ -83,7 +81,6 @@ public class MyTimerTask extends TimerTask {
 	 */
 	@Override
 	public void run() {
-		//System.out.println("TimerTask run");
 		timeElapsed+=interval;
 		
 		notifier.notifyRobots();

@@ -34,21 +34,4 @@ public class Oil implements Spot {
 	public ImageType getType(){
 		return ImageType.OIL;
 	}
-	
-	/**
-	 * Visszaadja, hogy milyen idos az oil.		//Csak a protohoz kellettek azthiszem
-	 */
-	
-	/*
-	public long getExpiredTime(){
-		return (System.currentTimeMillis() - timeCreated) / 1000;
-		
-	}*/
-	
-	/**
-	 * ToString feluldefinialasa.
-	 *//*
-	public String toString(){
-		return "oil";		
-	}*/
 }

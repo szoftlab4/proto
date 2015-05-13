@@ -87,7 +87,6 @@ public class MapElement {
 	 * A játékosok ütközésének lekezelése.
 	 */
 	private void collidePlayers(){
-		//System.out.println("collide players");
 		int maxspeed = 0;
 		double avg = 0;
 		int x = 0;
@@ -136,11 +135,6 @@ public class MapElement {
 					p.setAlive(false);
 			}
 		}
-		
-		/*
-		System.out.println("Maxspeed: " + maxspeed + " ,vertoratlag: " + intavg + " , more than 1 max: " + moreThanOneMax);
-		System.out.println("x: " + x + " y: " + y + " utkozott jatekosok szama: " + refPlayer.size());
-		*/		
 	}
 	
 	/**
@@ -152,7 +146,6 @@ public class MapElement {
 			//Ha van akkor mindenkeppen meghalnak a kisrobotok
 			for(MicroMachine mm : refMM){
 				mm.setAlive(false);
-				System.out.println("Meghalt a " + mm.getPosition().getX() + "," + mm.getPosition().getY() + " MM");
 				this.spot=mm.getOilSpot();
 			}
 			//Utkoztetjuk a jatekosokat, egy jatekosra is mukodik
@@ -197,25 +190,12 @@ public class MapElement {
 	 * Visszaadja, hogy a mapElement dummy elem-e (rajta van-e a pályán).
 	 */
 	public boolean isDummy(){
-		/*
-		if(pos.getX() == -1 && pos.getY() == -1){
-			//System.out.println(pos.getX() + "," + pos.getY() +" elvileg dummy");
-			return true;
-		}
-		else{
-			//System.out.println(pos.getX() + "," + pos.getY() +" elvileg nem dummy");
-			return false;
-		}
-		
-		*/
 		return (pos.getX() == -1 && pos.getY() == -1);
 	}
 	
 	/**
 	 * Getterek.
-	 */
-
-		
+	 */		
 	public Spot getSpot(){
 		return spot;
 	}

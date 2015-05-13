@@ -103,7 +103,6 @@ public class MapHandler implements Observer {
 						mapHeight = y;
 					
 					road.add(new Position(x, y));
-					//System.out.println("road x,y: " + x +"," + y);
 					
 					if (spot.equalsIgnoreCase("goo"))
 						unsorted.add(new MapElement(new Position(x, y), new Goo()));
@@ -139,14 +138,10 @@ public class MapHandler implements Observer {
 				}
 			}
 			
-			//System.out.println("\nSikeresen betoltottuk a palyat.");
-			
 		} catch (FileNotFoundException e){
 			e.printStackTrace();
-			//System.out.println("\nSikertelen a palya betoltese.");
 		} catch (Exception e) {
 			e.printStackTrace();
-			//System.out.println("\nSikertelen a palya betoltese.");
 		}
 	}
 	/**
@@ -199,11 +194,9 @@ public class MapHandler implements Observer {
 	private int searchRight(int posIndex){
 		int cnt = 0;
 		for(int i = posIndex; i<road.size() ; i++){
-			//TODO try catch eltuntetese
 			try{
 				Position roadPos = road.get(i);
 				int idx = posToIndex(roadPos);
-				//System.out.println("searchRight roadIdx: " + i + " roadPos: " + roadPos.getX() + "," + roadPos.getY() +" mapIdx: " + idx);
 				MapElement m = map.get(idx);
 				
 				if(!m.hasSpot())
@@ -212,7 +205,7 @@ public class MapHandler implements Observer {
 					return cnt;
 			}catch(IndexOutOfBoundsException e){
 				e.printStackTrace();
-				System.err.println("Szarsag a search rightnal");
+				System.err.println("Varatlan hiba");
 			}catch(Exception ex){
 				ex.printStackTrace();
 				System.err.println("Varatlan hiba");
@@ -237,8 +230,6 @@ public class MapHandler implements Observer {
 	private HeadDirection newPosDirection(Position o, Position n){
 		HeadDirection hdir;
 		
-		//System.out.println("old: " + o.getX() +" " + o.getY() + " ,new: " + n.getX() + " " + n.getY());
-		
 		int x = n.getX() - o.getX();
 		int y = n.getY() - o.getY();
 		if( x == 0 && y == 1){
@@ -253,7 +244,6 @@ public class MapHandler implements Observer {
 		else
 			hdir = HeadDirection.LEFT;
 		
-		//System.out.println("hdir: " + hdir);
 		return hdir;
 	}
 	/**
@@ -290,14 +280,11 @@ public class MapHandler implements Observer {
 		int idx = findPosIndexOnRoad(pos);
 		
 		if(idx == -1){
-			microMachine.setAlive(false);		//TODO NEM TUDTUK REPRODUK�LNI A PROBL�M�T TODO
+			microMachine.setAlive(false);
 			return;
 		}
-		//System.out.println("Pos: " + pos.getX() + " " + pos.getY() + " ,Index: " + idx);
 		int left = searchLeft(idx);
-		//System.out.println("Balra ennyi lepesben talalt: " + left);
 		int right = searchRight(idx);
-		//System.out.println("Jobbra ennyi lepesben talalt: " + right);
 		try{
 			if(left>right){
 				int nextIdx = idx + 1;
@@ -332,8 +319,6 @@ public class MapHandler implements Observer {
 					map.get(this.posToIndex(microMachine.getOldPos())).addMMRef(microMachine);
 			}
 			else{
-
-				//System.out.println("Elmeletileg default jobbra megy ez a kisrobot: (" + microMachine.getPosition().getX() + ":" + microMachine.getPosition().getY() + ")");
 				int nextIdx = idx + 1;
 				if(nextIdx == road.size())
 					nextIdx = 0;
@@ -347,7 +332,6 @@ public class MapHandler implements Observer {
 			
 			}}catch(Exception e){
 				e.printStackTrace();
-				System.out.println("mmdirexcept");
 			}
 
 	}
@@ -359,7 +343,6 @@ public class MapHandler implements Observer {
 		try{
 			map.get(posToIndex(pos)).deleteSpot();
 		} catch (Exception e){
-			System.out.println("asdasdasdasd");
 		}
 	}
 
@@ -367,7 +350,6 @@ public class MapHandler implements Observer {
 	 * Utkoztetes elinditasa.
 	 */
 	public void startCollisions() {
-		//System.out.println("elindult az utkoztetes...");
 		for(Position pos : road){
 			try{
 				int index = posToIndex(pos);
@@ -375,7 +357,7 @@ public class MapHandler implements Observer {
 			}
 			catch(IndexOutOfBoundsException e){
 				e.printStackTrace();
-				System.err.println("Szarsag van megint az utkozesnel...");
+				System.err.println("Varatlan hiba...");
 			}
 		}
 	}	
@@ -424,8 +406,6 @@ public class MapHandler implements Observer {
 				}
 			}
 		}
-
-		//System.out.println("A talalt ures pozicio: " + freePos.getX() + " " + freePos.getY());
 		
 		return freePos;
 	}
@@ -445,22 +425,18 @@ public class MapHandler implements Observer {
 		int y = pos.getY();
 		if(isValidCoordinate(x,y-1))
 			if(!map.get(posToIndex(new Position(x,y-1))).isDummy()){
-				//System.out.println("UP lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.UP;
 			}
 		if(isValidCoordinate(x+1,y))
 			if(!map.get(posToIndex(new Position(x+1,y))).isDummy()){
-				//System.out.println("RIGHT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.RIGHT;
 			}
 		if(isValidCoordinate(x-1,y))
 			if(!map.get(posToIndex(new Position(x-1,y))).isDummy()){
-				//System.out.println("LEFT lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.LEFT;
 			}
 		if(isValidCoordinate(x,y+1))
 			if(!map.get(posToIndex(new Position(x,y+1))).isDummy()){
-				//System.out.println("DOWN lesz a " + x + "," + y + " helyen levonek az iranya");
 				return HeadDirection.DOWN;
 			}
 		
@@ -484,7 +460,6 @@ public class MapHandler implements Observer {
 			player.setPosition(playerPos);
 		}
 		else{
-			//TODO kivenni a kommentet
 			player.setAlive(false);
 			alivePlayersSoFar--;
 			playerCount--;
@@ -508,7 +483,6 @@ public class MapHandler implements Observer {
 	 * @param spot: folt tipusa
 	 */
 	public void addSpot(Position pos, Spot spot){
-		//if(!map.get(posToIndex(pos)).isDummy())
 			map.get(posToIndex(pos)).addSpot(spot);
 	}
 	
@@ -518,15 +492,11 @@ public class MapHandler implements Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("MapHandler update");
 		boolean notifySuperVisor = false;
 		alivePlayersSoFar++;
 		
-		System.out.println("playersalivesofar: " + alivePlayersSoFar + " playerCount: " + playerCount);
-		
 		if(alivePlayersSoFar == playerCount){
 			notifySuperVisor = true;
-			System.out.println("MapHandler notify true");
 		}
 		
 		Player player = (Player) o;
@@ -536,11 +506,8 @@ public class MapHandler implements Observer {
 		checkPosition(player);
 		
 		if(notifySuperVisor){
-			System.out.println("Teljesult a notify feltetel");
 			synchronized (Game.syncObject) {
-				//System.out.println("Game Monitoraban vagyunk");
 				alivePlayersSoFar = 0;
-				System.out.println("MapHandler Notified!");
 				Game.syncObject.notify();
 			}
 		}
@@ -553,28 +520,6 @@ public class MapHandler implements Observer {
 	public ArrayList<MapElement> getMap(){
 		return map;
 	}
-	
-	/**
-	 * Visszaadja azokat a mapElementeket, melyeken van spot.
-	 * @param console: ha true, akkor ki is irja oket.					//Ha minden igaz ez csak a protohoz kellett
-	 */
-	/*
-	public ArrayList<MapElement> getSpots(Boolean console){
-		ArrayList<MapElement> spots = new ArrayList<MapElement>();
-		for(MapElement mapelement : map){
-			if(mapelement.hasSpot() && !mapelement.isDummy()){
-				
-				if(mapelement.getSpot().toString().equalsIgnoreCase("oil") && console)
-					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), oil, " + ((Oil) mapelement.getSpot()).getExpiredTime());
-				else if(mapelement.getSpot().toString().equalsIgnoreCase("goo") && console)
-					System.out.println("(" + mapelement.getPos().getX() + ";" + mapelement.getPos().getY() + "), goo, " + ((Goo) mapelement.getSpot()).getDurability());
-				
-				spots.add(mapelement);
-			}
-		}
-		return spots;
-	}
-*/
 	
 	public void setPlayerCount(int playerCount) {
 		this.playerCount = playerCount;

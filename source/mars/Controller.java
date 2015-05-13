@@ -28,7 +28,7 @@ public class Controller implements KeyListener, ActionListener{
 	}
 	
 	private void init(){
-		//*****Elrakom, hatha kell meg kesobb
+
 		playerCount = game.getPlayerCount();
 		
 		p1 = game.getPlayers().get(0);
@@ -125,8 +125,9 @@ public class Controller implements KeyListener, ActionListener{
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		int keycode = arg0.getKeyCode();
-		//System.out.println("KEYDOWN");
 		switch(keycode){
+		
+			/* PLAYER 1 */
 			case KeyEvent.VK_UP:
 				p1.command(Direction.FORWARD);
 				break;
@@ -140,11 +141,9 @@ public class Controller implements KeyListener, ActionListener{
 				p1.command(Direction.RIGHT);
 				break;
 			case KeyEvent.VK_O:
-				//TODO KICSIT FURA EZ IGY MOST
 				p1.setSpotCommand(SpotCommand.GOO);
 				break;
 			case KeyEvent.VK_P:
-				//TODO NYILVAN EZ IS
 				p1.setSpotCommand(SpotCommand.OIL);
 				break;
 				

@@ -10,19 +10,6 @@ public class Main {
 		controller.addView(view);
 		view.addController(controller);
 		view.drawMenu();
-		
-		
-		//teszt
-		/*highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",15);
-		highscore.add("asd",1);*/
 	}
 
 }
