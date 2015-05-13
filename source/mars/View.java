@@ -461,10 +461,11 @@ public class View extends JPanel{
 		}
 		
 		public void draw(Graphics g) throws IOException {
-
-			g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*cellSize, y*cellSize, cellSize, cellSize, null);
 			
-			drawSpot(g);
+				g.drawImage(imgMap.get(ImageType.LAVA_CRACKS), x*cellSize, y*cellSize, cellSize, cellSize, null);
+				
+				drawSpot(g);
+		
 		}
 	}
 	

@@ -119,7 +119,6 @@ public class Player extends Robot {
 	public void update(Observable observable, Object object) {
 		
 		if(this.isAlive()){
-			//System.out.println("Player el");
 			this.step();
 			switch(spotCommand){
 				case NOSPOT:

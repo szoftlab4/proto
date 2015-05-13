@@ -217,10 +217,18 @@ public class Game {
 		@Override
 		public void run(){
 			while(true){
-				try {
+				/*try {
 					Thread.sleep(gameSpeed);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				}*/
+				synchronized (Game.syncObject) {
+					try {
+						Game.syncObject.wait();
+						
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				createMicroMachine();
 				mapHandler.startCollisions();
