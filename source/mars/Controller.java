@@ -92,9 +92,9 @@ public class Controller implements KeyListener, ActionListener{
 		}
 		else if(str.equals("ng_ms_1")){
 			if(view.rbtn1.isSelected()){
-        		startGame(2, "Test1.map");
+        		startGame(2, "map1.map");
         	}else if(view.rbtn2.isSelected()){
-        		startGame(3, "Test1.map");
+        		startGame(3, "map1.map");
         	}
 		}
 		else if(str.equals("ng_ms_2")){
